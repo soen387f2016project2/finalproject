@@ -1,0 +1,70 @@
+body {
+    padding-top: 50px;
+}
+
+.centered-content {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.leftaligned-content {
+    padding: 40px 15px;
+}
+
+#report-table th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#report-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+   color: black;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+#dashboard {
+    text-align: left;
+}
+
+#login-page {
+    background-image: url("http://localhost:8080/SOEN387Project/images/creatives-desk.jpg");
+    /* photo by Dave Meier, downloaded from picography.co and used with permission under Creative Commons Public Domain CC0 license. */
+    background-position: right top;
+}
+
+#login-page-content {
+    color: whitesmoke;
+    text-align: center;
+    width: 600px;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* for wireframe presentation purposes only */
+p {
+    text-align: left;
+}
+
+#login-page-content a:visited {
+   color: whitesmoke;
+}
+
+#login-page-content a:link {
+    color: whitesmoke;
+}

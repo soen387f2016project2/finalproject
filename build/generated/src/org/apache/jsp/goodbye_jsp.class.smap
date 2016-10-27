@@ -1,0 +1,14 @@
+SMAP
+goodbye_jsp.java
+JSP
+*S JSP
+*F
++ 0 goodbye.jsp
+goodbye.jsp
++ 1 footer.jsp
+footer.jsp
+*L
+1,30:49
+1#1,9:78
+30#0:87
+*E

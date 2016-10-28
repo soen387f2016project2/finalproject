@@ -23,7 +23,7 @@
         <div class="container">
             <div id="logout-page-content">
                 <h3>You have been logged out of the Enterprise Resource Management IT Staff portal.</h3>
-                <h4>Click <a href="index.jsp">here</a> to return to the log in page</h4>
+                <h4>Click <a href="login.jsp">here</a> to return to the log in page</h4>
 
             </div>
         </div><!-- /.container -->

@@ -1,4 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    // If user is already logged in, bring them to the dashboard
+    if (session.getAttribute("user_id") != null) {
+        response.sendRedirect("dashboard.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,8 +28,8 @@
         <div class="container">
             <div id="login-page-content">
                 <h1 id="dashboard">ERM IT Staff Log In</h1>
-                
-                <form method="post" action="index.jsp">
+
+                <form method="post" action="LoginServlet">
                     <div class="form-group row">
                         <label for="ITstaffAccount" class="col-lg-3">Account</label>
                         <div class="col-lg-8">
@@ -42,13 +48,21 @@
                         </div>
                     </div>
                     <!-- if the user or password were incorrect, an error message is displayed -->
-                    <% if (!session.isNew() && session.getAttribute("validLogin").equals("false")) { %> 
+                    <%
+                        if (request.getAttribute("message") != null) {
+                            String errorMessage = (String) request.getAttribute("message");
+
+                            if (!errorMessage.isEmpty()) {
+                    %>
                     <div id="login-messages">
                         <div class="alert alert-danger" role="alert">Invalid user or password.</div>
                     </div>
-                    <% } %>
+                    <%
+                            }
+                        }
+                    %>
                 </form>
             </div>
         </div><!-- /.container -->
 
-<%@include file="footer.jsp"%> <!-- Bootstrap JavaScript and closing tags -->
+        <%@include file="footer.jsp"%> <!-- Bootstrap JavaScript and closing tags -->

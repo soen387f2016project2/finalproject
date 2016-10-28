@@ -4,6 +4,7 @@ package Demo;
 public class EndUser {
     
     private String id;
+    private String username;
     private String firstName;
     private String lastName;
     private String password; // will eventually be encrypted
@@ -12,6 +13,14 @@ public class EndUser {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
+    }
+    
+    /*
+    * Constructor with login info (username, password)
+    */
+    public EndUser(String username, String password) {
+        this.username = username;
         this.password = password;
     }
     

@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/scharbonneau/Documents/NetBeansProjects/SOEN387Project/web/change-password.jsp</file>
-            <file>file:/C:/Users/scharbonneau/Documents/NetBeansProjects/SOEN387Project/web/create-account.jsp</file>
-            <file>file:/C:/Users/scharbonneau/Documents/NetBeansProjects/SOEN387Project/web/new-resource.jsp</file>
-            <file>file:/C:/Users/scharbonneau/Documents/NetBeansProjects/SOEN387Project/web/css/custom.css</file>
+            <file>file:/C:/Users/Kayleigh/workspace/scotch-box/public/CONCORDIA-F16/SOEN387/FinalProject/src/java/Util/DBConnect.java</file>
+            <file>file:/C:/Users/Kayleigh/workspace/scotch-box/public/CONCORDIA-F16/SOEN387/FinalProject/web/login.jsp</file>
+            <file>file:/C:/Users/Kayleigh/workspace/scotch-box/public/CONCORDIA-F16/SOEN387/FinalProject/src/java/Controllers/LoginServlet.java</file>
+            <file>file:/C:/Users/Kayleigh/workspace/scotch-box/public/CONCORDIA-F16/SOEN387/FinalProject/src/java/Models/LoginDao.java</file>
+            <file>file:/C:/Users/Kayleigh/workspace/scotch-box/public/CONCORDIA-F16/SOEN387/FinalProject/src/java/Demo/EndUser.java</file>
         </group>
     </open-files>
 </project-private>

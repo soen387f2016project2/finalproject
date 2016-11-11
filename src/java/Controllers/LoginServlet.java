@@ -3,7 +3,12 @@
  */
 package Controllers;
 
-import java.io.IOException;
+import DAO.ReservesLogDAO;
+import DAO.ResourcesDAO;
+import DAO.UsersDAO;
+import Demo.EndUser;
+import Models.LoginDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
-import Demo.EndUser;
-import Models.LoginDao;
+import java.io.IOException;
 
 /**
  *
@@ -36,7 +40,54 @@ public class LoginServlet extends HttpServlet {
         
         // Instantiate the model that will authenticate the user
         LoginDao dao = new LoginDao();
-        
+
+        // For testing purposes
+        ReservesLogDAO logDAO = new ReservesLogDAO();
+        logDAO.getAllReservationsForUser(1);
+        logDAO.getAllReservationsForResource(2);
+        logDAO.makeReservation(1, 3, "2016-11-09 23:32:23.0", "2016-11-09 23:32:23.0");
+        logDAO.getAllReservationsForResource(3);
+
+        UsersDAO usersDAO = new UsersDAO();
+        usersDAO.addUser(0, "aa1@b.com", "password", "Alice", "123456789", "IEEE"); //change email
+        usersDAO.addUser(0, "ba1@c.com", "password123", "Bob", "12999999", "MECH"); //change email
+        usersDAO.addUser(1, "d1@ae.com", "p123", "Carol", "12777999", "COMPSCI"); //change email
+        usersDAO.deleteUser(2);
+        usersDAO.updatePassword(1, "beta123");
+        usersDAO.getAllAdmin();
+        usersDAO.getAllEmployee();
+        usersDAO.login("a@b.com", "password");
+
+        ResourcesDAO resDAO = new ResourcesDAO();
+        System.out.println("Getters");
+        resDAO.getAllResources();
+        resDAO.getResourceById(2);
+        resDAO.getAllITEquipment();
+        resDAO.getAllConferenceRooms();
+        resDAO.getAllUnavailableResources();
+        resDAO.getAllAvailableResources();
+        System.out.println("Updates");
+        resDAO.updateResourcesIsMaintained(2, 1);
+        resDAO.getAllResources();
+        resDAO.updateResourcesDescription(2, "HELLO");
+        resDAO.getAllResources();
+        resDAO.updateResourcesName(2, "NewResource2"); // Make sure new resourceName is unique
+        resDAO.getAllResources();
+        resDAO.updateITEquipmentType(2, "NewEquipmentType");
+        resDAO.getAllITEquipment();
+        resDAO.updateConferenceRoomLocation(4, "HALLO");
+        resDAO.getAllConferenceRooms();
+        resDAO.updateConferenceRoomCapacity(4, 9500);
+        resDAO.getAllConferenceRooms();
+        System.out.println("Delete");
+        resDAO.deleteResourceById(1); // Change to existing id
+        resDAO.getAllResources();
+        System.out.println("Add");
+        resDAO.addResourceITEquipment(0, "AddDesc1", "AddIT3", "AddType"); // Change resourceName to something unique
+        resDAO.getAllITEquipment();
+        resDAO.addResourceConferenceRoom(0, "AddDesc2", "AddCR3", "AddLoca", 9999); // Change resourceName to something unique
+        resDAO.getAllConferenceRooms();
+
         // Authenticate the user
         EndUser user = dao.authenticate(username, password);
         

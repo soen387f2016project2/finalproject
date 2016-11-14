@@ -9,13 +9,13 @@
  * @author tino_
  */
 //package Demo;
-package webteam;
+
 
 
 import java.util.Date;
 import java.util.LinkedList;
 
-public class Resources {
+public class ResourcesWeb {
     
     //public enum Status {AVAILABLE, RESERVED};
     
@@ -24,38 +24,61 @@ public class Resources {
     private boolean isMaintained;
     private String description;
     private LinkedList<Reservation> reservations;
+	private boolean isAvailable;
         
     private Date currentDate;
     
-    public Resources(int id) {
+    public ResourcesWeb(int id, String resourcename, String description) {
         this.resourceID = id;
+		this.resourceName=resourcename;
+		this.description=description;
         boolean isMaintained = true;//???
         reservations = new LinkedList<Reservation>();
+		boolean isAvailable=true;
+		
     }
       
-    public int getID() {
-        return resourceID;
-    }
-    
-    public String getName(){
-        return resourceName;
-    }
-    
-    public boolean isMaintained(){
-        return isMaintained;
-    }
-    
-    public String getDescription(){
-        return description;
-    }
-    
-    public void updateName(String name){
-        this.resourceName = name;
-    }
-    
-    public void updateDescription(String description){
-        this.description = description;
-    }
+    public int getResourceID() {
+		return resourceID;
+	}
+
+    //should never use, kept for testing purposes
+	public void setResourceID(int resourceID) {
+		this.resourceID = resourceID;
+	}
+
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
+	public boolean getMaintained(){
+		return isMaintained;
+	}
+	
+	public void setMaintained(boolean isMaintained) {
+		this.isMaintained = isMaintained;
+	}
+
+	public String getDescription(){
+		return description +" isMaintained:\t" +isMaintained + " isAvailable:\t" + isAvailable;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	
     
     /*public void reserve(Date start, Date end, EndUser user, Date currentDate) {      
         reservations.add(new Reservation(start, end, user));

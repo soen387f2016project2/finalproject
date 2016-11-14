@@ -1,4 +1,4 @@
-package webteam; //change this to the correct package
+
 
 /*
  * we need to know if we are using a username or an email as login credentials
@@ -8,11 +8,9 @@ package webteam; //change this to the correct package
 
 public class Users 
 {
-	// should this be an int instead of long for compatibility?
-	private long userID;	// note: no setter for userID because auto-increment
+	private int userID;	// note: no setter for userID because auto-increment
 	private boolean isAdmin;
-	private String email;
-	private String username;	// do we need this?
+	private String email; // email as username
 	private String password;	// encripted?
 	private String name;
 	private String phoneNumber;
@@ -21,13 +19,11 @@ public class Users
     
 	/* CONSTRUCTORS */
 	
-    public Users(long userID, boolean isAdmin, String email, String username, //do we need this?
-    		String password, String name, String phoneNumber, String department) 
+    public Users(int userID, boolean isAdmin, String email, String password, String name, String phoneNumber, String department) 
     {
         this.userID = userID;
         this.isAdmin = isAdmin;
         this.email = email;
-        this.username = username;	// do we need this?
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -37,15 +33,15 @@ public class Users
     /*
     * Constructor with login info (username, password)
     */
-    public Users(String username, String password) // only if we need a username
+    public Users(String email, String password) // only if we need a username
     {
-        this.username = username;
+        this.email	 = email;
         this.password = password;
     }
 
     /* GETTERS */
     
-	public long getUserID() {
+	public int getUserID() {
 		return userID;
 	}
     
@@ -57,10 +53,7 @@ public class Users
 		return email;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-	
+		
 	public String getPassword() {
 		return password;
 	}
@@ -87,9 +80,6 @@ public class Users
 		this.email = email;
 	}
 	
-	public void setUsername(String username) {
-		this.username = username;
-	}
 	
 	public void setPassword(String password) {
 		this.password = password;

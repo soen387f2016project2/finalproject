@@ -1,16 +1,16 @@
-package webteam;	// change this to the correct package
+
 
 public class ReservesLog {
 	
-	private long reservesID;	// note: no setter for reservesID because auto-increment
-	private long userID;
-	private long resourseID;
+	private int reservesID;	// note: no setter for reservesID because auto-increment
+	private int userID;
+	private int resourseID;
 	private String startDate;	// should this be of Date type?
 	private String endDate;		// should this be of Date type?
 	
 	/* CONSTRUCTORS */
 	
-	public ReservesLog(long reservesID, long userID, long resourseID, String startDate, String endDate) 
+	public ReservesLog(int reservesID, int userID, int resourseID, String startDate, String endDate) 
 	{
 		this.reservesID = reservesID;
 		this.userID = userID;
@@ -21,15 +21,15 @@ public class ReservesLog {
 
 	/* GETTERS */
 	
-	public long getReservesID() {
+	public int getReservesID() {
 		return reservesID;
 	}
 
-	public long getUserID() {
+	public int getUserID() {
 		return userID;
 	}
 
-	public long getResourseID() {
+	public int getResourseID() {
 		return resourseID;
 	}
 
@@ -43,11 +43,11 @@ public class ReservesLog {
 
 	/* SETTERS */
 	
-	public void setUserID(long userID) {
+	public void setUserID(int userID) {
 		this.userID = userID;
 	}
 
-	public void setResourseID(long resourseID) {
+	public void setResourseID(int resourseID) {
 		this.resourseID = resourseID;
 	}
 

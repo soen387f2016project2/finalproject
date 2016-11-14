@@ -1,13 +1,13 @@
-package webteam;
+
 
 /*
  * ignoring inheritance for the time being because we are just using these objects as containers
  */
 
-public class ConferenceRoom {
+public class ConferenceRoomWeb extends ResourcesWeb {
 	
-	// should this be an int instead of long for compatibility?
-	private long resourceID;	// should  this have a setter? it is a foreign key
+	// should this be an int instead of long for compatibility? YES
+	private int resourceID;	// should  this have a setter? it is a foreign key
 	private String location;
 	private int capacity;
 	private boolean hasWhiteboard;	// add these to the database
@@ -15,18 +15,17 @@ public class ConferenceRoom {
 	
 	/* CONSTRUCTORS */
 	
-	public ConferenceRoom(long resourceID, String location, int capacity) 
+	public ConferenceRoomWeb(int resourceID, String location, int capacity, boolean hasWhiteboard, boolean hasPhone) 
 	{
-		this.resourceID = resourceID;
+		super(resourceID,"Conference Room","Person capacity" + capacity + "Whiteboard:\t" + hasWhiteboard + " Phone:\t" + hasPhone);
+		this.hasWhiteboard=hasWhiteboard;
+		this.hasPhone=hasPhone;
 		this.location = location;
 		this.capacity = capacity;
 	}
 	
 	/* GETTERS */
 	
-	public long getResourceID() {
-		return resourceID;
-	}
 	public String getLocation() {
 		return location;
 	}
@@ -42,20 +41,24 @@ public class ConferenceRoom {
 	
 	/* SETTERS */
 	
-	public void setResourceID(long resourceID) {
-		this.resourceID = resourceID;
-	}
 	public void setLocation(String location) {
 		this.location = location;
 	}
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
+		this.updateDescription();		
 	}
 	public void setHasWhiteboard(boolean hasWhiteboard) {
 		this.hasWhiteboard = hasWhiteboard;
+		this.updateDescription();
 	}
 	public void setHasPhone(boolean hasPhone) {
 		this.hasPhone = hasPhone;
+		this.updateDescription();
+	}
+	
+	public void updateDescription(){
+		this.setDescription("Person capacity:\t" + capacity + "Whiteboard:\t" + hasWhiteboard + " Phone:\t" + hasPhone);
 	}
 	
 	

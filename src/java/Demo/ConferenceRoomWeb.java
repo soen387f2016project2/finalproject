@@ -1,4 +1,4 @@
-
+package Demo;
 
 /*
  * ignoring inheritance for the time being because we are just using these objects as containers

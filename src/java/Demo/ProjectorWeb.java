@@ -1,4 +1,4 @@
-
+package Demo;
 public class ProjectorWeb extends ResourcesWeb {
 
 	private String model;

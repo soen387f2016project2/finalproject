@@ -1,4 +1,4 @@
-
+package Demo;
 
 /*
  * we need to know if we are using a username or an email as login credentials
@@ -6,7 +6,7 @@
  */
 
 
-public class Users 
+public class UsersWeb
 {
 	private int userID;	// note: no setter for userID because auto-increment
 	private boolean isAdmin;
@@ -19,7 +19,7 @@ public class Users
     
 	/* CONSTRUCTORS */
 	
-    public Users(int userID, boolean isAdmin, String email, String password, String name, String phoneNumber, String department) 
+    public UsersWeb(int userID, boolean isAdmin, String email, String password, String name, String phoneNumber, String department) 
     {
         this.userID = userID;
         this.isAdmin = isAdmin;
@@ -33,7 +33,7 @@ public class Users
     /*
     * Constructor with login info (username, password)
     */
-    public Users(String email, String password) // only if we need a username
+    public UsersWeb(String email, String password) // only if we need a username
     {
         this.email	 = email;
         this.password = password;

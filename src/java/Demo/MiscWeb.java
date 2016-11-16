@@ -1,4 +1,4 @@
-
+package Demo;
 public class MiscWeb extends ResourcesWeb {
 
 	public MiscWeb(int id, String description){

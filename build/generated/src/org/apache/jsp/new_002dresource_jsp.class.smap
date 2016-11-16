@@ -1,0 +1,20 @@
+SMAP
+new_002dresource_jsp.java
+JSP
+*S JSP
+*F
++ 0 new-resource.jsp
+new-resource.jsp
++ 1 header.jsp
+header.jsp
++ 2 footer.jsp
+footer.jsp
+*L
+1:50,2
+2,3:52
+4:55,2
+1#1,59:57
+5#0,206:116
+1#2,9:321
+210#0:330
+*E

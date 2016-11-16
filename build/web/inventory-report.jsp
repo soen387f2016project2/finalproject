@@ -1,8 +1,11 @@
+<%@page import="java.util.Locale"%>
 <%@page import="java.util.Date"%>
 <%@page import="Demo.Reservation"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="Demo.DemoData"%>
 <%@page import="Demo.Resource"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.ParseException"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
 DemoData demo = new DemoData();
@@ -32,17 +35,17 @@ Date currentDate = demo.getCurrentDate();
                         <% for (Resource resource : resourceList) { %>
                         <tr>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.getID());%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(resource.classAsString());%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(resource.descriptionString());%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.classAsString());%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.descriptionString());%></a></td>
                             
                             <% Reservation lastReservation = resource.getLastReservation();
                             
                             if (resource.getStatus().equals(Resource.Status.AVAILABLE)) { %> 
-                            <td><a href="update-resource.jsp"><h4><span class="label label-success">Available</span></h4></a></td>    
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><h4><span class="label label-success">Available</span></h4></a></td>    
                             <% } else if (lastReservation.getEnd().before(currentDate)) { %>
-                            <td><a href="update-resource.jsp"><h4><span class="label label-danger">Overdue</span></h4></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><h4><span class="label label-danger">Overdue</span></h4></a></td>
                             <% } else { %>
-                            <td><a href="update-resource.jsp"><h4><span class="label label-warning">Reserved</span></h4></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><h4><span class="label label-warning">Reserved</span></h4></a></td>
                             <% } 
                             
                             String reservedBy;
@@ -53,13 +56,17 @@ Date currentDate = demo.getCurrentDate();
                                 reservedFrom = "";
                                 reservedUntil = "";
                             } else {
+                                SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",Locale.CANADA);
+                                Date parsedDate = sdf.parse(lastReservation.getStart().toString());
+                                Date parsedEnd = sdf.parse(lastReservation.getEnd().toString());
+                                SimpleDateFormat print = new SimpleDateFormat("MMM d, yyyy HH:mm");
                                 reservedBy = lastReservation.getUser().getFullName();
-                                reservedFrom = lastReservation.getStart().toString();
-                                reservedUntil = lastReservation.getEnd().toString();
+                                reservedFrom = print.format(parsedDate);
+                                reservedUntil = print.format(parsedDate);
                             } %>
-                            <td><a href="update-resource.jsp"><%out.print(reservedBy);%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(reservedFrom);%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(reservedUntil);%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedBy);%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedFrom);%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedUntil);%></a></td>
                         </tr>
                         <% } %>
                     </tbody>    

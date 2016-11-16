@@ -1,20 +1,25 @@
-<%@page import="java.util.Locale"%>
 <%@page import="java.util.Date"%>
 <%@page import="Demo.Reservation"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="Demo.DemoData"%>
 <%@page import="Demo.Resource"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.ParseException"%>
+<%@page import="Demo.EndUser"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
 DemoData demo = new DemoData();
 LinkedList<Resource> resourceList = demo.getResourcesList();
 Date currentDate = demo.getCurrentDate();
+LinkedList<EndUser> userList = demo.getUsersList();
 %>
 
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
         <div class="container">
             <div class="centered-content">
                 <h1>Inventory Report</h1>
@@ -32,8 +37,22 @@ Date currentDate = demo.getCurrentDate();
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (Resource resource : resourceList) { %>
-                        <tr>
+
+        <% 
+            String searchValue = request.getParameter("searchValue");
+            Boolean found = false;
+            for (Resource resource : resourceList) {
+            String searchID = null;
+            String searchClass = null;
+            String searchDescription = null;
+            searchID = resource.getID();
+            searchClass = resource.classAsString();
+            searchDescription = resource.descriptionString();
+            if(searchID.toLowerCase().equalsIgnoreCase(searchValue) || searchClass.equalsIgnoreCase(searchValue) )
+            {
+                found = true;
+                %>
+                            <tr>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.getID());%></a></td>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.classAsString());%></a></td>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.descriptionString());%></a></td>
@@ -56,23 +75,29 @@ Date currentDate = demo.getCurrentDate();
                                 reservedFrom = "";
                                 reservedUntil = "";
                             } else {
-                                SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",Locale.CANADA);
-                                Date parsedDate = sdf.parse(lastReservation.getStart().toString());
-                                Date parsedEnd = sdf.parse(lastReservation.getEnd().toString());
-                                SimpleDateFormat print = new SimpleDateFormat("MMM d, yyyy HH:mm");
                                 reservedBy = lastReservation.getUser().getFullName();
-                                reservedFrom = print.format(parsedDate);
-                                reservedUntil = print.format(parsedDate);
+                                reservedFrom = lastReservation.getStart().toString();
+                                reservedUntil = lastReservation.getEnd().toString();
                             } %>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedBy);%></a></td>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedFrom);%></a></td>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedUntil);%></a></td>
                         </tr>
                         <% } %>
-                    </tbody>    
+
+        <% 
+            }
+            
+        if(!found)
+            {
+                    out.print("Error: No inventory found matching: " +searchValue);
+            }
+%>
+                            </tbody>    
                 </table>
 
             </div>
         </div><!-- /.container -->
-
-<%@include file="footer.jsp"%> <!-- Bootstrap JavaScript and closing tags --> 
+    </body>
+</html>
+<%@include file="footer.jsp"%> <!-- Bootstrap JavaScript and closing tags -->

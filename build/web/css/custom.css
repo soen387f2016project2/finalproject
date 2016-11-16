@@ -2,7 +2,7 @@ body {
     padding-top: 50px;
 }
 #login-page {
-    background-image: url("http://localhost:8080/SOEN387Project/images/creatives-desk.jpg");
+    background-image: url("http://localhost:8080/finalproject/images/creatives-desk.jpg");
     /* photo by Dave Meier, downloaded from picography.co and used with permission under Creative Commons Public Domain CC0 license. */
     background-position: right top;
 }
@@ -96,15 +96,9 @@ a:active {
     margin-top: 20px;
     width: 49%;
 }
-#login-messages {
-    position: relative;
-    left: 5px;
-    width: 64%;
-}
 
 /* fixes positioning issue for reservation history sections */
 #reservation-history {
     position: relative;
     top: 40px;
 }
-

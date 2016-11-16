@@ -55,6 +55,6 @@ public class Computer extends Resource {
     }
     
     public String descriptionString() {
-        return (model + ", " + screenSize + " inch screen, " + cpu + " CPU, " + ram + " RAM, " + storage);
+        return (getType() + ", " + model + ", " + screenSize + " inch screen, " + cpu + " CPU, " + ram + " RAM, " + storage);
     }
 }

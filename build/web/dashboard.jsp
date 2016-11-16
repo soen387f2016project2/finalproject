@@ -1,4 +1,16 @@
+<%@page import="java.util.Date"%>
+<%@page import="Demo.Reservation"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="Demo.DemoData"%>
+<%@page import="Demo.Resource"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% 
+DemoData demo = new DemoData();
+LinkedList<Resource> resourceList = demo.getOverdueResourcesList();
+Date currentDate = demo.getCurrentDate();
+%>
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
 
         <div class="container">
@@ -19,22 +31,34 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% for (Resource resource : resourceList) { %>
                         <tr class="danger">
-                            <td><a href="update-resource.jsp">DTPC0104</a></td>
-                            <td><a href="update-resource.jsp">Computer</a></td>
-                            <td><a href="update-resource.jsp">Dell OptiPlex 7040 desktop PC (Intel Core i7-6700, 8GB RAM, 500GB HDD)</a></td>
-                            <td><a href="update-resource.jsp">Sebastien Charbonneau</a></td>
-                            <td><a href="update-resource.jsp">October 2nd, 2016</a></td>
-                            <td><a href="update-resource.jsp">October 9th, 2016</a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.getID());%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.classAsString());%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.descriptionString());%></a></td>
+                        
+                            <% Reservation lastReservation = resource.getLastReservation();  
+                            String reservedBy;
+                            String reservedFrom;
+                            String reservedUntil;
+                            if (lastReservation == null) {
+                                reservedBy = "";
+                                reservedFrom = "";
+                                reservedUntil = "";
+                            } else {
+                                SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",Locale.CANADA);
+                                Date parsedDate = sdf.parse(lastReservation.getStart().toString());
+                                Date parsedEnd = sdf.parse(lastReservation.getEnd().toString());
+                                SimpleDateFormat print = new SimpleDateFormat("MMM d, yyyy HH:mm");
+                                reservedBy = lastReservation.getUser().getFullName();
+                                reservedFrom = print.format(parsedDate);
+                                reservedUntil = print.format(parsedDate);
+                            } %>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedBy);%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedFrom);%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(reservedUntil);%></a></td>
                         </tr>
-                        <tr class="danger">
-                            <td>MNTR0089</td>
-                            <td>Montior</td>
-                            <td>Dell U2417H (24 inch IPS monitor, 1920 x 1200)</td>
-                            <td>Sebastien Charbonneau</td>
-                            <td>October 2nd, 2016</td>
-                            <td>October 9th, 2016</td>
-                        </tr>
+                        <% } %>
                     </tbody>    
                 </table>
                 

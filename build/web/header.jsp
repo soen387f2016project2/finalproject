@@ -23,11 +23,11 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.jsp">ERM</a>
+                    <a class="navbar-brand" href="dashboard.jsp">ERM</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li class="active"><a href="index.jsp">Dashboard</a></li>
+                        <li class="active"><a href="dashboard.jsp">Dashboard</a></li>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Resources <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -51,8 +51,8 @@
                             </ul>
                         <li><a href="logout.jsp">Log Out</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Search Inventory">
+                    <form class="navbar-form navbar-right" method="post" action="searchPage.jsp">
+                        <input type="text" class="form-control" name="searchValue" placeholder="Search by ID or Type">
                     </form>
                 </div><!--/.nav-collapse -->
             </div>

@@ -1,3 +1,6 @@
+<%@page import="Demo.Reservation"%>
+<%@page import="java.lang.reflect.Array"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Date"%>
 <%@page import="Demo.Resource"%>
 <%@page import="java.util.LinkedList"%>
@@ -16,84 +19,179 @@ Date currentDate = demo.getCurrentDate();
             <div class="leftaligned-content">
                 <h1>Update Resource <%out.print(selectedResource.getID());%></h1>
                 
-                <form action="update-resource.jsp">
+                <form>
                     <div class="form-group row">
                        <label for="resourceId" class="col-lg-2">ID number</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="resourceId" value="DTPC0104" disabled>
+                            <input type="text" class="form-control" id="resourceId" value=
+                                   "<%out.print(selectedResource.getID());%>" disabled>
                         </div>
                     </div>  
                     <div class="form-group row">
                        <label for="resourceType" class="col-lg-2">Type</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="resourceType" value="Computer" disabled>
-                        </div>
-                    </div>  
-                    <div class="form-group row">
-                       <label for="computerType" class="col-lg-2">Computer type</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerType" value="Desktop" disabled>
-                        </div>
-                    </div> 
-                    <div class="form-group row">
-                        <label for="computerModel" class="col-lg-2">Make and model</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerModel" value="Dell OptiPlex 7040" disabled>
-                        </div>
-                    </div> 
-                    <div class="form-group row">
-                        <label for="computerSize" class="col-lg-2">Screen size (inches)</label>
-                        <div class="col-lg-4">
-                            <input type="number" class="form-control" id="computerSize" value="24">
+                            <input type="text" class="form-control" id="resourceType" value="<%out.print(selectedResource.classAsString());%>" disabled>
                         </div>
                     </div>
-                    <div class="form-group row">    
-                        <label for="computerCPU" class="col-lg-2">CPU</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerCPU" value="Intel Core i7-6700">
-                        </div>    
-                    </div> 
-                    <div class="form-group row">    
-                        <label for="computerRAM" class="col-lg-2">RAM memory</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerRAM" value="8GB DDR3 1600MHz">
-                        </div>
-                    </div> 
-                    <div class="form-group row">    
-                        <label for="computerStorage" class="col-lg-2">Storage capacity</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerStorage" value="500GB HDD">
-                        </div>
-                    </div> 
+                        <%  String res = selectedResource.descriptionString();
+                            String[] resArray=(res.split(","));
+                            if(selectedResource.classAsString().equals("Computer"))
+                            {  %>
+                                            <div class="form-group row">
+                                               <label for="computerType" class="col-lg-2">Computer type</label>
+                                                <div class="col-lg-4">
+                                                    
+                                                    <input type="text" class="form-control" id="computerType" value="<% out.print(resArray[0]);%>" disabled>
+                                                </div>
+                                            </div> 
+                                            <div class="form-group row">
+                                                <label for="computerModel" class="col-lg-2">Make and model</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="computerModel" value="<% out.print(resArray[1]);%>" disabled>
+                                                </div>
+                                            </div> 
+                                            <div class="form-group row">
+                                                <label for="computerSize" class="col-lg-2">Screen size (inches)</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="computerSize" value="<% out.print(resArray[2]);%>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">    
+                                                <label for="computerCPU" class="col-lg-2">CPU</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="computerCPU" value="<% out.print(resArray[3]);%>">
+                                                </div>    
+                                            </div> 
+                                            <div class="form-group row">    
+                                                <label for="computerRAM" class="col-lg-2">RAM memory</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="computerRAM" value="<% out.print(resArray[4]);%>">
+                                                </div>
+                                            </div> 
+                                            <div class="form-group row">    
+                                                <label for="computerStorage" class="col-lg-2">Storage capacity</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="computerStorage" value="<% out.print(resArray[5]);%>">
+                                                </div>
+                                            </div>
+                    <% }
+                        else if(selectedResource.classAsString().equals("Projector"))
+                            {%>
+                                            <div class="form-group row">
+                                               <label for="projectorModel" class="col-lg-2">Model</label>
+                                                <div class="col-lg-4">
+                                                    
+                                                    <input type="text" class="form-control" id="projectorModel" value="<% out.print(resArray[0]);%>" disabled>
+                                                </div>
+                                            </div> 
+                                            <div class="form-group row">
+                                                <label for="projectorResolution" class="col-lg-2">Resolution</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="projectorResolution" value="<% out.print(resArray[1]);%>" disabled>
+                                                </div>
+                                            </div>
+                    <% }
+                        else if(selectedResource.classAsString().equals("Conference room"))
+                        { %>
+                                            <div class="form-group row">
+                                               <label for="confRoomCapacity" class="col-lg-2">Capacity</label>
+                                                <div class="col-lg-4">
+                                                    
+                                                    <input type="text" class="form-control" id="confRoomCapacity" value="<% out.print(resArray[0]);%>" disabled>
+                                                </div>
+                                            </div> 
+                                            <div class="form-group row">
+                                                <label for="confRoomWhiteboard" class="col-lg-2">Whiteboard</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="confRoomWhiteboard" value="<% out.print(resArray[1]);%>" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="confRoomPhone" class="col-lg-2">Phone</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="confRoomPhone" value="<% out.print(resArray[2]);%>" disabled>
+                                                </div>
+                                            </div>
+                    <% }
+                        else if(selectedResource.classAsString().equals("Miscellaneous"))
+                        { %>
+                                             <div class="form-group row">
+                                                <label for="miscDescription" class="col-lg-2">Description</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="miscDescription" value="<% out.print(resArray[0]);%>" disabled>
+                                                </div>
+                                            </div>
+                    <% } %>
+                        
                     <div class="form-group row">
                         <div class="col-lg-2">
-                            <button type="submit" name="updateResource" class="btn btn-primary">Update Resource</button>
+                            <button type="button" name="updateResource" class="btn btn-primary">Update Resource</button>
                         </div>
-                    </div>                  
-                    <div class="form-group row">
-                        <label for="resourceStatus" class="col-lg-2">Status</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="resourceStatus" value="Overdue" disabled>
-                        </div>
-                    </div> 
-                    <div class="form-group row">    
-                        <label for="reservedBy" class="col-lg-2">Reserved by</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="reservedBy" value="Sebastien Charbonneau" disabled>
-                        </div>
-                    </div> 
-                    <div class="form-group row">    
-                        <label for="reservedFrom" class="col-lg-2">From</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="reservedFrom" value="October 2nd, 2016" disabled>
-                        </div>
-                    </div> 
-                    <div class="form-group row">    
-                        <label for="reservedUntil" class="col-lg-2">Until</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="reservedUntil" value="October 9th, 2016" disabled>
-                        </div>
-                    </div> 
+                    </div>   
+                     <%     Reservation lastReservation = selectedResource.getLastReservation(); 
+                            
+                            String reservedBy;
+                            String reservedFrom;
+                            String reservedUntil;
+                            if (lastReservation == null) {
+                                reservedBy = "";
+                                reservedFrom = "";
+                                reservedUntil = "";
+                            } else {
+                                reservedBy = lastReservation.getUser().getFullName();
+                                reservedFrom = lastReservation.getStart().toString();
+                                reservedUntil = lastReservation.getEnd().toString();
+                            }
+                         
+                            if (selectedResource.getStatus().equals(Resource.Status.AVAILABLE))
+                            { %>
+                                
+                                     <div class="form-group row">
+                                    <label for="resourceStatus" class="col-lg-2">Status</label>
+                                    <div class="col-lg-4">
+                                        <h4><span class="label label-success">Available</span></h4>
+                                    </div>
+                                     </div>
+                    <%      } 
+                            else if (selectedResource.getStatus().equals(Resource.Status.RESERVED))
+                            {
+                                        if (lastReservation.getEnd().before(currentDate)) 
+                                        { %>
+                                            <div class="form-group row">
+                                            <label for="resourceStatus" class="col-lg-2">Status</label>
+                                            <div class="col-lg-4">
+                                                <h4><span class="label label-danger">Overdue</span></h4>
+                                            </div>
+                                            </div>
+                                         <% }
+                                            else
+                                            { %>       
+                                            <div class="form-group row">
+                                            <label for="resourceStatus" class="col-lg-2">Status</label>
+                                            <div class="col-lg-4">
+                                                <h4><span class="label label-warning">Reserved</span></h4>
+                                            </div>
+                                            </div> 
+                                            <% } %>
+                                        <div class="form-group row">    
+                                            <label for="reservedBy" class="col-lg-2">Reserved by</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control" id="reservedBy" value="<% out.print(reservedBy);%>" disabled>
+                                            </div>
+                                        </div> 
+                                        <div class="form-group row">    
+                                            <label for="reservedFrom" class="col-lg-2">From</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control" id="reservedFrom" value="<% out.print(reservedFrom);%>" disabled>
+                                            </div>
+                                        </div> 
+                                        <div class="form-group row">    
+                                            <label for="reservedUntil" class="col-lg-2">Until</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control" id="reservedUntil" value="<% out.print(reservedUntil);%>" disabled>
+                                            </div>
+                                        </div> 
+                    <% } %>
                     
                     <div class="form-group row">
                         <div class="col-lg-2">
@@ -112,7 +210,7 @@ Date currentDate = demo.getCurrentDate();
                                     <p>This will remove the reservation on this resource and return to available status. Do you want to continue?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" name="returnToInventory" class="btn btn-warning">Return</button>
+                                    <button type="button" name="returnToInventory" class="btn btn-warning">Return</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>

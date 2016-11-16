@@ -1,44 +1,68 @@
+<%@page import="java.util.Date"%>
+<%@page import="Demo.Reservation"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="Demo.DemoData"%>
+<%@page import="Demo.Resource"%>
+<%@page import="Demo.EndUser"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% 
+DemoData demo = new DemoData();
+LinkedList<EndUser> userList = demo.getUsersList();
+LinkedList<Resource> resourceList = demo.getResourcesList();
+Date currentDate = demo.getCurrentDate();
+%>
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
 
         <div class="container">
             <div class="leftaligned-content">
-                <h1>End-User Account: scharb</h1>
+                <h1>End-User Account: <%out.print(request.getParameter("id"));%></h1>
                 
-                <form action="edit-user.jsp">
+                <form>
                     <div class="form-group row">
                         <label for="endUserAccount" class="col-lg-2">Account name</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserAccount" value="scharb" disabled>
-                        </div>
+<% for (EndUser user : userList) 
+   { 
+      if(user.getID().equals(request.getParameter("id")))
+              { %>
+                         <input type="text" class="form-control" id="endUserAccount" name="id" value="<%out.print(user.getID());%>" readonly>
+                         </div>
                     </div>  
                     <div class="form-group row">
                         <label for="endUserFirstName" class="col-lg-2">First name</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserFirstName" value="Sebastien" disabled>
+                            <input type="text" class="form-control" id="endUserFirstName" value="<%out.print(user.getFirstName());%>" readonly>
                         </div>
                     </div>  
                     <div class="form-group row">
                         <label for="endUserLastName" class="col-lg-2">Last name</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserLastName" value="Charbonneau" disabled>
+                            <input type="text" class="form-control" id="endUserLastName" value="<%out.print(user.getLastName());%>" readonly>
                         </div>
                     </div>
+            <% }
+    }%>
+    				<div class="form-group row">
+                       <label for="currentPassword" class="col-lg-2">Current password</label>
+                        <div class="col-lg-4">
+                            <input type="password" class="form-control" id="currentPassword" name="currentPassword">
+                        </div>
+                    </div>  
                     <div class="form-group row">
                         <label for="newPassword" class="col-lg-2">New password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="newPassword">
+                            <input type="password" class="form-control" id="newPassword" name="newPassword">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <label for="newPasswordConfirm" class="col-lg-2">Confirm new password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="newPasswordConfirm">
+                            <input type="password" class="form-control" id="newPasswordConfirm" name="newPasswordConfirm">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <div class="col-lg-2">
-                            <button type="submit" class="btn btn-primary">Change Password</button>
+                            <button type="button" class="btn btn-primary">Change Password</button>
                         </div>
                     </div>
                 </form>
@@ -71,8 +95,7 @@
                 </form>
                 
                 <div class="form-messages">
-                    <div class="alert alert-success" role="alert">Password changed successfully.</div>
-                    <div class="alert alert-warning" role="alert">New passwords don't match.</div>
+                    <div class="<%=  request.getAttribute("alert") %>" role="alert"><%  if(request.getAttribute("msg") != null) out.print(request.getAttribute("msg"));%></div>
                 </div>
                         
                 <div id="reservation-history">
@@ -87,6 +110,31 @@
                             </tr>
                         </thead>
                         <tbody>
+                  <%-- <% for (Resource resource : resourceList) 
+                    {   Reservation lastReservation = resource.getLastReservation();
+                        if(lastReservation.getUser().getID().equals(request.getParameter("id")))
+                         { %>
+                        <tr>
+                            <td><%out.print(resource.classAsString());%></td>
+                            <td><%out.print(resource.descriptionString());%></td>
+                            
+                            <% 
+                                                     
+                            String reservedFrom;
+                            String reservedUntil;
+                            if (lastReservation == null) {
+                                reservedFrom = "";
+                                reservedUntil = "";
+                            } else {
+                                 reservedFrom = lastReservation.getStart().toString();
+                                reservedUntil = lastReservation.getEnd().toString();
+                            } %>
+                            <td><%out.print(reservedFrom);%></td>
+                            <td><%out.print(reservedUntil);%></td>
+                        </tr>
+                        <% } 
+                    }   %>
+                    --%>
                             <tr>
                                 <td>DTPC0104</td>
                                 <td>Dell OptiPlex 7040 desktop PC (Intel Core i7-6700, 8GB RAM, 500GB HDD)</td>
@@ -99,7 +147,7 @@
                                 <td>October 2nd, 2016</td>
                                 <td>October 9th, 2016</td>
                             </tr>
-                        </tbody>    
+                        </tbody>     
                     </table>
                 </div>
                     

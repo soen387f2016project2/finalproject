@@ -61,6 +61,24 @@ public class DemoData {
         return resources;
     }
     
+        /**
+      * Returns the list of resources that are overdue. A resource is overdue when:
+      * - Its status is reserved AND
+      * - The end date of its last reservation is prior to the current date.
+      * 
+      * @return A LinkedList containing all overdue Resource objects.
+      */
+    public LinkedList<Resource> getOverdueResourcesList() {
+        LinkedList<Resource> overdueResources = new LinkedList<>();
+        for (Resource resource : resources) {
+            if (resource.getStatus().equals(Resource.Status.RESERVED) && resource.getLastReservation().getEnd().before(currentDate)) {
+                overdueResources.add(resource);
+            }
+        }
+        return overdueResources;
+    }
+    
+ 
     public LinkedList<EndUser> getUsersList() {
         return users;
     }

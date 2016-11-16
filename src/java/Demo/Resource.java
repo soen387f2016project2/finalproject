@@ -2,6 +2,7 @@
 package Demo;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Resource {
@@ -10,6 +11,7 @@ public class Resource {
     
     private String id; // will be replaced with HashMap key in the actual implementation
     private Status status;
+    private HashMap<String, String> attributes;
     private LinkedList<Reservation> reservations;
         
     private Date currentDate;
@@ -17,6 +19,7 @@ public class Resource {
     public Resource(String id) {
         this.id = id;
         status = Status.AVAILABLE;
+        attributes = new HashMap<>();
         reservations = new LinkedList<Reservation>();
     }
       
@@ -62,6 +65,10 @@ public class Resource {
     
     public String descriptionString() {
         return "Resource description";
+    }
+    
+    public HashMap<String, String> getAttributes() {
+        return attributes;
     }
     
     public Status getStatus() {

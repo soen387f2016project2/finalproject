@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
-import Demo.EndUser;
-import Models.LoginDao;
+import DAO.UsersDAO;
+import Demo.UsersWeb;
 
 /**
  *
@@ -35,10 +35,10 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");        
         
         // Instantiate the model that will authenticate the user
-        LoginDao dao = new LoginDao();
+        UsersDAO dao = new UsersDAO();
         
         // Authenticate the user
-        EndUser user = dao.authenticate(username, password);
+        UsersWeb user = dao.login(username, password);
         
         // Prepare to return
         RequestDispatcher rd;
@@ -55,11 +55,11 @@ public class LoginServlet extends HttpServlet {
             System.out.println("here");
             // Set the session things
             HttpSession session = request.getSession();
-            session.setAttribute("user_id", user.getID());
+            session.setAttribute("user_id", user.getUserID());
 
             // Redirect to the dashboard
             rd = request.getRequestDispatcher("dashboard.jsp");            
-            request.setAttribute("user", user.getFullName());
+            request.setAttribute("user", user.getName());
         }
         
         // Return

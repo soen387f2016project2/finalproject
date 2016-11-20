@@ -1,0 +1,57 @@
+account-list.jsp
+- Method to get a list of all end-users so we can display them in the page (see DemoData.getUsersList): DONE
+- Getters for a user's username and full name so they can be displayed in the table (see EndUser.getFullName): DONE
+
+change-password.jsp
+- Servlet and controller to process the password change form for IT accounts: DONE
+
+create-account.jsp
+- Servlet and controller to process the create end user account form: DONE
+
+dashboard.jsp
+For this one I'm not sure. The DB team wanted to implement an "out for maintenance" status, rather than an "overdue" status. I'm fine with either option. 
+- Method to get a list of the "out for maintenance" or "overdue" resources so we can display them in the page (see DemoData.getOverdueResourcesList): TO DO, SEE QUESTIONS
+- Methods to return a resource's class as a String (see Resource.classAsString): DONE
+- Methods to return its description, which is a concatenation of its attributes (see Resource.descriptionString): DONE, SEE QUESTIONS
+- Comment: 
+1) we need 2 tables: one for out for maintenance and one for overdue??
+2) getDescription() in superclass - every resource already have a contenation followed by their isMaintenated & isAvailable status (updateDescription)
+3) updateDescription in subclass was added to superclass
+4) descriptionString is added to resourcesWeb to call updateDescription and return getDescription
+
+
+edit-user.jsp
+- Method to get a specific EndUser account using his/her user name: ? userId is a session attribute 
+- Servlet and controller to process the update end user account form: DONE?
+- Comment: 
+1) reservation history - what is the db's reservation rule about? will it require go to go through all the resources if the log is deleted?
+2) should we have a resourceIsAvailable update in db
+3) not sure if 2 controllers can be mapped in one single jsp file, we must test it. should we only have 1 form with 2 submit buttons?
+4) *NEW* page mapping: change -> dashboard; delete -> login
+
+
+inventory-list.jsp => inventory-report.jsp??
+- Method to get a list of all the resources so we can display them in the page (see DemoData.getResourcesList).
+Comment:
+ResourcesDAO => addConferenceRoom needs hasPhone and hasWhiteBoard booleans
+=> getAllResources should return those too, model, resolution
+
+
+new-resource.jsp
+- Servlet(s) and controller(s) to process the create new resource form.
+
+searchPage.jsp
+- Servlet and controller to process search field inputs.
+
+update-resource.jsp
+- Method to get a specific Resource object using its ID (see DemoData.getResource).
+- Servlet and controller to process the update resource form.
+
+
+TO DO:
+
+DB: 
+GET USERS => return password value for the users
+
+Inventory:
+Create account.jsp => add email, phone number and department fields

@@ -43,7 +43,9 @@ public class Inventory {
         try {
             while (resultSet != null && resultSet.next()) {
                 
-                           /* <th>ID</th>
+                           /* 
+                            Method to get a list of all the resources so we can display them in the page
+                            <th>ID</th>
                             <th>Type</th>
                             <th>Description</th>
                             <th>Status</th>

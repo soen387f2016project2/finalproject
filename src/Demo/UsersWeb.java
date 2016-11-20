@@ -12,20 +12,20 @@ public class UsersWeb
 	private boolean isAdmin;
 	private String email; // email as username
 	private String password;	// encripted?
-	private String name;
+	private String fullName;
 	private String phoneNumber;
 	private String department;
 	
     
 	/* CONSTRUCTORS */
 	
-    public UsersWeb(int userID, boolean isAdmin, String email, String password, String name, String phoneNumber, String department) 
+    public UsersWeb(int userID, boolean isAdmin, String email, String password, String fullName, String phoneNumber, String department) 
     {
         this.userID = userID;
         this.isAdmin = isAdmin;
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.department = department;
     }
@@ -58,8 +58,8 @@ public class UsersWeb
 		return password;
 	}
 	
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 	
 	public String getPhoneNumber() {
@@ -69,6 +69,15 @@ public class UsersWeb
 	public String getDepartment() {
 		return department;
 	}
+        
+            
+        public String getFirstName() {
+            return fullName.trim().substring(0, fullName.indexOf(","));
+        }
+    
+        public String getLastName() {
+            return fullName.trim().substring(fullName.indexOf(", ") + 1);
+        }
 	
 	/* SETTERS */
 	
@@ -85,8 +94,8 @@ public class UsersWeb
 		this.password = password;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	
 	public void setPhoneNumber(String phoneNumber) {

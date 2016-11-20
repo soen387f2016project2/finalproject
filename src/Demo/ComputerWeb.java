@@ -2,9 +2,9 @@ package Demo;
 
 public class ComputerWeb extends ResourcesWeb {
 
-	public enum Type {DESKTOP,LAPTOP}
+    //public enum Type {DESKTOP,LAPTOP}
 	
-	private Type type;
+    private Type type;
     private String model;
     private int screenSize;
     private String cpu;
@@ -82,11 +82,15 @@ public class ComputerWeb extends ResourcesWeb {
 		this.updateDescription();
 	}
 	
+        // Other methods
+        public String classAsString() {
+            return "Computer";
+        }
+        
 	public void updateDescription(){
 		this.setDescription("Mode:\t" + model + "Screensize:\t" + screenSize + " cpu:\t" + cpu + " ram:\t" + ram +
 				" storage:\t"+ storage);
 	}
-    
     
     
 }

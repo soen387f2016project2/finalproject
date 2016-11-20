@@ -27,6 +27,11 @@ public class ProjectorWeb extends ResourcesWeb {
 		this.resolution = resolution;
 	}
     
+        // Other methods
+        public String classAsString() {
+            return "Projector";
+        }
+        
 	public void updateDescription(){
 		this.setDescription("Model:\t" +model +" Resolution:\t" +resolution);
 	}

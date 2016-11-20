@@ -35,6 +35,10 @@ public class ResourcesWeb {
 		boolean isAvailable=true;
 		
     }
+    
+    public ResourcesWeb(int id, String resourcename, String description, boolean isMaintained, boolean isAvailable, Date startDate, Date endDate) {
+    
+    }
       
     public int getResourceID() {
 		return resourceID;
@@ -72,6 +76,7 @@ public class ResourcesWeb {
 	public String getDescription(){
 		return description +" isMaintained:\t" +isMaintained + " isAvailable:\t" + isAvailable;
 	}
+        
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -108,5 +113,18 @@ public class ResourcesWeb {
     
     public LinkedList<Reservation> getReservations() {
         return reservations;
+    }
+    
+    public String classAsString() {
+        return "ResourceWeb";
+    }
+    
+    public String descriptionString() {
+        updateDescription();
+        return getDescription();
+    }
+        
+    public void updateDescription(){
+	this.setDescription("Contenation of attributes");
     }
 }

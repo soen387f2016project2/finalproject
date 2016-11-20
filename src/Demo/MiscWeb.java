@@ -14,5 +14,8 @@ public class MiscWeb extends ResourcesWeb {
 		this.setDescription(description);
 	}
 	
-	
+	// Other methods
+        public String classAsString() {
+            return "Misc";
+        }
 }

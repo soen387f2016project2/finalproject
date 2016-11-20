@@ -6,7 +6,7 @@
 package Demo;
 
 import DAO.ConnectionFactory;
-import java.util.ArrayList;
+import java.util.HashMap;
 import DAO.UsersDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,20 +18,20 @@ import java.sql.SQLException;
 public class Accounts {
     
     // Attributes
-    private ArrayList<UsersWeb> endUsers; // Key = account id, Value = User object
-    private ArrayList<UsersWeb> admins; // Key = account id, Value = User object
+    private HashMap endUsers; // Key = account id, Value = User object
+    private HashMap admins; // Key = account id, Value = User object
     private UsersDAO usersDao;
     
     // Constructor
     public Accounts()
     {
-        endUsers = new ArrayList<UsersWeb>();
-        admins = new ArrayList<UsersWeb>();
+        endUsers = new HashMap();
+        admins = new HashMap();
         usersDao = new UsersDAO();
     }
     
     // Getters and setters
-    public ArrayList<UsersWeb> getEndUsers()
+    public HashMap getEndUsers()
     {
         return endUsers;
     }

@@ -22,17 +22,15 @@ public class ResourcesWeb {
     private boolean isMaintained;
     private String description;
     private LinkedList<Reservation> reservations;
-	private boolean isAvailable;
-        
-    private Date currentDate;
+    private boolean isAvailable;
     
     public ResourcesWeb(int id, String resourcename, String description) {
         this.resourceID = id;
-		this.resourceName=resourcename;
-		this.description=description;
+	this.resourceName=resourcename;
+	this.description=description;
         boolean isMaintained = true;//???
         reservations = new LinkedList<Reservation>();
-		boolean isAvailable=true;
+	boolean isAvailable=true;
 		
     }
     
@@ -94,6 +92,7 @@ public class ResourcesWeb {
      * 
      * @return null if the resource has never been reserved 
      */
+        
     public Reservation getLastReservation() {
         Reservation lastReservation = null;
         
@@ -115,8 +114,9 @@ public class ResourcesWeb {
         return reservations;
     }
     
+    // Other methods
     public String classAsString() {
-        return "ResourceWeb";
+        return resourceName;
     }
     
     public String descriptionString() {

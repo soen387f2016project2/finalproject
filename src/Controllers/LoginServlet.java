@@ -44,8 +44,7 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher rd;
         
         // If the authentication failed
-        if(user == null) {
-            System.out.println("butts");
+        if(user == null) {            
             // Send back to login form
             rd = request.getRequestDispatcher("login.jsp");
             

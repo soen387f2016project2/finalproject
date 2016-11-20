@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="Enterprise resource management system IT staff portal">
+        <meta name="author" content="SOEN 387 team #5">
+        <link rel="icon" href="images/favicon.ico"> <!-- downloaded from freefavicon.com -->
+
+        <title>ERM - End-User Account</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this page -->
+        <link href="css/custom.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">ERM</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="active"><a href="index.html">Dashboard</a></li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Resources <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="inventory-report.html">Inventory Report</a></li>
+                                <li><a href="new-resource.html">New Resource</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">End-Users <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="account-list.html">Account List</a></li>
+                                <li><a href="create-account.html">Create Account</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Profile <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="change-password.html">Change Password</a></li>
+                            </ul>
+                        <li><a href="#">Log Out</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Search Inventory">
+                    </form>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="leftaligned-content">
+                <h1>End-User Account: scharb</h1>
+                <br>
+                
+                <form>
+                    <div class="form-group row">
+                       <label for="endUserAccount" class="col-lg-2">Account name</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="endUserAccount" value="scharb" disabled>
+                        </div>
+                    </div>  
+                    <div class="form-group row">
+                       <label for="endUserFirstName" class="col-lg-2">First name</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="endUserFirstName" value="Sebastien" disabled>
+                        </div>
+                    </div>  
+                    <div class="form-group row">
+                       <label for="endUserLastName" class="col-lg-2">Last name</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="endUserLastName" value="Charbonneau" disabled>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="changePassword" class="col-lg-2">Change password</label>
+                        <div class="col-lg-4">
+                            <input type="password" class="form-control" id="changePassword">
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="changePasswordConfirm" class="col-lg-2">Confirm new password</label>
+                        <div class="col-lg-4">
+                            <input type="password" class="form-control" id="changePasswordConfirm">
+                        </div>
+                    </div>                  
+                    <div class="form-group row">
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-danger">Delete Account</button>
+                        </div>
+                    </div>    
+                </form>
+                
+                <br>
+                <h2>Reservation History (optional feature)</h2>
+                <table class="table" id="resource-history-table">
+                    <thead>
+                        <tr>
+                            <th>Resource</th>
+                            <th>Description</th>
+                            <th>From</th>
+                            <th>Until</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DTPC0104</td>
+                            <td>Dell OptiPlex 7040 desktop PC (Intel Core i7-6700, 8GB RAM, 500GB HDD)</td>
+                            <td>October 2nd, 2016</td>
+                            <td>October 9th, 2016</td>
+                        </tr>
+                        <tr>
+                            <td>MNTR0089</td>
+                            <td>Dell U2417H (24 inch IPS monitor, 1920 x 1200)</td>
+                            <td>October 2nd, 2016</td>
+                            <td>October 9th, 2016</td>
+                        </tr>
+                    </tbody>    
+                </table>
+                
+                <br>
+                <p><strong>Notes:</strong></p>
+                <p>- The Delete Resource button should display a warning dialog and require the user's confirmation.</p>
+                                
+            </div>
+        </div><!-- /.container -->
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+    </body>
+</html>

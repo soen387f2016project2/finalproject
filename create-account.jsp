@@ -7,9 +7,9 @@
                 
                 <form action="account-list.jsp">
                     <div class="form-group row">
-                       <label for="endUserName" class="col-lg-2">End-user ID</label>
+                       <label for="endUserEmail" class="col-lg-2">End-user email</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserName">
+                            <input type="text" class="form-control" id="endUserEmail">
                         </div>
                     </div>  
                     <div class="form-group row">
@@ -22,6 +22,18 @@
                         <label for="endUserLastName" class="col-lg-2">Last name</label>
                         <div class="col-lg-4">
                             <input type="text" class="form-control" id="endUserLastName">
+                        </div>
+                    </div>  
+                    <div class="form-group row">
+                        <label for="endUserPhone" class="col-lg-2">Phone number</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="endUserPhone">
+                        </div>
+                    </div>  
+                    <div class="form-group row">
+                        <label for="endUserDepartment" class="col-lg-2">Department</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="endUserDepartment">
                         </div>
                     </div>  
                     <div class="form-group row">
@@ -43,7 +55,7 @@
                     </div>
                 </form>
                 <div class="form-messages">
-                    <div class="alert alert-danger" role="alert">That ID is already taken.</div>
+                    <div class="alert alert-danger" role="alert">There is already an account for that email address.</div>
                     <div class="alert alert-warning" role="alert">Passwords don't match.</div>
                     <div class="alert alert-warning" role="alert">Empty fields.</div>
                 </div>

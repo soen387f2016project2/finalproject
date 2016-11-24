@@ -6,23 +6,33 @@ import java.sql.SQLException;
 public class ResourcesDAO {
 
     public void getAllResources() {
-        String sql = "SELECT r.resourceID,r.isMaintained,r.description,r.resourceName," +
-                "i.equipmentType,c.location,c.capacity " +
+        String sql = "SELECT * " +
                 "FROM resources r " +
-                "LEFT JOIN ITEquipment i ON i.resourceID=r.resourceID " +
-                "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID";
+                "LEFT JOIN miscellaneous i ON i.resourceID=r.resourceID " +
+                "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID " +
+                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID " +
+                "LEFT JOIN projector p ON p.resourceId=r.resourceID";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 
         try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
-                        "\nresourceID: " + resultSet.getString(1) +
-                        "\nisMaintained: " + resultSet.getString(2) +
-                        "\ndescription: " + resultSet.getString(3) +
-                        "\nresourceName: " + resultSet.getString(4) +
-                        "\nequipmentType: " + resultSet.getString(5) +
-                        "\nlocation: " + resultSet.getString(6) +
-                        "\ncapacity: " + resultSet.getString(7)
+                        "\nresourceID: " + resultSet.getString("resourceID") +
+                        "\nisMaintained: " + resultSet.getString("isMaintained") +
+                        "\nresourceName: " + resultSet.getString("resourceName") +
+                        "\ndescription: " + resultSet.getString("description") +
+                        "\nhasPhone: " + resultSet.getString("hasPhone") +
+                        "\nhasWhiteboard: " + resultSet.getString("hasWhiteboard") +
+                        "\nlocation: " + resultSet.getString("location") +
+                        "\ncapacity: " + resultSet.getString("capacity") +
+                        "\nisDesktop: " + resultSet.getString("isDesktop") +
+                        "\ncomputerModel: " + resultSet.getString("computerModel") +
+                        "\nscreenSize: " + resultSet.getString("screenSize") +
+                        "\ncpu: " + resultSet.getString("cpu") +
+                        "\nram: " + resultSet.getString("ram") +
+                        "\nstorage: " + resultSet.getString("storage") +
+                        "\nprojectorModel: " + resultSet.getString("projectorModel") +
+                        "\nmaxRes: " + resultSet.getString("maxRes")
                 );
             }
         } catch (SQLException e) {
@@ -31,24 +41,34 @@ public class ResourcesDAO {
     }
 
     public void getResourceById(int id) {
-        String sql = "SELECT r.resourceID,r.isMaintained,r.description,r.resourceName," +
-                "i.equipmentType,c.location,c.capacity " +
+        String sql = "SELECT * " +
                 "FROM resources r " +
-                "LEFT JOIN ITEquipment i ON i.resourceID=r.resourceID " +
+                "LEFT JOIN miscellaneous i ON i.resourceID=r.resourceID " +
                 "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID " +
+                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID " +
+                "LEFT JOIN projector p ON p.resourceId=r.resourceID " +
                 "WHERE r.resourceId=" + id;
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 
         try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
-                        "\nresourceID: " + resultSet.getString(1) +
-                        "\nisMaintained: " + resultSet.getString(2) +
-                        "\ndescription: " + resultSet.getString(3) +
-                        "\nresourceName: " + resultSet.getString(4) +
-                        "\nequipmentType: " + resultSet.getString(5) +
-                        "\nlocation: " + resultSet.getString(6) +
-                        "\ncapacity: " + resultSet.getString(7)
+                        "\nresourceID: " + resultSet.getString("resourceID") +
+                        "\nisMaintained: " + resultSet.getString("isMaintained") +
+                        "\nresourceName: " + resultSet.getString("resourceName") +
+                        "\ndescription: " + resultSet.getString("description") +
+                        "\nhasPhone: " + resultSet.getString("hasPhone") +
+                        "\nhasWhiteboard: " + resultSet.getString("hasWhiteboard") +
+                        "\nlocation: " + resultSet.getString("location") +
+                        "\ncapacity: " + resultSet.getString("capacity") +
+                        "\nisDesktop: " + resultSet.getString("isDesktop") +
+                        "\ncomputerModel: " + resultSet.getString("computerModel") +
+                        "\nscreenSize: " + resultSet.getString("screenSize") +
+                        "\ncpu: " + resultSet.getString("cpu") +
+                        "\nram: " + resultSet.getString("ram") +
+                        "\nstorage: " + resultSet.getString("storage") +
+                        "\nprojectorModel: " + resultSet.getString("projectorModel") +
+                        "\nmaxRes: " + resultSet.getString("maxRes")
                 );
             }
         } catch (SQLException e) {
@@ -57,19 +77,28 @@ public class ResourcesDAO {
     }
 
     public void getAllITEquipment() {
-        String sql = "SELECT r.resourceID,r.isMaintained,r.description,r.resourceName,i.equipmentType " +
+        String sql = "SELECT * " +
                 "FROM resources r " +
-                "JOIN ITEquipment i ON i.resourceID=r.resourceID";
+                "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID " +
+                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID " +
+                "LEFT JOIN projector p ON p.resourceId=r.resourceID";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 
         try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
-                        "\nresourceID: " + resultSet.getString(1) +
-                        "\nisMaintained: " + resultSet.getString(2) +
-                        "\ndescription: " + resultSet.getString(3) +
-                        "\nresourceName: " + resultSet.getString(4) +
-                        "\nequipmentType: " + resultSet.getString(5)
+                        "\nresourceID: " + resultSet.getString("resourceID") +
+                        "\nisMaintained: " + resultSet.getString("isMaintained") +
+                        "\nresourceName: " + resultSet.getString("resourceName") +
+                        "\ndescription: " + resultSet.getString("description") +
+                        "\nisDesktop: " + resultSet.getString("isDesktop") +
+                        "\ncomputerModel: " + resultSet.getString("computerModel") +
+                        "\nscreenSize: " + resultSet.getString("screenSize") +
+                        "\ncpu: " + resultSet.getString("cpu") +
+                        "\nram: " + resultSet.getString("ram") +
+                        "\nstorage: " + resultSet.getString("storage") +
+                        "\nprojectorModel: " + resultSet.getString("projectorModel") +
+                        "\nmaxRes: " + resultSet.getString("maxRes")
                 );
             }
         } catch (SQLException e) {
@@ -78,7 +107,8 @@ public class ResourcesDAO {
     }
 
     public void getAllConferenceRooms() {
-        String sql = "SELECT r.resourceID,r.isMaintained,r.description,r.resourceName,c.location,c.capacity " +
+        String sql = "SELECT r.resourceID,r.isMaintained,r.resourceName," +
+                "c.location,c.capacity,c.hasPhone,c.hasWhiteboard " +
                 "FROM resources r " +
                 "JOIN conferenceRoom c ON c.resourceId=r.resourceID";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
@@ -88,10 +118,11 @@ public class ResourcesDAO {
                 System.out.println(
                         "\nresourceID: " + resultSet.getString(1) +
                         "\nisMaintained: " + resultSet.getString(2) +
-                        "\ndescription: " + resultSet.getString(3) +
-                        "\nresourceName: " + resultSet.getString(4) +
-                        "\nlocation: " + resultSet.getString(5) +
-                        "\ncapacity: " + resultSet.getString(6)
+                        "\nresourceName: " + resultSet.getString(3) +
+                        "\nlocation: " + resultSet.getString(4) +
+                        "\ncapacity: " + resultSet.getString(5) +
+                        "\nhasPhone: " + resultSet.getString(6) +
+                        "\nhasWhiteboard: " + resultSet.getString(7)
                 );
             }
         } catch (SQLException e) {

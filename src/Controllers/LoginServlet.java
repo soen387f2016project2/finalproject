@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 
             // Redirect to the dashboard
             rd = request.getRequestDispatcher("dashboard.jsp");            
-            request.setAttribute("user", user.getName());
+            request.setAttribute("user", user.getFullName());
         }
         
         // Return

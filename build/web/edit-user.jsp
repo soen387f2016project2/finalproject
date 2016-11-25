@@ -7,9 +7,9 @@
                 
                 <form action="edit-user.jsp">
                     <div class="form-group row">
-                        <label for="endUserEmail" class="col-lg-2">Email</label>
+                        <label for="endUserAccount" class="col-lg-2">Account name</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserEmail" value="scharb@encs.concordia.ca" disabled>
+                            <input type="text" class="form-control" id="endUserAccount" value="scharb" disabled>
                         </div>
                     </div>  
                     <div class="form-group row">
@@ -22,18 +22,6 @@
                         <label for="endUserLastName" class="col-lg-2">Last name</label>
                         <div class="col-lg-4">
                             <input type="text" class="form-control" id="endUserLastName" value="Charbonneau" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="endUserPhone" class="col-lg-2">Phone number</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserPhone" value="514-999-9999" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="endUserDepartment" class="col-lg-2">Department</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserDepartment" value="Engineering & Computer Science" disabled>
                         </div>
                     </div>
                     <div class="form-group row">

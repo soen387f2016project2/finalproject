@@ -1,56 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
 
-<script type="text/javascript">
-	function show(form) {
-    	if (form == 1) {
-        	document.getElementById("compForm").style.visibility="visible";
-         	document.getElementById("compForm").style.display="inline";
-         	document.getElementById("projForm").style.visibility="hidden";
-         	document.getElementById("projForm").style.display="none";
-         	document.getElementById("confForm").style.visibility="hidden";
-         	document.getElementById("confForm").style.display="none";
-         	document.getElementById("miscForm").style.visibility="hidden";
-         	document.getElementById("miscForm").style.display="none";
-        } else if (form == 2) {
-        	document.getElementById("compForm").style.visibility="hidden";
-        	document.getElementById("compForm").style.display="none";
-        	document.getElementById("projForm").style.visibility="visible";
-        	document.getElementById("projForm").style.display="inline";
-        	document.getElementById("confForm").style.visibility="hidden";
-        	document.getElementById("confForm").style.display="none";
-        	document.getElementById("miscForm").style.visibility="hidden";
-        	document.getElementById("miscForm").style.display="none";
-        } else if (form == 3) {
-        	document.getElementById("compForm").style.visibility="hidden";
-        	document.getElementById("compForm").style.display="none";
-        	document.getElementById("projForm").style.visibility="hidden";
-        	document.getElementById("projForm").style.display="none";
-        	document.getElementById("confForm").style.visibility="visible";
-        	document.getElementById("confForm").style.display="inline";
-        	document.getElementById("miscForm").style.visibility="hidden";
-        	document.getElementById("miscForm").style.display="none";
-        } else if (form == 4) {
-         	document.getElementById("compForm").style.visibility="hidden";
-         	document.getElementById("compForm").style.display="none";
-         	document.getElementById("projForm").style.visibility="hidden";
-         	document.getElementById("projForm").style.display="none";
-         	document.getElementById("confForm").style.visibility="hidden";
-         	document.getElementById("confForm").style.display="none";
-         	document.getElementById("miscForm").style.visibility="visible";
-         	document.getElementById("miscForm").style.display="inline";
-        }
-    }
-</script>
-
         <div class="container">
             <div class="leftaligned-content">
                 <h1 id="new-resource-title">New Resource</h1>
-                <a href="#computer" onclick="show(1)">Computer</a> | <a href="#projector" onclick="show(2)">Projector</a> | <a href="#room" onclick="show(3)">Conference room</a> | <a href="#misc" onclick="show(4)">Miscellaneous</a>
+                <a href="#computer">Computer</a> | <a href="#projector">Projector</a> | <a href="#room">Conference room</a> | <a href="#misc">Miscellaneous</a>
                 
                 <hr>
                 <h2 id="computer">Computer</h2>
-                <form id="compForm" action="inventory-report.jsp">
+                <form action="inventory-report.jsp">
                     <div class="form-group row">
                         <label for="computerId" class="col-lg-2">ID number</label>
                         <div class="col-lg-4">
@@ -110,7 +68,7 @@
                 <hr>        
                 
                 <h2 id="projector">Projector</h2>
-                <form id="projForm" action="inventory-report.jsp">
+                <form action="inventory-report.jsp">
                     <div class="form-group row">
                        <label for="projectorId" class="col-lg-2">ID number</label>
                         <div class="col-lg-4">
@@ -138,7 +96,7 @@
                 <hr>
                 
                 <h2 id="room">Conference room</h2>
-                <form id="confForm" action="inventory-report.jsp">
+                <form action="inventory-report.jsp">
                     <div class="form-group row">
                        <label for="roomId" class="col-lg-2">ID number</label>
                         <div class="col-lg-4">
@@ -178,7 +136,7 @@
                 <hr>
                 
                 <h2 id="misc">Miscellaneous</h2>
-                <form id="miscForm" action="inventory-report.jsp">
+                <form action="inventory-report.jsp">
                     <div class="form-group row">
                        <label for="miscellaneous" class="col-lg-2">ID number</label>
                         <div class="col-lg-4">

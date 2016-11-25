@@ -22,18 +22,20 @@ public class ResourcesWeb {
     private boolean isMaintained;
     private String description;
     private LinkedList<Reservation> reservations;
-	private boolean isAvailable;
-        
-    private Date currentDate;
+    private boolean isAvailable;
     
     public ResourcesWeb(int id, String resourcename, String description) {
         this.resourceID = id;
-		this.resourceName=resourcename;
-		this.description=description;
+	this.resourceName=resourcename;
+	this.description=description;
         boolean isMaintained = true;//???
         reservations = new LinkedList<Reservation>();
-		boolean isAvailable=true;
+	boolean isAvailable=true;
 		
+    }
+    
+    public ResourcesWeb(int id, String resourcename, String description, boolean isMaintained, boolean isAvailable, Date startDate, Date endDate) {
+    
     }
       
     public int getResourceID() {
@@ -72,6 +74,7 @@ public class ResourcesWeb {
 	public String getDescription(){
 		return description +" isMaintained:\t" +isMaintained + " isAvailable:\t" + isAvailable;
 	}
+        
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -89,6 +92,7 @@ public class ResourcesWeb {
      * 
      * @return null if the resource has never been reserved 
      */
+        
     public Reservation getLastReservation() {
         Reservation lastReservation = null;
         
@@ -108,5 +112,19 @@ public class ResourcesWeb {
     
     public LinkedList<Reservation> getReservations() {
         return reservations;
+    }
+    
+    // Other methods
+    public String classAsString() {
+        return resourceName;
+    }
+    
+    public String descriptionString() {
+        updateDescription();
+        return getDescription();
+    }
+        
+    public void updateDescription(){
+	this.setDescription("Contenation of attributes");
     }
 }

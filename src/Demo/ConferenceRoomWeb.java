@@ -40,7 +40,6 @@ public class ConferenceRoomWeb extends ResourcesWeb {
 	}
 	
 	/* SETTERS */
-	
 	public void setLocation(String location) {
 		this.location = location;
 	}
@@ -57,6 +56,8 @@ public class ConferenceRoomWeb extends ResourcesWeb {
 		this.updateDescription();
 	}
 	
+        
+        // Other methods
 	public void updateDescription(){
 		this.setDescription("Person capacity:\t" + capacity + "Whiteboard:\t" + hasWhiteboard + " Phone:\t" + hasPhone);
 	}

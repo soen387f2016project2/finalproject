@@ -5,23 +5,23 @@
             <div class="leftaligned-content">
                 <h1>Change Password</h1>
                 
-                <form action="change-password.jsp">
+                <form method="post" action="ChangePassword">
                     <div class="form-group row">
                        <label for="currentPassword" class="col-lg-2">Current password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="currentPassword">
+                            <input type="password" class="form-control" name="currentPassword">
                         </div>
                     </div>  
                     <div class="form-group row">
                        <label for="newPassword" class="col-lg-2">New password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="newPassword">
+                            <input type="password" class="form-control" name="newPassword">
                         </div>
                     </div>  
                                         <div class="form-group row">
                        <label for="newPasswordConfirm" class="col-lg-2">Confirm new password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="newPasswordConfirm">
+                            <input type="password" class="form-control" name="newPasswordConfirm">
                         </div>
                     </div> 
                     <div class="form-group row">
@@ -31,11 +31,24 @@
                     </div>
                 </form>
                 <div class="form-messages">
-                    <div class="alert alert-success" role="alert">Password changed successfully.</div>
-                    <div class="alert alert-warning" role="alert">New passwords don't match.</div>
-                    <div class="alert alert-danger" role="alert">Incorrect password.</div>
+                    <!-- if we got an error, show it -->
+                    <%
+                        if (request.getAttribute("error") != null) {
+                            String messageClass = "success";
+                            if((Boolean)request.getAttribute("error")) {
+                                messageClass = "danger";
+                            }
+                            String message = (String) request.getAttribute("message");
+
+                            if (!message.isEmpty()) {
+                    %>
+                    
+                    <div class="alert alert-<%= messageClass %>" role="alert"><%= message %></div>
+                    <%
+                            }
+                        }
+                    %>
                 </div>
-                
             </div>
         </div><!-- /.container -->
 

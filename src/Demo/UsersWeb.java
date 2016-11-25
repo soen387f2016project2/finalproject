@@ -8,24 +8,24 @@ package Demo;
 
 public class UsersWeb
 {
-	private int userID;	// note: no setter for userID because auto-increment
-	private boolean isAdmin;
-	private String email; // email as username
-	private String password;	// encripted?
-	private String name;
-	private String phoneNumber;
-	private String department;
+    private int userID;	// note: no setter for userID because auto-increment
+    private boolean isAdmin;
+    private String email; // email as username
+    private String password;	// encripted?
+    private String fullName;
+    private String phoneNumber;
+    private String department;
 	
     
-	/* CONSTRUCTORS */
+    /* CONSTRUCTORS */
 	
-    public UsersWeb(int userID, boolean isAdmin, String email, String password, String name, String phoneNumber, String department) 
+    public UsersWeb(int userID, boolean isAdmin, String email, String password, String fullName, String phoneNumber, String department) 
     {
         this.userID = userID;
         this.isAdmin = isAdmin;
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.department = department;
     }
@@ -41,64 +41,68 @@ public class UsersWeb
 
     /* GETTERS */
     
-	public int getUserID() {
-		return userID;
-	}
+    public int getUserID() {
+        return userID;
+    }
     
     public boolean isAdmin() {
-		return isAdmin;
-	}
+        return isAdmin;
+    }
     
     public String getEmail() {
-		return email;
-	}
+        return email;
+    }
 
 		
-	public String getPassword() {
-		return password;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	
-	public String getDepartment() {
-		return department;
-	}
-	
-	/* SETTERS */
-	
-	public void setIsAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	
-	public void setDepartment(String department) {
-		this.department = department;
-	}
+    public String getFullName() {
+        return fullName;
+    }
 
-	
-    
-	
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
+    public String getDepartment() {
+        return department;
+    }
+
+
+    public String getFirstName() {
+        return fullName.trim().substring(0, fullName.indexOf(","));
+    }
+
+    public String getLastName() {
+        return fullName.trim().substring(fullName.indexOf(", ") + 1);
+    }
+
+    /* SETTERS */
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 }

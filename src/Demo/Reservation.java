@@ -7,9 +7,9 @@ public class Reservation {
     
     private Date start;
     private Date end;
-    private EndUser user;
+    private UsersWeb user;
     
-    public Reservation(Date start, Date end, EndUser user) {
+    public Reservation(Date start, Date end, UsersWeb user) {
         this.start = start;
         this.end = end;
         this.user = user;
@@ -23,7 +23,7 @@ public class Reservation {
         return end;
     }
     
-    public EndUser getUser() {
+    public UsersWeb getUser() {
         return user;
     }
 }

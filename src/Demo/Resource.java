@@ -20,7 +20,7 @@ public class Resource {
         reservations = new LinkedList<Reservation>();
     }
       
-    public void reserve(Date start, Date end, EndUser user, Date currentDate) {      
+    public void reserve(Date start, Date end, User user, Date currentDate) {      
         reservations.add(new Reservation(start, end, user));
         if (start.before(currentDate) && end.after(currentDate)) {
             status = Status.RESERVED;

@@ -23,11 +23,11 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.jsp">ERM</a>
+                    <a class="navbar-brand" href=".">ERM</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li class="active"><a href="index.jsp">Dashboard</a></li>
+                        <li class="active"><a href=".">Dashboard</a></li>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Resources <b class="caret"></b></a>
                             <ul class="dropdown-menu">

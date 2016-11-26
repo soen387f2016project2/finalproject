@@ -5,7 +5,7 @@
             <div class="leftaligned-content">
                 <h1>Change Password</h1>
                 
-                <form method="post" action="ChangePassword">
+                <form method="post" action="ChangePasswordServlet">
                     <div class="form-group row">
                        <label for="currentPassword" class="col-lg-2">Current password</label>
                         <div class="col-lg-4">

@@ -6,13 +6,13 @@ import java.sql.SQLException;
 public class ReservesLogDAO {
     
     public void getAllReservationsForUser(int userID) {
-        String sql = "SELECT rl.reservesID,rl.userID,name," +
-                "rl.resourceID,startDate,endDate,description," +
-                "resourceName,location,capacity,equipmentType " +
+        String sql = "SELECT * " +
                 "FROM reservesLog rl " +
                 "LEFT JOIN resources r ON r.resourceId=rl.resourceId " +
                 "LEFT JOIN conferenceRoom c ON c.resourceId=rl.resourceId " +
-                "LEFT JOIN ITEquipment i ON i.resourceId=rl.resourceId " +
+                "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID" +
+                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID" +
+                "LEFT JOIN projector p ON p.resourceId=r.resourceID" +
                 "LEFT JOIN users u ON u.userID = rl.userId " +
                 "WHERE rl.userID=" + userID;
         
@@ -21,17 +21,26 @@ public class ReservesLogDAO {
         try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
-                        "\nreservesID: " + resultSet.getString(1) +
-                        "\nuserID: " + resultSet.getString(2) +
-                        "\nname: " + resultSet.getString(3) +
-                        "\nresourceID: " + resultSet.getString(4) +
-                        "\nstartDate: " + resultSet.getString(5) +
-                        "\nendDate: " + resultSet.getString(6) +
-                        "\ndescription: " + resultSet.getString(7) +
-                        "\nresourceName: " + resultSet.getString(8) +
-                        "\nlocation: " + resultSet.getString(9) +
-                        "\ncapacity: " + resultSet.getString(10) +
-                        "\nequipmentType: " + resultSet.getString(11)
+                        "\nreservesID: " + resultSet.getString("reservesID") +
+                        "\nuserID: " + resultSet.getString("userID") +
+                        "\nname: " + resultSet.getString("name") +
+                        "\nresourceID: " + resultSet.getString("resourceID") +
+                        "\nstartDate: " + resultSet.getString("startDate") +
+                        "\nendDate: " + resultSet.getString("endDate") +
+                        "\nresourceName: " + resultSet.getString("resourceName") +
+                        "\nlocation: " + resultSet.getString("location") +
+                        "\ncapacity: " + resultSet.getString("capacity") +
+                        "\nhasPhone: " + resultSet.getString("hasPhone") +
+                        "\nhasWhiteboard: " + resultSet.getString("hasWhiteboard") +
+                        "\ndescription: " + resultSet.getString("description") +
+                        "\nisDesktop: " + resultSet.getString("isDesktop") +
+                        "\ncomputerModel: " + resultSet.getString("computerModel") +
+                        "\nscreenSize: " + resultSet.getString("screenSize") +
+                        "\ncpu: " + resultSet.getString("cpu") +
+                        "\nram: " + resultSet.getString("ram") +
+                        "\nstorage: " + resultSet.getString("storage") +
+                        "\nprojectorModel: " + resultSet.getString("projectorModel") +
+                        "\nmaxRes: " + resultSet.getString("maxRes")
                 );
             }
         } catch (SQLException e) {
@@ -41,13 +50,13 @@ public class ReservesLogDAO {
     }
     
     public void getAllReservationsForResource(int resourceID) {
-        String sql = "SELECT rl.reservesID,rl.userID,name," +
-                "rl.resourceID,startDate,endDate,description," +
-                "resourceName,location,capacity,equipmentType " +
+        String sql = "SELECT *" +
                 "FROM reservesLog rl " +
                 "LEFT JOIN resources r ON r.resourceId=rl.resourceId " +
                 "LEFT JOIN conferenceRoom c ON c.resourceId=rl.resourceId " +
-                "LEFT JOIN ITEquipment i ON i.resourceId=rl.resourceId " +
+                "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID" +
+                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID" +
+                "LEFT JOIN projector p ON p.resourceId=r.resourceID" +
                 "LEFT JOIN users u ON u.userID = rl.userId " +
                 "WHERE rl.resourceID=" + resourceID;
         
@@ -56,17 +65,26 @@ public class ReservesLogDAO {
         try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
-                        "\nreservesID: " + resultSet.getString(1) +
-                        "\nuserID: " + resultSet.getString(2) +
-                        "\nname: " + resultSet.getString(3) +
-                        "\nresourceID: " + resultSet.getString(4) +
-                        "\nstartDate: " + resultSet.getString(5) +
-                        "\nendDate: " + resultSet.getString(6) +
-                        "\ndescription: " + resultSet.getString(7) +
-                        "\nresourceName: " + resultSet.getString(8) +
-                        "\nlocation: " + resultSet.getString(9) +
-                        "\ncapacity: " + resultSet.getString(10) +
-                        "\nequipmentType: " + resultSet.getString(11)
+                        "\nreservesID: " + resultSet.getString("reservesID") +
+                        "\nuserID: " + resultSet.getString("userID") +
+                        "\nname: " + resultSet.getString("name") +
+                        "\nresourceID: " + resultSet.getString("resourceID") +
+                        "\nstartDate: " + resultSet.getString("startDate") +
+                        "\nendDate: " + resultSet.getString("endDate") +
+                        "\nresourceName: " + resultSet.getString("resourceName") +
+                        "\nlocation: " + resultSet.getString("location") +
+                        "\ncapacity: " + resultSet.getString("capacity") +
+                        "\nhasPhone: " + resultSet.getString("hasPhone") +
+                        "\nhasWhiteboard: " + resultSet.getString("hasWhiteboard") +
+                        "\ndescription: " + resultSet.getString("description") +
+                        "\nisDesktop: " + resultSet.getString("isDesktop") +
+                        "\ncomputerModel: " + resultSet.getString("computerModel") +
+                        "\nscreenSize: " + resultSet.getString("screenSize") +
+                        "\ncpu: " + resultSet.getString("cpu") +
+                        "\nram: " + resultSet.getString("ram") +
+                        "\nstorage: " + resultSet.getString("storage") +
+                        "\nprojectorModel: " + resultSet.getString("projectorModel") +
+                        "\nmaxRes: " + resultSet.getString("maxRes")
                 );
             }
         } catch (SQLException e) {

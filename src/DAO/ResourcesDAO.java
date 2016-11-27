@@ -373,8 +373,9 @@ public class ResourcesDAO {
         String sql1 = "INSERT INTO resources (isMaintained,resourceName) VALUES (" +
                 isMaintained + ", '" + resourceName + "');";
         String sql2 = "INSERT INTO miscellaneous (resourceId,description) " +
-                "SELECT resourceId,'" + description + "'," +
+                "SELECT resourceId,'" + description + "'" +
                     " FROM resources WHERE resourceName='"+ resourceName + "'";
+        System.out.println(sql2);
         ConnectionFactory.executeUpdate(sql1);
         ConnectionFactory.executeUpdate(sql2);
         System.out.println("Miscellaneous has been added");

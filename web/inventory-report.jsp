@@ -1,13 +1,13 @@
 <%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Demo.Reservation"%>
 <%@page import="java.util.LinkedList"%>
-<%@page import="Demo.DemoData"%>
-<%@page import="Demo.Resource"%>
+<%@page import="DAO.ResourcesDAO"%>
+<%@page import="Demo.ResourcesWeb"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
-DemoData demo = new DemoData();
-LinkedList<Resource> resourceList = demo.getResourcesList();
-Date currentDate = demo.getCurrentDate();
+LinkedList<ResourcesWeb> resourceList = ResourcesWeb.getAllResources();
+Date currentDate = new Date();
 %>
 
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
@@ -20,7 +20,7 @@ Date currentDate = demo.getCurrentDate();
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Type</th>
+                            <th>Name</th>
                             <th>Description</th>
                             <th>Status</th>
                             <th>Reserved by</th>
@@ -29,15 +29,15 @@ Date currentDate = demo.getCurrentDate();
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (Resource resource : resourceList) { %>
+                        <% for (ResourcesWeb resource : resourceList) { %>
                         <tr>
-                            <td><a href="update-resource.jsp?id=<%out.print(resource.getID());%>"><%out.print(resource.getID());%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(resource.classAsString());%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceID());%></a></td>
+                            <td><a href="update-resource.jsp"><%out.print(resource.getResourceName());%></a></td>
                             <td><a href="update-resource.jsp"><%out.print(resource.descriptionString());%></a></td>
                             
                             <% Reservation lastReservation = resource.getLastReservation();
                             
-                            if (resource.getStatus().equals(Resource.Status.AVAILABLE)) { %> 
+                            if (ResourcesWeb.isAvailable()) { %> 
                             <td><a href="update-resource.jsp"><h4><span class="label label-success">Available</span></h4></a></td>    
                             <% } else if (lastReservation.getEnd().before(currentDate)) { %>
                             <td><a href="update-resource.jsp"><h4><span class="label label-danger">Overdue</span></h4></a></td>

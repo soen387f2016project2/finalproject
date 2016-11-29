@@ -21,20 +21,24 @@ import DAO.ReservesLogDAO;
 public class ResourcesWeb {
 
     //public enum Status {AVAILABLE, RESERVED};
-    private static int resourceID;
-    private static String resourceName;
-    private static boolean isMaintained;
-    private static String description;
-    private static LinkedList<Reservation> reservations;
-    private static boolean isAvailable;
+    private int resourceID;
+    private String resourceName;
+    private boolean isMaintained;
+    private String description;
+    private LinkedList<Reservation> reservations;
+    private boolean isAvailable;
+    
+    public ResourcesWeb(){
+    
+    }
 
     public ResourcesWeb(int id, String resourcename, String description) {
         this.resourceID = id;
         this.resourceName = resourcename;
         this.description = description;
-        boolean isMaintained = true;//???
-        reservations = new LinkedList<Reservation>();
-        boolean isAvailable = true;
+        this.isMaintained = true;//???
+        this.reservations = new LinkedList<Reservation>();
+        this.isAvailable = true;
 
     }
 
@@ -42,7 +46,7 @@ public class ResourcesWeb {
 
     }
 
-    public static int getResourceID() {
+    public int getResourceID() {
         return resourceID;
     }
 
@@ -51,18 +55,18 @@ public class ResourcesWeb {
         this.resourceID = resourceID;
     }
 
-    public static LinkedList<ResourcesWeb> getAllResources() {
+    public LinkedList<ResourcesWeb> getAllResources() {
         // Create a list of resources
         LinkedList<ResourcesWeb> resources = new LinkedList<ResourcesWeb>();
 
-        String sql = "SELECT * "
+        String resourceSql = "SELECT * "
                 + "FROM resources r "
                 + "LEFT JOIN miscellaneous i ON i.resourceID=r.resourceID "
                 + "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID "
                 + "LEFT JOIN computer comp ON comp.resourceId=r.resourceID "
                 + "LEFT JOIN projector p ON p.resourceId=r.resourceID";
 
-        ResultSet resourcesResultSet = ConnectionFactory.executeQuery(sql);
+        ResultSet resourcesResultSet = ConnectionFactory.executeQuery(resourceSql);
 
         // Loop through the resources
         try {
@@ -70,16 +74,45 @@ public class ResourcesWeb {
                 // Create a resource from the result set
                 ResourcesWeb res = new ResourcesWeb(Integer.parseInt(resourcesResultSet.getString("resourceID")), resourcesResultSet.getString("resourceName"),
                         resourcesResultSet.getString("description"));
+                
+                // Get the last reservation for this resource
+                String reservationSql = "SELECT *" +
+                "FROM reservesLog rl " +
+                "LEFT JOIN resources r ON r.resourceId=rl.resourceId " +
+                "LEFT JOIN conferenceRoom c ON c.resourceId=rl.resourceId " +
+                "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID " +
+                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID " +
+                "LEFT JOIN projector p ON p.resourceId=r.resourceID " +
+                "LEFT JOIN users u ON u.userID = rl.userId " +
+                "WHERE rl.resourceID=" + Integer.parseInt(resourcesResultSet.getString("resourceID")) + " " +
+                "ORDER BY rl.reservesID DESC " +
+                "LIMIT 1";
+
+                // Get the result set
+                ResultSet reservationResultSet = ConnectionFactory.executeQuery(reservationSql);
+                
+                // Get the next (should only be one
+                while (reservationResultSet != null && reservationResultSet.next()) {                      
+                    // Create an object with it
+                    Reservation reserve = new Reservation(reservationResultSet.getDate("startDate"), reservationResultSet.getDate("endDate"), 
+                                            new UsersWeb(Integer.parseInt(reservationResultSet.getString("userID"))));
+                    
+                    // See if it's an active reservation
+                    Date now = new Date();
+                    if(reservationResultSet.getDate("startDate").before(now) && reservationResultSet.getDate("endDate").after(now)) {
+                        res.setAvailable(false);
+                    }
+                    
+                    // Add it to the list of reservations for this resource
+                    res.addReservation(reserve);
+                }
+                
 
                 // Add it to the linked list
-                resources.add(res);
+                resources.add(res);                                
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        
-        for(int i = 0; i < resources.size(); i++) {
-            System.out.println(resources.get(i).getResourceID());
         }
 
         // Return the resources
@@ -94,7 +127,7 @@ public class ResourcesWeb {
         this.resourceName = resourceName;
     }
 
-    public static boolean isAvailable() {
+    public boolean isAvailable() {
         return isAvailable;
     }
 
@@ -110,12 +143,16 @@ public class ResourcesWeb {
         this.isMaintained = isMaintained;
     }
 
-    public static String getDescription() {
+    public String getDescription() {
         return description + " isMaintained:\t" + isMaintained + " isAvailable:\t" + isAvailable;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public void addReservation(Reservation reserve) {
+        this.reservations.add(reserve);
     }
 
     /*public void reserve(Date start, Date end, EndUser user, Date currentDate) {      
@@ -150,11 +187,11 @@ public class ResourcesWeb {
     }
 
     // Other methods
-    public static String classAsString() {
+    public String classAsString() {
         return resourceName;
     }
 
-    public static String descriptionString() {
+    public String descriptionString() {
         return getDescription();
     }
 }

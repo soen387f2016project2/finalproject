@@ -6,7 +6,8 @@
 <%@page import="Demo.ResourcesWeb"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
-LinkedList<ResourcesWeb> resourceList = ResourcesWeb.getAllResources();
+    ResourcesWeb rw = new ResourcesWeb();
+    LinkedList<ResourcesWeb> resourceList = rw.getAllResources();
 Date currentDate = new Date();
 %>
 
@@ -32,23 +33,23 @@ Date currentDate = new Date();
                         <% for (ResourcesWeb resource : resourceList) { %>
                         <tr>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceID());%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(resource.getResourceName());%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(resource.descriptionString());%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceName());%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.descriptionString());%></a></td>
                             
                             <% Reservation lastReservation = resource.getLastReservation();
                             
-                            if (ResourcesWeb.isAvailable()) { %> 
-                            <td><a href="update-resource.jsp"><h4><span class="label label-success">Available</span></h4></a></td>    
-                            <% } else if (lastReservation.getEnd().before(currentDate)) { %>
-                            <td><a href="update-resource.jsp"><h4><span class="label label-danger">Overdue</span></h4></a></td>
+                            if (resource.isAvailable()) { %> 
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><h4><span class="label label-success">Available</span></h4></a></td>    
+                            <% } else if (lastReservation != null && lastReservation.getEnd().before(currentDate)) { %>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><h4><span class="label label-danger">Overdue</span></h4></a></td>
                             <% } else { %>
-                            <td><a href="update-resource.jsp"><h4><span class="label label-warning">Reserved</span></h4></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><h4><span class="label label-warning">Reserved</span></h4></a></td>
                             <% } 
                             
                             String reservedBy;
                             String reservedFrom;
                             String reservedUntil;
-                            if (lastReservation == null) {
+                            if (lastReservation == null || lastReservation.getEnd().before(currentDate)) {
                                 reservedBy = "";
                                 reservedFrom = "";
                                 reservedUntil = "";
@@ -57,9 +58,9 @@ Date currentDate = new Date();
                                 reservedFrom = lastReservation.getStart().toString();
                                 reservedUntil = lastReservation.getEnd().toString();
                             } %>
-                            <td><a href="update-resource.jsp"><%out.print(reservedBy);%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(reservedFrom);%></a></td>
-                            <td><a href="update-resource.jsp"><%out.print(reservedUntil);%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(reservedBy);%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(reservedFrom);%></a></td>
+                            <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(reservedUntil);%></a></td>
                         </tr>
                         <% } %>
                     </tbody>    

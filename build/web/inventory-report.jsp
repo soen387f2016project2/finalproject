@@ -1,14 +1,12 @@
 <%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Demo.Reservation"%>
 <%@page import="java.util.LinkedList"%>
-<%@page import="DAO.ResourcesDAO"%>
 <%@page import="Demo.ResourcesWeb"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
     ResourcesWeb rw = new ResourcesWeb();
     LinkedList<ResourcesWeb> resourceList = rw.getAllResources();
-Date currentDate = new Date();
+    Date currentDate = new Date();
 %>
 
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
@@ -49,7 +47,7 @@ Date currentDate = new Date();
                             String reservedBy;
                             String reservedFrom;
                             String reservedUntil;
-                            if (lastReservation == null || lastReservation.getEnd().before(currentDate)) {
+                            if (lastReservation == null || (lastReservation.getEnd().before(currentDate)) && resource.isAvailable()) {
                                 reservedBy = "";
                                 reservedFrom = "";
                                 reservedUntil = "";

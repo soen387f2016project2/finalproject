@@ -15,12 +15,8 @@ import java.util.LinkedList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import DAO.ResourcesDAO;
-import DAO.ReservesLogDAO;
-
 public class ResourcesWeb {
-
-    //public enum Status {AVAILABLE, RESERVED};
+    
     private int resourceID;
     private String resourceName;
     private boolean isMaintained;
@@ -54,6 +50,46 @@ public class ResourcesWeb {
     public void setResourceID(int resourceID) {
         this.resourceID = resourceID;
     }
+    
+    public LinkedList<ResourcesWeb> getAllUnavailableResources() {
+        // Create a list of resources
+        LinkedList<ResourcesWeb> resources = new LinkedList<ResourcesWeb>();
+        
+        String sql = "SELECT * " +
+                "FROM resources r " +
+                "LEFT JOIN reservesLog rl ON rl.resourceID=r.resourceID " +
+                "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID " +
+                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID " +
+                "LEFT JOIN projector p ON p.resourceId=r.resourceID " +
+                "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID " +
+                "WHERE rl.startDate<NOW() AND rl.endDate>NOW() OR isMaintained";
+        
+        ResultSet resultSet = ConnectionFactory.executeQuery(sql);
+
+        try {
+            while (resultSet != null && resultSet.next()) {
+                // Create a resource from the result set
+                ResourcesWeb res = new ResourcesWeb(Integer.parseInt(resultSet.getString("resourceID")), resultSet.getString("resourceName"),
+                        resultSet.getString("resourceName"));
+                
+                res.setMaintained(resultSet.getBoolean("isMaintained"));
+                
+                // Create a reservation object from the extra details in the query I got
+                Reservation reserve = new Reservation(resultSet.getDate("startDate"), resultSet.getDate("endDate"), 
+                                        new UsersWeb(Integer.parseInt(resultSet.getString("userID"))));
+                
+                // Add it to the resource
+                res.addReservation(reserve);
+                
+                // Add the resource to the linked list
+                resources.add(res);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return resources;
+    }
 
     public LinkedList<ResourcesWeb> getAllResources() {
         // Create a list of resources
@@ -73,7 +109,9 @@ public class ResourcesWeb {
             while (resourcesResultSet != null && resourcesResultSet.next()) {
                 // Create a resource from the result set
                 ResourcesWeb res = new ResourcesWeb(Integer.parseInt(resourcesResultSet.getString("resourceID")), resourcesResultSet.getString("resourceName"),
-                        resourcesResultSet.getString("description"));
+                        resourcesResultSet.getString("resourceName"));
+                
+                res.setMaintained(resourcesResultSet.getBoolean("isMaintained"));
                 
                 // Get the last reservation for this resource
                 String reservationSql = "SELECT *" +

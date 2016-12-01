@@ -83,4 +83,38 @@ public class Inventory {
             e.printStackTrace();
         }        
     }
+    
+    public void createUnavailableRessourcesList()
+    {
+                    /*UI  <th>ID</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Reserved by</th>
+                            <th>From</th>
+                            <th>Until</th>*/
+                                    
+        String sql = "SELECT r.resourceID,r.isMaintained,r.description,r.resourceName," +
+                "i.equipmentType,c.location,c.capacity,rl.startDate,rl.endDate " +
+                "FROM resources r " +
+                "LEFT JOIN reservesLog rl ON rl.resourceID=r.resourceID " +
+                "LEFT JOIN ITEquipment i ON i.resourceID=r.resourceID " +
+                "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID " +
+                "WHERE rl.startDate<NOW() AND rl.endDate>NOW() OR isMaintained";
+        ResultSet resultSet = ConnectionFactory.executeQuery(sql);
+
+        try {
+            while (resultSet != null && resultSet.next()) {
+                System.out.println(
+                        /*int resourceID =  resultSet.getString(1;
+                        boolean isMaintained: " + resultSet.getString(2);
+                        String description: " + resultSet.getString(3);
+                        String resourceName: " + resultSet.getString(4);
+                        String location: " + resultSet.getString(5);
+                        String capacity: " + resultSet.getString(6);*/
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

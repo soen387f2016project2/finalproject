@@ -52,6 +52,7 @@ public class UsersDAO {
                         "\nname: " + resultSet.getString(4) +
                         "\nphoneNumber: " + resultSet.getString(5) +
                         "\ndepartment: " + resultSet.getString(6)
+                        // Comment: query return password
                 );
             }
         } catch (SQLException e) {
@@ -73,6 +74,7 @@ public class UsersDAO {
                         "\nname: " + resultSet.getString(4) +
                         "\nphoneNumber: " + resultSet.getString(5) +
                         "\ndepartment: " + resultSet.getString(6)
+                        // Comment: query return password
                 );
             }
         } catch (SQLException e) {

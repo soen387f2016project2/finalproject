@@ -11,7 +11,7 @@ public class DemoData {
     // these should probably be HashMaps in our final version for performance reasons
     // I used LinkedLists for the demo data for simplicity (easier iteration)
     private LinkedList<Resource> resources;
-    private LinkedList<EndUser> users;
+    private LinkedList<UsersWeb> users;
     
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     public Date currentDate;
@@ -29,11 +29,11 @@ public class DemoData {
         resources.add(dellMonitor);
         
         // create some end users
-        EndUser seb = new EndUser("scharb", "Sebastien", "Charbonneau", "password");
-        EndUser vince = new EndUser("vlugara", "Vincent", "Lugara", "password");
-        EndUser karolina = new EndUser("kkonieczny", "Karolina", "Konieczny", "password");
-        EndUser vinh = new EndUser("vtruong", "Vinh", "Truong", "password");
-        EndUser alain = new EndUser("afallara", "Alain", "Fallara", "password");
+        UsersWeb seb = new UsersWeb("scharb", "Sebastien", "Charbonneau", "password", true);
+        UsersWeb vince = new UsersWeb("vlugara", "Vincent", "Lugara", "password", true);
+        UsersWeb karolina = new UsersWeb("kkonieczny", "Karolina", "Konieczny", "password", true);
+        UsersWeb vinh = new UsersWeb("vtruong", "Vinh", "Truong", "password", true);
+        UsersWeb alain = new UsersWeb("afallara", "Alain", "Fallara", "password", true);
         users = new LinkedList<>();
         users.add(seb);
         users.add(vince);
@@ -61,7 +61,7 @@ public class DemoData {
         return resources;
     }
     
-    public LinkedList<EndUser> getUsersList() {
+    public LinkedList<UsersWeb> getUsersList() {
         return users;
     }
     

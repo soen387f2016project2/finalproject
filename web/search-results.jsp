@@ -28,6 +28,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% if(resourceList.size() == 0) { %>
+                        <tr><td class="bg-info" colspan="7">No results found</td></tr>
+                        <% }%>
                         <% for (ResourcesWeb resource : resourceList) { %>
                         <tr>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceID());%></a></td>

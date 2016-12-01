@@ -1,5 +1,10 @@
 package Demo;
 
+import DAO.ConnectionFactory;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+
 /*
  * we need to know if we are using a username or an email as login credentials
  * 
@@ -18,7 +23,25 @@ public class UsersWeb
 	
     
     /* CONSTRUCTORS */
-	
+    public UsersWeb(int userId) {
+        // Load stuff from the db
+        String userSql = "SELECT * FROM users WHERE userID = " + userId;
+        ResultSet userResultSet = ConnectionFactory.executeQuery(userSql);
+        
+        try {
+            while (userResultSet != null && userResultSet.next()) {
+                this.userID = userResultSet.getInt("userID");
+                this.isAdmin = userResultSet.getBoolean("isAdmin");
+                this.fullName = userResultSet.getString("name");
+                this.email = userResultSet.getString("email");
+                this.phoneNumber = userResultSet.getString("phoneNumber");
+                this.department = userResultSet.getString("department");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public UsersWeb(int userID, boolean isAdmin, String email, String password, String fullName, String phoneNumber, String department) 
     {
         this.userID = userID;
@@ -37,7 +60,7 @@ public class UsersWeb
     {
         this.email	 = email;
         this.password = password;
-    }
+    }       
 
     /* GETTERS */
     

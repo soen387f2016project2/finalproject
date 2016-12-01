@@ -1,73 +1,81 @@
 <%@page import="java.util.Date"%>
-<%@page import="Demo.Resource"%>
+<%@page import="Demo.ResourcesWeb"%>
 <%@page import="java.util.LinkedList"%>
-<%@page import="Demo.DemoData"%>
+<%@page import="DAO.ResourcesDAO"%>
+<%@page import="java.sql.ResultSet"%> 
+<%//@page import="Demo.DemoData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% 
+<%
+/* 
 DemoData demo = new DemoData();
 LinkedList<Resource> resourceList = demo.getResourcesList();
 Resource selectedResource = demo.getResource(request.getParameter("id"));
 Date currentDate = demo.getCurrentDate();
+*/
 %>
 
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
 
+
+
+
         <div class="container">
             <div class="leftaligned-content">
-                <h1>Update Resource <%out.print(selectedResource.getID());%></h1>
+                  
+                <h1>Update Resource ${param.ID}</h1>
                 
-                <form action="update-resource.jsp">
+                <form action="UpdateServlet" method="get">
                     <div class="form-group row">
                        <label for="resourceId" class="col-lg-2">ID number</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="resourceId" value="DTPC0104" disabled>
+                            <input type="text" class="form-control" name="resourceId" value="">
                         </div>
                     </div>  
                     <div class="form-group row">
                        <label for="resourceType" class="col-lg-2">Type</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="resourceType" value="Computer" disabled>
+                            <input type="text" class="form-control" name="resourceType" value="Computer">
                         </div>
                     </div>  
                     <div class="form-group row">
                        <label for="computerType" class="col-lg-2">Computer type</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerType" value="Desktop" disabled>
+                            <input type="text" class="form-control" name="computerType" value="1">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <label for="computerModel" class="col-lg-2">Make and model</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerModel" value="Dell OptiPlex 7040" disabled>
+                            <input type="text" class="form-control"  name="computerModel" value="Dell OptiPlex 7040">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <label for="computerSize" class="col-lg-2">Screen size (inches)</label>
                         <div class="col-lg-4">
-                            <input type="number" class="form-control" id="computerSize" value="24">
+                            <input type="number" class="form-control"  name="computerSize" value="24">
                         </div>
                     </div>
                     <div class="form-group row">    
                         <label for="computerCPU" class="col-lg-2">CPU</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerCPU" value="Intel Core i7-6700">
+                            <input type="text" class="form-control" name="computerCPU" value="Intel Core i7-6700">
                         </div>    
                     </div> 
                     <div class="form-group row">    
                         <label for="computerRAM" class="col-lg-2">RAM memory</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerRAM" value="8GB DDR3 1600MHz">
+                            <input type="text" class="form-control"   name="computerRAM" value="8GB DDR3 1600MHz">
                         </div>
                     </div> 
                     <div class="form-group row">    
                         <label for="computerStorage" class="col-lg-2">Storage capacity</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="computerStorage" value="500GB HDD">
+                            <input type="text" class="form-control"  name="computerStorage" value="5.0">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <div class="col-lg-2">
-                            <button type="submit" name="updateResource" class="btn btn-primary">Update Resource</button>
+                            <button type="submit" name="updateResource" class="btn btn-primary" value="update" >Update Resource</button>
                         </div>
                     </div>                  
                     <div class="form-group row">
@@ -138,7 +146,7 @@ Date currentDate = demo.getCurrentDate();
                                         <p>You're about to permanently delete this resource. Do you want to continue?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                                        <button type="submit" name="delete" class="btn btn-danger" value="DELETE">Delete</button>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>

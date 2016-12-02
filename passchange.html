@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+Project Manager: Cuong Nguyen
+Team ID: 8
+Class Number: SOEN 387
+Name:
+Aakash Patel            27503008
+Mahinthien Ratnarajah	27186517
+Michael Cabana          27527489
+Mouad Bouras            27671083
+Razmig Houssikian	40001040
+
+Sprint 1
+-->
+<html>
+<head>
+        <title>Reservation Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="css/vendor/bootstrap.min.css" >
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="css/vendor/bootstrap-theme.min.css" >
+        <link rel="stylesheet" href="css/style.css" >
+
+         
+        <script src="js/vendor/jquery-3.1.1.min.js" ></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="js/vendor/bootstrap.min.js" ></script>
+
+        <script src="js/vendor/script.js" ></script>
+
+    </head>
+    <body>
+
+
+            <div class="login-container layer-effect">
+                    <div id="output"></div>
+                    <div class="avatar"></div>
+                    <div class="form-box">
+
+                       <form action="http://localhost:8080/SOEN387Project/updatedb.jsp" method="post">
+
+                            <input  name="username"  placeholder="Enter Username" required><br>
+                            <input type="password" name="password"  placeholder="Enter New Password" required><br>
+                            <input type="password" name="newpassword"  placeholder="Retype New Password" required><br>
+                            
+                            <button class="btn btn-info btn-block login" type="submit" name="submit">Submit</button>
+                        </form>
+                    </div>
+            </div>       
+
+    </body>
+</html>

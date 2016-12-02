@@ -76,7 +76,7 @@ public class Accounts {
                  String department = resultSet.getString(6);
 
                  // Comment: query return password
-                 UsersWeb user = new UsersWeb(Integer.getInteger(id), isAdmin, email, "password", name, phoneNumber, department);
+                 UsersWeb user = new UsersWeb(Integer.parseInt(id), isAdmin, email, "password", name, phoneNumber, department);
                  list.put(id, user);
             }
         } catch (SQLException e) {

@@ -108,11 +108,13 @@ public class ResourcesDAO {
                 res.setMaintained(resultSet.getBoolean("isMaintained"));
 
                 // Create a reservation object from the extra details in the query I got
-                Reservation reserve = new Reservation(resultSet.getDate("startDate"), resultSet.getDate("endDate"),
-                        new UsersWeb(Integer.parseInt(resultSet.getString("userID"))));
+                if (resultSet.getString("userID") != null) { // Assuming there actually is a reservation for this thing
+                    Reservation reserve = new Reservation(resultSet.getDate("startDate"), resultSet.getDate("endDate"),
+                            new UsersWeb(Integer.parseInt(resultSet.getString("userID"))));
 
-                // Add it to the resource
-                res.addReservation(reserve);
+                    // Add it to the resource
+                    res.addReservation(reserve);
+                }
 
                 // Add the resource to the linked list
                 resources.add(res);

@@ -51,8 +51,8 @@
                             </ul>
                         <li><a href="logout.jsp">Log Out</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Search Inventory">
+                    <form class="navbar-form navbar-right" method="post" action="SearchInventory">
+                        <input type="text" class="form-control" placeholder="Search Inventory" name="searchInventory">
                     </form>
                 </div><!--/.nav-collapse -->
             </div>

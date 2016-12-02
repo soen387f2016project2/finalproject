@@ -5,7 +5,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
     ResourcesWeb rw = new ResourcesWeb();
-    LinkedList<ResourcesWeb> resourceList = rw.getAllResources();
+    LinkedList<ResourcesWeb> resourceList = (LinkedList<ResourcesWeb>)request.getAttribute("resources");
     Date currentDate = new Date();
 %>
 
@@ -28,6 +28,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% if(resourceList.size() == 0) { %>
+                        <tr><td class="bg-info" colspan="7">No results found</td></tr>
+                        <% }%>
                         <% for (ResourcesWeb resource : resourceList) { %>
                         <tr>
                             <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceID());%></a></td>

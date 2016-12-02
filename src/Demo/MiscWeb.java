@@ -16,11 +16,14 @@ public class MiscWeb extends ResourcesWeb {
 	public MiscWeb(int id, String description){
             super(id,"Misc",description);
 	}
+        
+        public MiscWeb(){}
 	
         // Other methods
 	public void updateDescription(){
             this.setDescription("Description:\t" + description);
 	}
+        
         
    public ResourcesWeb getResourceById(int resourceID){
         ResourcesDAO resourcesDAO = new ResourcesDAO();

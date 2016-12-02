@@ -26,6 +26,9 @@ public class ResourcesWeb {
     private LinkedList<Reservation> reservations;
     private boolean isAvailable;
     
+    //new members
+    private String type;
+    
     public ResourcesWeb(){
     
     }
@@ -40,7 +43,7 @@ public class ResourcesWeb {
 
     }
 
-    public ResourcesWeb(int id, String resourcename, String description, boolean isMaintained, boolean isAvailable, Date startDate, Date endDate) {
+    public ResourcesWeb(int id, String resourcename, boolean isMaintained) {
 
     }
 
@@ -52,6 +55,37 @@ public class ResourcesWeb {
     public void setResourceID(int resourceID) {
         this.resourceID = resourceID;
     }
+    
+    public String getResourceType(int resourceID){
+        ResourcesDAO resourcesDAO = new ResourcesDAO();
+        ResultSet resultSet = resourcesDAO.getResourceById(resourceID);
+        
+        try {
+            while (resultSet != null && resultSet.next()) {
+                if(resultSet.getString("isDesktop") != null){
+                    type = "Computer";
+                }
+                else if(resultSet.getString("hasWhiteboard") != null){
+                    type = "Conference";
+                }
+                else if(resultSet.getString("projectorModel") != null || resultSet.getString("maxRes") != null){
+                    type = "Projector";
+                }
+                else if(resultSet.getString("description") != null){
+                    type = "Miscellaneous";
+                }
+                else{
+                    type = "Unknown";
+                }
+            }
+                        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return type;
+    }
+
     
     public LinkedList<ResourcesWeb> getAllUnavailableResources() {
         // Create a list of resources

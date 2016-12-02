@@ -1,5 +1,12 @@
 package Demo;
 
+import DAO.ReservesLogDAO;
+import DAO.ResourcesDAO;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.LinkedList;
+
 public class ComputerWeb extends ResourcesWeb {
 	
     private String resourceName;
@@ -17,6 +24,53 @@ public class ComputerWeb extends ResourcesWeb {
         this.cpu = cpu;
         this.ram = ram;
         this.storage = storage;
+    }
+    
+    public ResourcesWeb getResourceById(int resourceID){
+        ResourcesDAO resourcesDAO = new ResourcesDAO();
+        ResultSet resultSet = resourcesDAO.getResourceById(resourceID);
+        ComputerWeb cWeb = null;
+        try {
+            while (resultSet != null && resultSet.next()) {
+               
+                cWeb = new ComputerWeb(Integer.parseInt(resultSet.getString("resourceID")), 
+                        resultSet.getString("resourceName"),
+                        resultSet.getString("computerModel"),
+                        Integer.parseInt(resultSet.getString("screenSize")),
+                        resultSet.getString("cpu"),
+                        resultSet.getString("ram"),
+                        resultSet.getString("storage")
+                );
+                
+                cWeb.setMaintained(resultSet.getBoolean("isMaintained"));
+                
+                // Get the last reservation for this resource
+                ReservesLogDAO reservesLogDAO = new ReservesLogDAO();
+                // Get the result set
+                ResultSet reservationResultSet = reservesLogDAO.getLastReservationByID(Integer.parseInt(resultSet.getString("resourceID")));
+                
+                // Get the next (should only be one
+                while (reservationResultSet != null && reservationResultSet.next()) {                      
+                    // Create an object with it
+                    Reservation reserve = new Reservation(reservationResultSet.getDate("startDate"), reservationResultSet.getDate("endDate"), 
+                                            new UsersWeb(Integer.parseInt(reservationResultSet.getString("userID"))));
+                    
+                    // See if it's an active reservation
+                    Date now = new Date();
+                    if(reservationResultSet.getDate("startDate").before(now) && reservationResultSet.getDate("endDate").after(now)) {
+                        cWeb.setAvailable(false);
+                    }
+                    
+                    // Add it to the list of reservations for this resource
+                    cWeb.addReservation(reserve);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        
+        return cWeb;
     }
 
     //getters

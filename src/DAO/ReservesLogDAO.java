@@ -49,6 +49,26 @@ public class ReservesLogDAO {
         
     }
     
+    public ResultSet getLastReservationByID(int resourceID){
+                // Get the last reservation for this resource
+        String reservationSql = "SELECT *" +
+                "FROM reservesLog rl " +
+                "LEFT JOIN resources r ON r.resourceId=rl.resourceId " +
+                "LEFT JOIN conferenceRoom c ON c.resourceId=rl.resourceId " +
+                "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID " +
+                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID " +
+                "LEFT JOIN projector p ON p.resourceId=r.resourceID " +
+                "LEFT JOIN users u ON u.userID = rl.userId " +
+                "WHERE rl.resourceID=" + resourceID + " " +
+                "ORDER BY rl.reservesID DESC " +
+                "LIMIT 1";   
+        
+        // Get the result set
+        ResultSet reservationResultSet = ConnectionFactory.executeQuery(reservationSql);
+        
+        return reservationResultSet;
+    }
+    
     public void getAllReservationsForResource(int resourceID) {
         String sql = "SELECT *" +
                 "FROM reservesLog rl " +

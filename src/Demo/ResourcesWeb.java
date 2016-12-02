@@ -10,6 +10,8 @@
 package Demo;
 
 import DAO.ConnectionFactory;
+import DAO.ReservesLogDAO;
+import DAO.ResourcesDAO;
 import java.util.Date;
 import java.util.LinkedList;
 import java.sql.ResultSet;
@@ -54,18 +56,11 @@ public class ResourcesWeb {
     public LinkedList<ResourcesWeb> getAllUnavailableResources() {
         // Create a list of resources
         LinkedList<ResourcesWeb> resources = new LinkedList<ResourcesWeb>();
-        
-        String sql = "SELECT * " +
-                "FROM resources r " +
-                "LEFT JOIN reservesLog rl ON rl.resourceID=r.resourceID " +
-                "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID " +
-                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID " +
-                "LEFT JOIN projector p ON p.resourceId=r.resourceID " +
-                "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID " +
-                "WHERE rl.startDate<NOW() AND rl.endDate>NOW() OR isMaintained";
-        
-        ResultSet resultSet = ConnectionFactory.executeQuery(sql);
-
+       
+        ResourcesDAO resourcesDAO = new ResourcesDAO();
+        ResultSet resultSet = resourcesDAO.getAllUnavailableResources();
+    
+  
         try {
             while (resultSet != null && resultSet.next()) {
                 // Create a resource from the result set
@@ -95,14 +90,8 @@ public class ResourcesWeb {
         // Create a list of resources
         LinkedList<ResourcesWeb> resources = new LinkedList<ResourcesWeb>();
 
-        String resourceSql = "SELECT * "
-                + "FROM resources r "
-                + "LEFT JOIN miscellaneous i ON i.resourceID=r.resourceID "
-                + "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID "
-                + "LEFT JOIN computer comp ON comp.resourceId=r.resourceID "
-                + "LEFT JOIN projector p ON p.resourceId=r.resourceID";
-
-        ResultSet resourcesResultSet = ConnectionFactory.executeQuery(resourceSql);
+        ResourcesDAO resourcesDAO = new ResourcesDAO();
+        ResultSet resourcesResultSet = resourcesDAO.getAllResources();
 
         // Loop through the resources
         try {
@@ -113,21 +102,12 @@ public class ResourcesWeb {
                 
                 res.setMaintained(resourcesResultSet.getBoolean("isMaintained"));
                 
-                // Get the last reservation for this resource
-                String reservationSql = "SELECT *" +
-                "FROM reservesLog rl " +
-                "LEFT JOIN resources r ON r.resourceId=rl.resourceId " +
-                "LEFT JOIN conferenceRoom c ON c.resourceId=rl.resourceId " +
-                "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID " +
-                "LEFT JOIN computer comp ON comp.resourceId=r.resourceID " +
-                "LEFT JOIN projector p ON p.resourceId=r.resourceID " +
-                "LEFT JOIN users u ON u.userID = rl.userId " +
-                "WHERE rl.resourceID=" + Integer.parseInt(resourcesResultSet.getString("resourceID")) + " " +
-                "ORDER BY rl.reservesID DESC " +
-                "LIMIT 1";
 
+                
+                // Get the last reservation for this resource
+                ReservesLogDAO reservesLogDAO = new ReservesLogDAO();
                 // Get the result set
-                ResultSet reservationResultSet = ConnectionFactory.executeQuery(reservationSql);
+                ResultSet reservationResultSet = reservesLogDAO.getLastReservationByID(Integer.parseInt(resourcesResultSet.getString("resourceID")));
                 
                 // Get the next (should only be one
                 while (reservationResultSet != null && reservationResultSet.next()) {                      

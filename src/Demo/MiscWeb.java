@@ -25,7 +25,7 @@ public class MiscWeb extends ResourcesWeb {
 	}
         
         
-   public ResourcesWeb getResourceById(int resourceID){
+   public MiscWeb getResourceById(int resourceID){
         ResourcesDAO resourcesDAO = new ResourcesDAO();
         ResultSet resultSet = resourcesDAO.getResourceById(resourceID);
         MiscWeb mWeb = null;

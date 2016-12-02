@@ -22,7 +22,7 @@ public class ProjectorWeb extends ResourcesWeb {
     public ProjectorWeb(){}
     
     
-    public ResourcesWeb getResourceById(int resourceID){
+    public ProjectorWeb getResourceById(int resourceID){
         ResourcesDAO resourcesDAO = new ResourcesDAO();
         ResultSet resultSet = resourcesDAO.getResourceById(resourceID);
         ProjectorWeb pWeb = null;

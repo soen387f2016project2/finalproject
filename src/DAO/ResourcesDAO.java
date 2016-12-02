@@ -9,7 +9,7 @@ import Demo.UsersWeb;
 
 public class ResourcesDAO {
 
-    public void getAllResources() {
+    public ResultSet getAllResources() {
         String sql = "SELECT * "
                 + "FROM resources r "
                 + "LEFT JOIN miscellaneous i ON i.resourceID=r.resourceID "
@@ -18,7 +18,7 @@ public class ResourcesDAO {
                 + "LEFT JOIN projector p ON p.resourceId=r.resourceID";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 
-        try {
+        /*try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nresourceID: " + resultSet.getString("resourceID")
@@ -41,7 +41,9 @@ public class ResourcesDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+        
+        return resultSet;
     }
 
     public void getResourceById(int id) {
@@ -177,19 +179,19 @@ public class ResourcesDAO {
     }
 
     // Get all unavailable resources, either booked by an employee or in maintenance by an admin
-    public void getAllUnavailableResources() {
+    public ResultSet getAllUnavailableResources() {
         String sql = "SELECT * "
                 + "FROM resources r "
                 + "LEFT JOIN reservesLog rl ON rl.resourceID=r.resourceID "
-                + "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID"
-                + "LEFT JOIN computer comp ON comp.resourceId=r.resourceID"
-                + "LEFT JOIN projector p ON p.resourceId=r.resourceID"
+                + "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID "
+                + "LEFT JOIN computer comp ON comp.resourceId=r.resourceID "
+                + "LEFT JOIN projector p ON p.resourceId=r.resourceID "
                 + "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID "
                 + "WHERE rl.startDate<NOW() AND rl.endDate>NOW() OR isMaintained";
 
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 
-        try {
+        /*try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nresourceID: " + resultSet.getString("resourceID")
@@ -212,7 +214,9 @@ public class ResourcesDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+        
+        return resultSet;
     }
 
     // Get all available resources, those that are not booked and not in maintenance

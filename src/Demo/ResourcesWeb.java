@@ -59,8 +59,7 @@ public class ResourcesWeb {
         ResourcesDAO resourcesDAO = new ResourcesDAO();
         ResultSet resultSet = resourcesDAO.getAllUnavailableResources();
     
-        
-        System.out.println("???");
+  
         try {
             while (resultSet != null && resultSet.next()) {
                 // Create a resource from the result set

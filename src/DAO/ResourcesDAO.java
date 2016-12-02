@@ -46,7 +46,7 @@ public class ResourcesDAO {
         return resultSet;
     }
 
-    public void getResourceById(int id) {
+    public ResultSet getResourceById(int id) {
         String sql = "SELECT * "
                 + "FROM resources r "
                 + "LEFT JOIN miscellaneous i ON i.resourceID=r.resourceID "
@@ -56,7 +56,7 @@ public class ResourcesDAO {
                 + "WHERE r.resourceId=" + id;
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 
-        try {
+        /*try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nresourceID: " + resultSet.getString("resourceID")
@@ -79,7 +79,9 @@ public class ResourcesDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+        
+        return resultSet;
     }
 
     /*

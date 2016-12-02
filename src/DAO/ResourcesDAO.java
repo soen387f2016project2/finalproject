@@ -126,7 +126,7 @@ public class ResourcesDAO {
         return resources;
     }
 
-    public void getAllITEquipment() {
+    public ResultSet getAllITEquipment() {
         String sql = "SELECT * "
                 + "FROM resources r "
                 + "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID "
@@ -154,9 +154,11 @@ public class ResourcesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        return resultSet;
     }
 
-    public void getAllConferenceRooms() {
+    public ResultSet getAllConferenceRooms() {
         String sql = "SELECT r.resourceID,r.isMaintained,r.resourceName,"
                 + "c.location,c.capacity,c.hasPhone,c.hasWhiteboard "
                 + "FROM resources r "
@@ -178,6 +180,8 @@ public class ResourcesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        return resultSet;
     }
 
     // Get all unavailable resources, either booked by an employee or in maintenance by an admin

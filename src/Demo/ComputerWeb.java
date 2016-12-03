@@ -26,13 +26,15 @@ public class ComputerWeb extends ResourcesWeb {
         this.storage = storage;
     }
     
-    public ResourcesWeb getResourceById(int resourceID){
+    public ComputerWeb(){}
+    
+    public ComputerWeb getResourceById(int resourceID){
         ResourcesDAO resourcesDAO = new ResourcesDAO();
         ResultSet resultSet = resourcesDAO.getResourceById(resourceID);
         ComputerWeb cWeb = null;
+        
         try {
             while (resultSet != null && resultSet.next()) {
-               
                 cWeb = new ComputerWeb(Integer.parseInt(resultSet.getString("resourceID")), 
                         resultSet.getString("resourceName"),
                         resultSet.getString("computerModel"),

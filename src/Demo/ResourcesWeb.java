@@ -246,4 +246,17 @@ public class ResourcesWeb {
     public String descriptionString() {
         return getDescription();
     }
+    
+    public static void main(String[] args){//TEST UPDATE RESOURCE DISPLAY
+        int id = 10;
+        ResourcesWeb rw = new ResourcesWeb();
+        String type = rw.getResourceType(id);
+        
+        if(type.equals("Computer")){
+            ComputerWeb pw = new ComputerWeb().getResourceById(id);
+     
+            System.out.println(type);
+            System.out.println(pw.getCpu());
+        }
+    }
 }

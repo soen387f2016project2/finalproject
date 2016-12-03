@@ -30,8 +30,10 @@ public class ConferenceRoomWeb extends ResourcesWeb {
 		this.capacity = capacity;
 	}
         
+        public ConferenceRoomWeb(){}
         
-    public ResourcesWeb getResourceById(int resourceID){
+        
+    public ConferenceRoomWeb getResourceById(int resourceID){
         ResourcesDAO resourcesDAO = new ResourcesDAO();
         ResultSet resultSet = resourcesDAO.getResourceById(resourceID);
         ConferenceRoomWeb cRWeb = null;

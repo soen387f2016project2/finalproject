@@ -19,8 +19,10 @@ public class ProjectorWeb extends ResourcesWeb {
 	this.resolution = resolution;
     }
     
+    public ProjectorWeb(){}
     
-    public ResourcesWeb getResourceById(int resourceID){
+    
+    public ProjectorWeb getResourceById(int resourceID){
         ResourcesDAO resourcesDAO = new ResourcesDAO();
         ResultSet resultSet = resourcesDAO.getResourceById(resourceID);
         ProjectorWeb pWeb = null;

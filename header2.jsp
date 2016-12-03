@@ -4,7 +4,7 @@
     Author     : mouadbouras
 --%>
 
-        <% if ( session.getAttribute("User") == null){
+        <% if ( session.getAttribute("user_id") == null){
             response.sendRedirect("index.html?sessionUser=null");
         }
          %>

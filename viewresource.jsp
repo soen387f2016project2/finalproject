@@ -13,9 +13,63 @@ Razmig Houssikian	40001040
 Sprint 1
 -->
 
-        <%@include file="data.jsp" %> <!--todelete-->
-
-
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="Demo.ResourcesWeb" %>
+<%@ page import="Demo.ComputerWeb"%>
+<%@page import="Demo.MiscWeb"%>
+<%@page import="Demo.ProjectorWeb"%>
+<%@page import="Demo.ConferenceRoomWeb"%>
+       
+<%
+            int id = 0;
+            
+            if(request.getParameter("id") == null){
+                id = 0;
+            }
+            else{
+                id = Integer.parseInt(request.getParameter("id"));
+            }
+                   
+            
+            ResourcesWeb rw = new ResourcesWeb();
+            String type = "";
+            try{
+                type = rw.getResourceType(id);
+            }
+            catch(Exception e){
+                type = null;
+            }
+            
+            if(type == null) out.println("ID not found");
+            
+    if(type != null){
+        
+            String description = "";
+            String name = "";
+            boolean isMaintained = false;
+            
+            if(type.equals("Computer")){
+                ComputerWeb cw = new ComputerWeb().getResourceById(id);
+                name = cw.getResourceName();
+                description = cw.getDescription();
+                isMaintained = cw.getMaintained();
+            }
+            else if(type.equals("Projector")){
+                ProjectorWeb pw = new ProjectorWeb().getResourceById(id);
+                name = pw.getResourceName();
+                description = pw.getDescription();
+                isMaintained = pw.getMaintained();               
+            }
+            else if(type.equals("Miscellaneous")){
+                MiscWeb pw = new MiscWeb().getResourceById(id);
+                name = pw.getResourceName();
+                description = pw.getDescription();
+                isMaintained = pw.getMaintained();               
+            }
+        
+%>
 <html>
     <head>
         <%@include file="header2.jsp" %>
@@ -54,26 +108,28 @@ Sprint 1
                   <div class="thumbnail">
                       <div class="caption">
                         <div class='col-lg-12 well well-add-card'>
-                            <h4><% if(mylist.get(i).child.equals("ITEquipment")){ %> <span class="glyphicon glyphicon glyphicon-wrench">&nbsp;</span> <% ;}
-                               else if (mylist.get(i).child.equals("ConferenceRoom")) { %> <span class="glyphicon glyphicon-modal-window">&nbsp;</span> <% ;} %>                          
-                            <% out.print(mylist.get(i).resourceName) ; %></h4>
+                            <h4><% if(type.equals("Computer") || type.equals("Projector") || type.equals("Miscellaneous")) { %> <span class="glyphicon glyphicon glyphicon-wrench">&nbsp;</span> <% ;}
+                               else if(type.equals("Conference")) { %> <span class="glyphicon glyphicon-modal-window">&nbsp;</span> <% ;} %>                          
+                            <% out.print(name) ; %></h4>
                         </div>
                         <div class='col-lg-6 col-sm-12'>
-                            <p><% out.print(mylist.get(i).description) ; %></p>
+                            <p><% out.print(description) ; %></p>
                         </div>
                         <div class='col-lg-6 col-sm-12'>
                             <p class="text-muted"> Additional details</p>
-                            <p>Maintained : <% out.print((mylist.get(i).isMaintained) ? "Yes" : "No" )  ; %></p>
-                            <% if(mylist.get(i).child.equals("ITEquipment")) { %>
+                            <p>Maintained : <% out.print((isMaintained) ? "Yes" : "No" )  ; %></p>
+                            <% if(type.equals("Computer") || type.equals("Projector") || type.equals("Miscellaneous")) { %>
                                     <ul>
-                                        <li><b>Equipment Type : </b><% out.print(((ITEquipment)mylist.get(i)).equipmentType) ; %></li>                                       
+                                        <li><b>Equipment Type : </b><% out.print(type); %></li>                                       
                                         <br /> <!-- keeping the boxes even -->
                                     </ul>                                
                                 <% } 
-                                else if (mylist.get(i).child.equals("ConferenceRoom")){ %>
+                                else if (type.equals("Conference")){ 
+                                    ConferenceRoomWeb crw = new ConferenceRoomWeb().getResourceById(id);
+                                %>
                                      <ul>
-                                         <li><b>Location : </b><% out.print(((ConferenceRoom)mylist.get(i)).location) ; %></li>   
-                                         <li><b>Capacity : </b><% out.print(((ConferenceRoom)mylist.get(i)).capacity) ; %></li>                                                                                                                      
+                                         <li><b>Location : </b><% out.print(crw.getLocation()) ; %></li>   
+                                         <li><b>Capacity : </b><% out.print(crw.getCapacity()); %></li>                                                                                                                      
                                     </ul>                
                                 
                                  <% } %>
@@ -93,7 +149,7 @@ Sprint 1
                         <div class='col-lg-12'>
                             <input type="submit" class="btn btn-primary btn-sm reservation-btn " value="Reserve" >
                         </div>
-                        <input type="hidden" value="<% out.print(oldi); %>" name="id" />
+                        <input type="hidden" value="<% out.print(id); %>" name="id" />
                         <div class="clearfix"></div>
                     </div>
                   </div>
@@ -113,3 +169,8 @@ Sprint 1
 
     </body>
 </html>
+
+<%
+    }//if(!type.equals("")){
+        
+%>

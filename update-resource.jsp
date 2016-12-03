@@ -126,10 +126,10 @@ Date currentDate = demo.getCurrentDate();
                             </div>
                         </div>    
                     </div> <!-- modal -->        
-                </form>
+                <!--</form>-->
                 
                 <!-- split into 2 forms because action points to different pages -->
-                <form action="inventory-report.jsp">
+                <!--<form action="UpdateServlet">-->
                     <div class="form-group row">
                         <div class="col-lg-2">
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete">Delete Resource</button>

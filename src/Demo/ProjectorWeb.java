@@ -19,7 +19,9 @@ public class ProjectorWeb extends ResourcesWeb {
 	this.resolution = resolution;
     }
     
-    public ProjectorWeb(){}
+    public ProjectorWeb(){
+        
+    }
     
     
     public ProjectorWeb getResourceById(int resourceID){

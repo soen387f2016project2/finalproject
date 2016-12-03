@@ -5,6 +5,10 @@
         <servlet-name>SearchInventory</servlet-name>
         <servlet-class>Controllers.SearchInventory</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReserveResource</servlet-name>
+        <servlet-class>Controllers.ReserveResource</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreateResource</servlet-name>
         <url-pattern>/CreateResource</url-pattern>
@@ -12,6 +16,10 @@
     <servlet-mapping>
         <servlet-name>SearchInventory</servlet-name>
         <url-pattern>/SearchInventory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReserveResource</servlet-name>
+        <url-pattern>/ReserveResource</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

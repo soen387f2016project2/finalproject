@@ -17,7 +17,9 @@ public class MiscWeb extends ResourcesWeb {
             super(id,"Misc",description);
 	}
         
-        public MiscWeb(){}
+        public MiscWeb(){
+            
+        }
 	
         // Other methods
 	public void updateDescription(){

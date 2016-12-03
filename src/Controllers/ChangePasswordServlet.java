@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import DAO.UsersDAO;
-import Demo.UsersWeb;
 
 /**
  *

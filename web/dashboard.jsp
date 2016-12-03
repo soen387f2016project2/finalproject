@@ -29,13 +29,27 @@
             <tbody>
                 <% for (ResourcesWeb resource : resourceList) { %>
                 <% Reservation lastReservation = resource.getLastReservation(); %>
+                <%
+
+                    String reservedBy;
+                    String reservedFrom;
+                    String reservedUntil;
+                    if (lastReservation == null) {
+                        reservedBy = "";
+                        reservedFrom = "";
+                        reservedUntil = "";
+                    } else {
+                        reservedBy = lastReservation.getUser().getFullName();
+                        reservedFrom = lastReservation.getStart().toString();
+                        reservedUntil = lastReservation.getEnd().toString();
+                    } %>
                 <tr class="danger">
                     <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceID());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(resource.getResourceName());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(resource.descriptionString());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(lastReservation.getUser().getFullName());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(lastReservation.getStart().toString());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(lastReservation.getEnd().toString());%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceName());%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.descriptionString());%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(reservedBy);%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(reservedFrom);%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(reservedUntil);%></a></td>
                 </tr>
                 <% }%>
             </tbody>    

@@ -30,7 +30,9 @@ public class ConferenceRoomWeb extends ResourcesWeb {
 		this.capacity = capacity;
 	}
         
-        public ConferenceRoomWeb(){}
+        public ConferenceRoomWeb(){
+            
+        }
         
         
     public ConferenceRoomWeb getResourceById(int resourceID){

@@ -50,7 +50,7 @@ public class ReservesLogDAO {
     }
     
     public ResultSet getLastReservationByID(int resourceID){
-                // Get the last reservation for this resource
+        // Get the last reservation for this resource
         String reservationSql = "SELECT *" +
                 "FROM reservesLog rl " +
                 "LEFT JOIN resources r ON r.resourceId=rl.resourceId " +

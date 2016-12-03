@@ -50,8 +50,7 @@ public class LoginServlet extends HttpServlet {
             
             // Give them a message
             request.setAttribute("message", "Your login details were incorrect; please try again");
-        } else {
-            System.out.println("here");
+        } else {            
             // Set the session things
             HttpSession session = request.getSession();
             session.setAttribute("user_id", user.getUserID());

@@ -12,7 +12,7 @@
             <div class="leftaligned-content">
                 <h1>End-User Account: <%out.print(user.getEmail());%></h1>
                 
-                <form action="edit-user.jsp">
+                <form action="ChangePasswordServlet" method="POST">
                     <div class="form-group row">
                         <label for="endUserEmail" class="col-lg-2">Email</label>
                         <div class="col-lg-4">
@@ -40,18 +40,19 @@
                     <div class="form-group row">
                         <label for="newPassword" class="col-lg-2">New password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="newPassword">
+                            <input type="password" class="form-control" id="newPassword" name="newPassword">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <label for="newPasswordConfirm" class="col-lg-2">Confirm new password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="newPasswordConfirm">
+                            <input type="password" class="form-control" id="newPasswordConfirm" name="newPasswordConfirm">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <div class="col-lg-2">
-                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        	 <input type="hidden" name="editID" value="<%out.print(user.getUserID());%>">
+                            <button type="submit" class="btn btn-primary" name="whichUser" value="editUser">Change Password</button>
                         </div>
                     </div>
                 </form>
@@ -83,12 +84,11 @@
                         </div>    
                     </div>        
                 </form>
-                <!--
-                <div class="form-messages">
-                    <div class="alert alert-success" role="alert">Password changed successfully.</div>
-                    <div class="alert alert-warning" role="alert">New passwords don't match.</div>
+                
+                <div class="form-messages">                		
+                      <div class="<%=  request.getAttribute("alert") %>" role="alert"><%  if(request.getAttribute("message") != null) out.print(request.getAttribute("message"));%></div>
                 </div>
-                -->    
+                   
             </div>
         </div><!-- /.container -->
 

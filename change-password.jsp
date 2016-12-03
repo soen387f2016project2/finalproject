@@ -26,28 +26,13 @@
                     </div> 
                     <div class="form-group row">
                         <div class="col-lg-2">
-                            <button type="submit" class="btn btn-primary">Change Password</button>
+                            <button type="submit" class="btn btn-primary" name="whichUser" value="loginUser">Change Password</button>
                         </div>
                     </div>
                 </form>
                 <div class="form-messages">
                     <!-- if we got an error, show it -->
-                    <%
-                        if (request.getAttribute("error") != null) {
-                            String messageClass = "success";
-                            if((Boolean)request.getAttribute("error")) {
-                                messageClass = "danger";
-                            }
-                            String message = (String) request.getAttribute("message");
-
-                            if (!message.isEmpty()) {
-                    %>
-                    
-                    <div class="alert alert-<%= messageClass %>" role="alert"><%= message %></div>
-                    <%
-                            }
-                        }
-                    %>
+                    <div class="<%=  request.getAttribute("alert") %>" role="alert"><%  if(request.getAttribute("message") != null) out.print(request.getAttribute("message"));%></div>
                 </div>
             </div>
         </div><!-- /.container -->

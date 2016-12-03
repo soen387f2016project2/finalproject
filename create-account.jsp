@@ -55,9 +55,15 @@
                     </div>
                 </form>
                 <div class="form-messages">
-                    <div class="alert alert-danger" role="alert">There is already an account for that email address.</div>
-                    <div class="alert alert-warning" role="alert">Passwords don't match.</div>
-                    <div class="alert alert-warning" role="alert">Empty fields.</div>
+                	 <%
+                        if (request.getAttribute("error") != null) {
+                              String messageClass = "danger";                            
+                            String message = (String) request.getAttribute("message");
+                    %>
+                    <div class="alert alert-<%= messageClass %>" role="alert"><%= message %></div>
+                    <%                            
+                        }
+                    %>
                 </div>
                 
             </div>

@@ -37,8 +37,23 @@ public class CreateAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+    	
+    	String password = request.getParameter("endUserPassword");
+    	String passwordConfirm = request.getParameter("endUserPasswordConfirm");
+    	
+    	//check for matching passwords
+    	
+    	 if(!password.equals(passwordConfirm) || (password.isEmpty() || passwordConfirm.isEmpty())) {            
+             // Give them a message
+             request.setAttribute("error", true);
+             request.setAttribute("message", "Invalid password or passwords don't match");
+
+             RequestDispatcher rd = request.getRequestDispatcher("create-account.jsp");    
+             rd.forward(request, response);
+             return;
+         }
         // Get the inputs and create a new record in the Users table
-        createNewAccount(request);
+    	 else createNewAccount(request);
       
         // Return to the dashboard
         RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");    
@@ -47,18 +62,22 @@ public class CreateAccountServlet extends HttpServlet {
     
     private void createNewAccount(HttpServletRequest request)
     {
+    	
+          
         // Get the inputs
         HttpSession session = request.getSession();
-        String userName = request.getParameter("endUserName");   
+        String userName = request.getParameter("endUserEmail");   
         String firstName = request.getParameter("endUserFirstName");   
         String lastName = request.getParameter("endUserLastName");   
         String fullName = firstName + ", " + lastName;
-        String password = request.getParameter("endUserPassword");      
-        int userId = Integer.getInteger(session.getAttribute("user_id").toString());
+        String password = request.getParameter("endUserPassword");
+        String phoneNumber = request.getParameter("endUserPhone");
+        String department = request.getParameter("endUserDepartment");
+        //int userId = Integer.getInteger(session.getAttribute("user_id").toString());
         
         // Comment: UI missing email, phone number and department field
         // Assume that the information is valid and update in the DB
         UsersDAO dao = new UsersDAO();
-        dao.addUser(0, "email", password, fullName, "phoneNumber", "department");
+        dao.addUser(0, userName, password, fullName, phoneNumber, department);
     }
 }

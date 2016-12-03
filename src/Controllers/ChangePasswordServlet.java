@@ -34,51 +34,67 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get the data from the request
-        String currentPw = request.getParameter("currentPassword");
+      
         String newPw = request.getParameter("newPassword");
         String confirmPw = request.getParameter("newPasswordConfirm");
+        String goToPage =  request.getParameter("whichUser");
         
+        RequestDispatcher rd = null;
         // Prepare to return
-        RequestDispatcher rd = request.getRequestDispatcher("change-password.jsp");
+        if(goToPage.equals("loginUser"))
+        	rd = request.getRequestDispatcher("change-password.jsp");
+        else{
+        	rd = request.getRequestDispatcher("edit-user.jsp?id=" + request.getParameter("editID"));
+        }
         
         // First, make sure nothing is empty
-        if(currentPw.isEmpty() || newPw.isEmpty() || confirmPw.isEmpty()) {            
+        if(newPw.isEmpty() || confirmPw.isEmpty()) {            
             // Give them a message
-            request.setAttribute("error", true);
+            request.setAttribute("alert", "alert alert-danger");
             request.setAttribute("message", "You must fill in all fields");
-        } else {
-            // Next, make sure the password and its confirmation are equal
-            if(!newPw.equals(confirmPw)) {
+        } else if(!newPw.equals(confirmPw)) { // Next, make sure the password and its confirmation are equal
                 // Give them a message
-                request.setAttribute("error", true);
+                request.setAttribute("alert", "alert alert-danger");
                 request.setAttribute("message", "Passwords don't match");
             } else {
+            	
+            	
                 // Now let's see if they entered the right current password! So exciting.
                 // Instantiate the UsersDAO
                 UsersDAO dao = new UsersDAO();
                 
-                // Get the user's id from the session
-                HttpSession session = request.getSession();
-                String userId = session.getAttribute("user_id").toString();
+                // Get the user's id from the session and do the logic for change-password.jsp page request
+                if(goToPage.equals("loginUser")){
                 
-                // User it to get their password from the db
-                String userPassword = dao.getPassword(userId);
-                
-                // Check equality
-                if(!currentPw.equals(userPassword)) {
-                    // Give them a message
-                    request.setAttribute("error", true);
-                    request.setAttribute("message", "You entered an incorrect current password");
-                } else {
-                    // Actually update the damn password
-                    dao.updatePassword(Integer.parseInt(userId), newPw);
-                    
-                    // And let them know!
-                    request.setAttribute("error", false);
-                    request.setAttribute("message", "Password successfully updated!");
-                }
-            }
-        }
+	                HttpSession session = request.getSession();
+	                String userId = session.getAttribute("user_id").toString();
+	                
+	                // User it to get their password from the db
+	                String userPassword = dao.getPassword(userId);
+	                String currentPw = request.getParameter("currentPassword");
+	                // Check equality
+	                if(!currentPw.equals(userPassword)) {
+	                    // Give them a message
+	                    request.setAttribute("alert", "alert alert-danger");
+	                    request.setAttribute("message", "You entered an incorrect current password");
+	                } else {
+	                    // Actually update the damn password
+	                    dao.updatePassword(Integer.parseInt(userId), newPw);
+	                
+	                    // And let them know!
+	                    request.setAttribute("alert", "alert alert-success");
+	                    request.setAttribute("message", "Password successfully updated!");
+	                	}
+	                
+	                }//end of if statement for checking is request comes from change-password.jsp
+                //else for changing password request from edit-user.jsp
+                else {
+               	 dao.updatePassword(Integer.parseInt(request.getParameter("editID")), newPw);
+               	 request.setAttribute("alert", "alert alert-success");
+               	 request.setAttribute("message", "Password successfully updated!");
+               	}
+            
+             }
         
         // Return
         rd.forward(request, response);

@@ -38,6 +38,9 @@ public class UpdateServlet extends HttpServlet {
          if (Delete!=null && Update ==null && Add == null)
         {
           DeleteByID(request);
+          RequestDispatcher rd = request.getRequestDispatcher("inventory-report.jsp");  
+          rd.forward(request, response);
+          return;
         }
         if (Delete==null && Update ==null && Add != null)
         {

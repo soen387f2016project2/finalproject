@@ -1,62 +1,65 @@
+<%@page import="Demo.UsersWeb"%>
+<%@page import="Demo.Accounts"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
+<%
+    Accounts accountsManager = new Accounts();
+    accountsManager.createEndUsersList();
+    UsersWeb user = accountsManager.getEndUser(request.getParameter("id"));
+%>
 
         <div class="container">
             <div class="leftaligned-content">
-                <h1>End-User Account: scharb</h1>
+                <h1>End-User Account: <%out.print(user.getEmail());%></h1>
                 
-                <form action="edit-user.jsp">
+                <form action="ChangePasswordServlet" method="POST">
                     <div class="form-group row">
                         <label for="endUserEmail" class="col-lg-2">Email</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserEmail" value="scharb@encs.concordia.ca" disabled>
+                            <input type="text" class="form-control" id="endUserEmail" value="<%out.print(user.getEmail());%>" disabled>
                         </div>
                     </div>  
                     <div class="form-group row">
-                        <label for="endUserFirstName" class="col-lg-2">First name</label>
+                        <label for="endUserFirstName" class="col-lg-2">Name</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserFirstName" value="Sebastien" disabled>
+                            <input type="text" class="form-control" id="endUserFirstName" value="<%out.print(user.getFullName());%>" disabled>
                         </div>
                     </div>  
-                    <div class="form-group row">
-                        <label for="endUserLastName" class="col-lg-2">Last name</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserLastName" value="Charbonneau" disabled>
-                        </div>
-                    </div>
                     <div class="form-group row">
                         <label for="endUserPhone" class="col-lg-2">Phone number</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserPhone" value="514-999-9999" disabled>
+                            <input type="text" class="form-control" id="endUserPhone" value="<%out.print(user.getPhoneNumber());%>" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="endUserDepartment" class="col-lg-2">Department</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="endUserDepartment" value="Engineering & Computer Science" disabled>
+                            <input type="text" class="form-control" id="endUserDepartment" value="<%out.print(user.getDepartment());%>" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="newPassword" class="col-lg-2">New password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="newPassword">
+                            <input type="password" class="form-control" id="newPassword" name="newPassword">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <label for="newPasswordConfirm" class="col-lg-2">Confirm new password</label>
                         <div class="col-lg-4">
-                            <input type="password" class="form-control" id="newPasswordConfirm">
+                            <input type="password" class="form-control" id="newPasswordConfirm" name="newPasswordConfirm">
                         </div>
                     </div> 
                     <div class="form-group row">
                         <div class="col-lg-2">
-                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        	 <input type="hidden" name="editID" value="<%out.print(user.getUserID());%>">
+                            <button type="submit" class="btn btn-primary" name="whichUser" value="editUser">Change Password</button>
                         </div>
                     </div>
                 </form>
                 
                 <!-- split into 2 forms because action points to different pages -->
-                <form action="account-list.jsp">
+                <form action="EditUserServlet" method="POST">
+                <input type="hidden" name="deleteID" value="<%out.print(user.getUserID());%>">
                     <div class="form-group row">
                             <div class="col-lg-2">
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete">Delete Account</button>
@@ -73,7 +76,7 @@
                                         <p>You're about to permanently delete this end-user's account. Do you want to continue?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                                        <button type="submit" name="delete" class="btn btn-danger" value="DELETE">Delete</button>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
@@ -82,39 +85,10 @@
                     </div>        
                 </form>
                 
-                <div class="form-messages">
-                    <div class="alert alert-success" role="alert">Password changed successfully.</div>
-                    <div class="alert alert-warning" role="alert">New passwords don't match.</div>
+                <div class="form-messages">                		
+                      <div class="<%=  request.getAttribute("alert") %>" role="alert"><%  if(request.getAttribute("message") != null) out.print(request.getAttribute("message"));%></div>
                 </div>
-                        
-                <div id="reservation-history">
-                    <h2>Reservation History (optional feature)</h2>
-                    <table class="table" id="resource-history-table">
-                        <thead>
-                            <tr>
-                                <th>Resource</th>
-                                <th>Description</th>
-                                <th>From</th>
-                                <th>Until</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>DTPC0104</td>
-                                <td>Dell OptiPlex 7040 desktop PC (Intel Core i7-6700, 8GB RAM, 500GB HDD)</td>
-                                <td>October 2nd, 2016</td>
-                                <td>October 9th, 2016</td>
-                            </tr>
-                            <tr>
-                                <td>MNTR0089</td>
-                                <td>Dell U2417H (24 inch IPS monitor, 1920 x 1200)</td>
-                                <td>October 2nd, 2016</td>
-                                <td>October 9th, 2016</td>
-                            </tr>
-                        </tbody>    
-                    </table>
-                </div>
-                    
+                   
             </div>
         </div><!-- /.container -->
 

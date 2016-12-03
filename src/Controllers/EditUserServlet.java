@@ -39,7 +39,7 @@ public class EditUserServlet extends HttpServlet {
         
         // Get the input
         HttpSession session = request.getSession();
-        int userId = Integer.getInteger(session.getAttribute("user_id").toString());
+        int userId = Integer.parseInt(request.getParameter("deleteID"));
         
         // Verify that the delete button was clicked on
         if(request.getParameter("delete") != null)
@@ -51,7 +51,7 @@ public class EditUserServlet extends HttpServlet {
         
          
         // Return to the login page
-        RequestDispatcher rd = request.getRequestDispatcher("login.html");    
+        RequestDispatcher rd = request.getRequestDispatcher("account-list.jsp");    
         rd.forward(request, response);
     }
 }

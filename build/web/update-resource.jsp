@@ -22,7 +22,7 @@ Date currentDate = demo.getCurrentDate();
         <div class="container">
             <div class="leftaligned-content">
                   
-                <h1>Update Resource ${param.ID}</h1>
+                <h1>Update Resource <%out.print(request.getParameter("id"));%></h1>
                 
                 <form action="UpdateServlet" method="get">
                     <div class="form-group row">
@@ -101,35 +101,12 @@ Date currentDate = demo.getCurrentDate();
                         <div class="col-lg-4">
                             <input type="text" class="form-control" id="reservedUntil" value="October 9th, 2016" disabled>
                         </div>
-                    </div> 
-                    
-                    <div class="form-group row">
-                        <div class="col-lg-2">
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmReturn">Return to Inventory</button>
-                        </div>
                     </div>    
-                    <!-- Return to Inventory confirmation modal -->
-                    <div id="confirmReturn" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Return to Inventory</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>This will remove the reservation on this resource and return to available status. Do you want to continue?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" name="returnToInventory" class="btn btn-warning">Return</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                        </div>    
-                    </div> <!-- modal -->        
-                <!--</form>-->
+                </form>
                 
                 <!-- split into 2 forms because action points to different pages -->
-                <!--<form action="UpdateServlet">-->
+                <form action="UpdateServlet">
+                	<input type="hidden" name="resourceId" value="<%out.print(request.getParameter("id"));%>">
                     <div class="form-group row">
                         <div class="col-lg-2">
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete">Delete Resource</button>
@@ -155,31 +132,6 @@ Date currentDate = demo.getCurrentDate();
                     </div>    
                 </form>
                 
-                <div id="reservation-history">
-                    <h2>Reservation History (optional feature)</h2>
-                    <table class="table" id="resource-history-table">
-                        <thead>
-                            <tr>
-                                <th>From</th>
-                                <th>Until</th>
-                                <th>End-User</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>October 2nd, 2016</td>
-                                <td>October 9th, 2016</td>
-                                <td>Sebastien Charbonneau</td>
-                            </tr>   
-                            <tr>
-                                <td>September 8th, 2016</td>
-                                <td>September 14th, 2016</td>
-                                <td>Vincent Lugara</td>
-                            </tr>
-                        </tbody>    
-                    </table>
-                </div>    
-                                               
             </div>
         </div><!-- /.container -->
 

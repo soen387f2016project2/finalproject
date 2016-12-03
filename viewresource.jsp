@@ -1,6 +1,3 @@
-<%@page import="Demo.MiscWeb"%>
-<%@page import="Demo.ProjectorWeb"%>
-<%@page import="Demo.ConferenceRoomWeb"%>
 <!DOCTYPE html>
 <!--
 Project Manager: Cuong Nguyen
@@ -21,9 +18,20 @@ Sprint 1
 <%@ page import="java.util.Date" %>
 <%@ page import="Demo.ResourcesWeb" %>
 <%@ page import="Demo.ComputerWeb"%>
+<%@page import="Demo.MiscWeb"%>
+<%@page import="Demo.ProjectorWeb"%>
+<%@page import="Demo.ConferenceRoomWeb"%>
        
 <%
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id = 0;
+            
+            if(request.getParameter("id") == null){
+                id = 0;
+            }
+            else{
+                id = Integer.parseInt(request.getParameter("id"));
+            }
+                   
             
             ResourcesWeb rw = new ResourcesWeb();
             String type = "";

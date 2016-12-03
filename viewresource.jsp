@@ -36,12 +36,13 @@ Sprint 1
             ResourcesWeb rw = new ResourcesWeb();
             String type = "";
             try{
-                out.println("ID not found");
                 type = rw.getResourceType(id);
             }
             catch(Exception e){
                 type = null;
             }
+            
+            if(type == null) out.println("ID not found");
             
     if(type != null){
         

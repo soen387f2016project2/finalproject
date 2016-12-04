@@ -102,13 +102,18 @@ public class ResourcesWeb {
                         resultSet.getString("resourceName"));
                 
                 res.setMaintained(resultSet.getBoolean("isMaintained"));
-                
-                // Create a reservation object from the extra details in the query I got
-                Reservation reserve = new Reservation(resultSet.getDate("startDate"), resultSet.getDate("endDate"), 
-                                        new UsersWeb(Integer.parseInt(resultSet.getString("userID"))));
-                
-                // Add it to the resource
-                res.addReservation(reserve);
+  
+                // Ignore reservations if the resource is undergoing maintenance
+                if (!resultSet.getBoolean("isMaintained")) {     
+                    System.out.println("if not maintained");
+                    // Create a reservation object from the extra details in the query I got
+                    Reservation reserve = new Reservation(resultSet.getDate("startDate"), resultSet.getDate("endDate"), 
+                                            new UsersWeb(Integer.parseInt(resultSet.getString("userID"))));
+
+                    // Add it to the resource
+                    res.addReservation(reserve);
+                 }
+        
                 
                 // Add the resource to the linked list
                 resources.add(res);

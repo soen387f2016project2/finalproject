@@ -56,25 +56,74 @@ public class UpdateServlet extends HttpServlet {
        // Create the Resource Object
         ResourcesDAO e = new ResourcesDAO();
         
-        int ID = Integer.parseInt(request.getParameter("resourceId"));
-        int ComputerType = Integer.parseInt(request.getParameter("computerType"));   
-        String ComputerModel = request.getParameter("computerModel");
-        float ScreenSize = Float.parseFloat(request.getParameter("computerSize"));   
-        String CPU = request.getParameter("computerCPU");
-        String RAM = request.getParameter("computerRAM");  
-        String Storage = request.getParameter("computerStorage"); 
-        int isDesktop = Integer.parseInt(request.getParameter("isDesktop"));
+        int ID = Integer.parseInt(request.getParameter("id")); 
+        String type = request.getParameter("resourceType");
         
-        // Update the ID
-        e.updateComputerType(ID, ComputerType);
-        e.updateComputerModel(ID,ComputerModel);
-        e.updateComputerScreenSize(ID,ScreenSize);
-        e.updateComputerCPU(ID,CPU);
-        e.updateComputerRAM(ID,RAM);
-        e.updateComputerStorage(ID, Storage);
-        e.updateComputerType(ID, isDesktop);
-        
-       
+        if(type.equals("Computer")){        
+            String ComputerModel = request.getParameter("computerModel");
+            float ScreenSize = Float.parseFloat(request.getParameter("computerSize"));   
+            String CPU = request.getParameter("computerCPU");
+            String RAM = request.getParameter("computerRAM");  
+            String Storage = request.getParameter("computerStorage"); 
+
+
+            int isDesktop = 1;
+            if(request.getParameter("computerType").equals("Laptop")){
+                isDesktop = 0;
+            }
+
+
+            // Update the ID
+            e.updateComputerType(ID, isDesktop);
+            e.updateComputerModel(ID,ComputerModel);
+            e.updateComputerScreenSize(ID,ScreenSize);
+            e.updateComputerCPU(ID,CPU);
+            e.updateComputerRAM(ID,RAM);
+            e.updateComputerStorage(ID, Storage);
+        }
+        else if(type.equals("Projector")){ 
+   
+            String projectorName = request.getParameter("projectorName"); 
+            String projectorModel = request.getParameter("projectorModel"); 
+            String projectorResolution = request.getParameter("projectorResolution"); 
+            
+            // Update the ID
+            e.updateResourcesName(ID, projectorName);
+            e.updateProjectorModel(ID, projectorModel);
+            e.updateProjectorMaxRes(ID, projectorResolution);   
+        }
+        else if(type.equals("Conference")){
+            
+            String conferenceName = request.getParameter("conferenceName"); 
+            String conferenceLocation = request.getParameter("conferenceLocation");
+            int conferenceCapacity = Integer.parseInt(request.getParameter("conferenceCapacity"));
+            String whiteboard = request.getParameter("whiteboard");
+            String telephone = request.getParameter("telephone");
+            
+                int hasWhiteboard = 0;
+                if(whiteboard.equals("hasWhiteboard"))
+                    hasWhiteboard = 1;
+                
+                int hasPhone = 0;
+                if(telephone.equals("hasTelephone"))
+                    hasPhone = 1;            
+            
+            // Update the ID
+            e.updateResourcesName(ID, conferenceName);
+            e.updateConferenceRoomLocation(ID, conferenceLocation);
+            e.updateConferenceRoomCapacity(ID, conferenceCapacity);
+            e.updateConferenceRoomHasWhiteboard(ID, hasWhiteboard);
+            e.updateConferenceRoomHasPhone(ID, hasPhone);                           
+        }
+        else if(type.equals("Miscellaneous")){
+            
+            String miscName = request.getParameter("miscName"); 
+            String miscDescription = request.getParameter("miscDescription"); 
+
+            // Update the ID
+            e.updateResourcesName(ID, miscName);
+            e.updateMiscDescription(ID, miscDescription);
+        }
     }
     
     private void DeleteByID(HttpServletRequest request)

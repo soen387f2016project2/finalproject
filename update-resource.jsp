@@ -46,7 +46,7 @@ for (ResourcesWeb resource : resourceList) {
                     <div class="form-group row">
                        <label for="resourceId" class="col-lg-2">ID number</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" name="resourceId" value="<%out.print(request.getParameter("id"));%>">
+                            <input type="text" class="form-control" name="id" value="<%out.print(request.getParameter("id"));%>" readonly="readonly">
                         </div>
                     </div>
 <%
@@ -55,15 +55,20 @@ if(type.equals("Computer"))
                     <div class="form-group row">
                        <label for="resourceType" class="col-lg-2">Type</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" name="resourceType" value="Computer">
-                        </div>
-                    </div>  
-                    <div class="form-group row">
-                       <label for="computerType" class="col-lg-2">Computer type</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" name="computerType" value="<%out.print(c.getIsDesktop());%>">
+                            <input type="text" class="form-control" name="resourceType" value="Computer" readonly="readonly">
                         </div>
                     </div> 
+                    <fieldset class="form-group row">
+                        <label class="col-lg-2">Computer type</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label><input type="radio" name="computerType" id="computerType1" value="Desktop" checked>Desktop</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="computerType" id="computerType2" value="Laptop">Laptop</label>
+                            </div>
+                        </div>
+                    </fieldset>
                     <div class="form-group row">
                         <label for="computerModel" class="col-lg-2">Make and model</label>
                         <div class="col-lg-4">
@@ -100,7 +105,7 @@ else if(type.equals("Projector"))
                     <div class="form-group row">
                        <label for="resourceType" class="col-lg-2">Type</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" name="resourceType" value="Projector">
+                            <input type="text" class="form-control" name="resourceType" value="Projector" readonly="readonly">
                         </div>
                     </div>  
                     <div class="form-group row">
@@ -127,7 +132,7 @@ else if(type.equals("Conference"))
                     <div class="form-group row">
                        <label for="resourceType" class="col-lg-2">Type</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" name="resourceType" value="Conference">
+                            <input type="text" class="form-control" name="resourceType" value="Conference" readonly="readonly">
                         </div>
                     </div>  
                     <div class="form-group row">
@@ -184,7 +189,7 @@ else if(type.equals("Conference"))
                     <div class="form-group row">
                        <label for="resourceType" class="col-lg-2">Type</label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" name="resourceType" value="Miscellaneous">
+                            <input type="text" class="form-control" name="resourceType" value="Miscellaneous" readonly="readonly">
                         </div>
                     </div>  
                     <div class="form-group row">

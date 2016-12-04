@@ -41,7 +41,10 @@ public class LoginServlet extends HttpServlet {
         UsersWeb user = dao.login(username, password);
         
         // Prepare to return
-        RequestDispatcher rd;
+        RequestDispatcher rd = null;
+        
+        System.out.println("A"+user.isAdmin());
+        System.out.println("B"+user.getUserID());
         
         // If the authentication failed
         if(user == null) {            
@@ -51,14 +54,31 @@ public class LoginServlet extends HttpServlet {
             // Give them a message
             request.setAttribute("message", "Your login details were incorrect; please try again");
         } else {
-            System.out.println("here");
+            
+            
             // Set the session things
             HttpSession session = request.getSession();
-            session.setAttribute("user_id", user.getUserID());
+            if (user.isAdmin())
+            {
+                System.out.println("admin");
+   
+                session.setAttribute("user_id", user.getUserID());
 
-            // Redirect to the dashboard
-            rd = request.getRequestDispatcher("dashboard.jsp");            
-            request.setAttribute("user", user.getFullName());
+                // Redirect to the dashboard
+                rd = request.getRequestDispatcher("dashboard.jsp");            
+                request.setAttribute("user", user.getFullName());               
+                
+            }
+            else
+            {
+                System.out.println("no admin");
+                                
+                // Redirect to the reservation page
+                session.setAttribute("isAdmin", "false");
+                session.setAttribute("user_id", user.getUserID());
+                rd = request.getRequestDispatcher("resources.jsp"); 
+                request.setAttribute("user", user.getFullName());               
+            }                       
         }
         
         // Return

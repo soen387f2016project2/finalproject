@@ -104,12 +104,21 @@ public class UsersDAO {
                 );
 
                 int id = Integer.parseInt(resultSet.getString(1));
-                boolean admin = Boolean.parseBoolean(resultSet.getString(2));
+                
+                boolean admin;
+                if(resultSet.getString(2).equals("1")){
+                    admin = true;
+                }
+                else{
+                    admin = false;
+                }
+                
                 String mail = resultSet.getString(3);
                 String name = resultSet.getString(4);
                 String phone = resultSet.getString(5);
                 String department = resultSet.getString(6);
                 
+                System.out.println("DAO:" + admin);
                 // Store resultset data into the user class object and return it
                 UsersWeb user = new UsersWeb(id, admin, mail, password, name, phone, department);  
                 

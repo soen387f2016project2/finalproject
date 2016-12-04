@@ -197,13 +197,7 @@ else if(type.equals("Conference"))
                         <div class="col-lg-4">
                             <input type="text" class="form-control" name="miscName" value="<%out.print(resName);%>">
                         </div>
-                    </div> 
-                    <div class="form-group row">
-                        <label for="description" class="col-lg-2">Description</label>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control"  name="miscDescription" value="<%out.print(resDesc);%>">
-                        </div>
-                    </div> 
+                    </div>
 <% } %>
                     <div class="form-group row">
                         <div class="col-lg-2">

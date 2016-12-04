@@ -117,12 +117,10 @@ public class UpdateServlet extends HttpServlet {
         }
         else if(type.equals("Miscellaneous")){
             
-            String miscName = request.getParameter("miscName"); 
-            String miscDescription = request.getParameter("miscDescription"); 
+            String miscName = request.getParameter("miscName");  
 
             // Update the ID
             e.updateResourcesName(ID, miscName);
-            e.updateMiscDescription(ID, miscDescription);
         }
     }
     

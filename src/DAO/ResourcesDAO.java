@@ -418,12 +418,6 @@ public class ResourcesDAO {
         ConnectionFactory.executeUpdate(sql);
         System.out.println("Projector has been updated");
     }
-    
-    public void updateMiscDescription(int id, String desc){
-        String sql = "UPDATE miscellaneous SET description=" + desc + " WHERE resourceID=" + id;
-        ConnectionFactory.executeUpdate(sql);
-        System.out.println("Misc has been updated");        
-    }
 
     public void deleteResourceById(int id) {
         String sql = "DELETE FROM resources WHERE resourceID=" + id;

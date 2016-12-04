@@ -21,7 +21,7 @@ Sprint 1
 <%@page import="Demo.MiscWeb"%>
 <%@page import="Demo.ProjectorWeb"%>
 <%@page import="Demo.ConferenceRoomWeb"%>
-       
+<%@include file="header3.jsp"%> <!-- header and navigation bar -->       
 <%
             int id = 0;
             

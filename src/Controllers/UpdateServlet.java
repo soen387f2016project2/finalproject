@@ -63,6 +63,7 @@ public class UpdateServlet extends HttpServlet {
         String CPU = request.getParameter("computerCPU");
         String RAM = request.getParameter("computerRAM");  
         String Storage = request.getParameter("computerStorage"); 
+        int isDesktop = Integer.parseInt(request.getParameter("isDesktop"));
         
         // Update the ID
         e.updateComputerType(ID, ComputerType);
@@ -71,6 +72,7 @@ public class UpdateServlet extends HttpServlet {
         e.updateComputerCPU(ID,CPU);
         e.updateComputerRAM(ID,RAM);
         e.updateComputerStorage(ID, Storage);
+        e.updateComputerType(ID, isDesktop);
         
        
     }

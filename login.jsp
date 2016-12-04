@@ -27,7 +27,7 @@
     <body id="login-page">
         <div class="container">
             <div id="login-page-content">
-                <h1 id="dashboard">ERM IT Staff Log In</h1>
+                <h1 id="dashboard">ERM Log In</h1>
 
                 <form method="post" action="LoginServlet">
                     <div class="form-group row">

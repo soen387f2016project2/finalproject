@@ -25,12 +25,12 @@ public class ResourcesWeb {
     private String description;
     private LinkedList<Reservation> reservations;
     private boolean isAvailable;
-    
+       
     //new members
     private String type;
     
     public ResourcesWeb(){
-    
+        
     }
 
     public ResourcesWeb(int id, String resourcename, String description) {
@@ -219,7 +219,10 @@ public class ResourcesWeb {
      */
     public Reservation getLastReservation() {
         Reservation lastReservation = null;
-
+        
+        if(reservations == null){
+            return lastReservation;
+        }
         if (reservations.isEmpty()) {
             return lastReservation;
         } else {
@@ -257,6 +260,7 @@ public class ResourcesWeb {
      
             System.out.println(type);
             System.out.println(pw.getCpu());
+            System.out.println(pw.getIsDesktop());
         }
     }
 }

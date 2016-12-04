@@ -118,13 +118,13 @@
             <div class="form-group row">
                 <label for="projectorModel" class="col-lg-2">Make and model</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="projectorModel" placeholder="e.g. Epson EX9200 Pro">
+                    <input type="text" class="form-control" name="projectorModel" placeholder="e.g. Epson EX9200 Pro">
                 </div>
             </div> 
             <div class="form-group row">
                 <label for="projectorResolution" class="col-lg-2">Maximum resolution</label>
                 <div class="col-lg-4">
-                    <input type="number" class="form-control" name="projectorRes" placeholder="e.g. 1920 x 1200">
+                    <input type="text" class="form-control" name="projectorRes" placeholder="e.g. 1920 x 1200">
                 </div>
             </div>
             <input type="hidden" name="resourceType" value="projector" />

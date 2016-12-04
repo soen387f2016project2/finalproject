@@ -38,12 +38,12 @@ public class UsersDAO {
         System.out.println("Users table has been updated; password has been updated.");
     }
         
-    public void getAllAdmin() {
+    public ResultSet getAllAdmin() {
         String sql = "SELECT userID,isAdmin,email,name,phoneNumber,department " +
                      "FROM users WHERE isAdmin=1";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
         
-        try {
+     /*   try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nuserID: " + resultSet.getString(1) +
@@ -56,15 +56,17 @@ public class UsersDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+        
+        return resultSet;
     }
     
-    public void getAllEmployee() {
+    public ResultSet getAllEmployee() {
         String sql = "SELECT userID,isAdmin,email,name,phoneNumber,department " +
                      "FROM users WHERE isAdmin=0";
         
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
-        try {
+     /*   try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nuserID: " + resultSet.getString(1) +
@@ -77,7 +79,9 @@ public class UsersDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+     
+        return resultSet;
     }
     
 //    a isAdmin bit of 0 should redirect to employee page, 

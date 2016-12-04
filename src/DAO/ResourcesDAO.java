@@ -407,14 +407,14 @@ public class ResourcesDAO {
         System.out.println("Computer has been updated");
     }
 
-    public void updateProjectorModel(int id, float projectorModel) {
-        String sql = "UPDATE projector SET projectorModel=" + projectorModel + " WHERE resourceID=" + id;
+    public void updateProjectorModel(int id, String projectorModel) {
+        String sql = "UPDATE projector SET projectorModel='" + projectorModel + "' WHERE resourceID=" + id;
         ConnectionFactory.executeUpdate(sql);
         System.out.println("Projector has been updated");
     }
 
-    public void updateProjectorMaxRes(int id, float maxRes) {
-        String sql = "UPDATE projector SET maxRes=" + maxRes + " WHERE resourceID=" + id;
+    public void updateProjectorMaxRes(int id, String maxRes) {
+        String sql = "UPDATE projector SET maxRes='" + maxRes + "' WHERE resourceID=" + id;
         ConnectionFactory.executeUpdate(sql);
         System.out.println("Projector has been updated");
     }

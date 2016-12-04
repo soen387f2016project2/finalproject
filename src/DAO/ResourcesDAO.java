@@ -195,7 +195,8 @@ public class ResourcesDAO {
                 + "LEFT JOIN computer comp ON comp.resourceId=r.resourceID "
                 + "LEFT JOIN projector p ON p.resourceId=r.resourceID "
                 + "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID "
-                + "WHERE rl.startDate<NOW() AND rl.endDate>NOW() OR isMaintained";
+                + "WHERE rl.startDate<NOW() AND rl.endDate>NOW() or isMaintained=1 "
+                + "GROUP BY r.resourceID";
 
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 

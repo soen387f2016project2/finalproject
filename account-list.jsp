@@ -1,13 +1,13 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="Demo.UsersWeb"%>
-<%@page import="java.util.HashMap"%>
+<%@page import="java.util.LinkedList"%>
 <%@page import="Demo.Accounts"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
 <%
     Accounts accountsManager = new Accounts();
     accountsManager.createEndUsersList();
-    HashMap users = accountsManager.getEndUsers();
+    LinkedList<UsersWeb> users = accountsManager.getEndUsers();
 %>
 
         <div class="container">
@@ -22,10 +22,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% Iterator it = users.entrySet().iterator();
-                           while (it.hasNext()) {
-                               HashMap.Entry pair = (HashMap.Entry)it.next(); 
-                               UsersWeb user = (UsersWeb)pair.getValue(); %>
+                        <% for(int i = 0; i < users.size(); i++) {
+                                
+                               UsersWeb user = (UsersWeb)users.get(i); %>
                         <tr>
                             <td><a href="edit-user.jsp?id=<%out.print(user.getUserID());%>"><%out.print(user.getEmail());%></a></td>
                             <td><a href="edit-user.jsp?id=<%out.print(user.getUserID());%>"><%out.print(user.getFullName());%></a></td>

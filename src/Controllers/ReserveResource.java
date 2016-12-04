@@ -66,8 +66,12 @@ public class ReserveResource extends HttpServlet {
                 // Create the reservation
                 rld.makeReservation(Integer.parseInt(session.getAttribute("user_id").toString()), Integer.parseInt(resourceId), pickupDate, returnDate);
                 
+                // Give them a message
+                request.setAttribute("alert", "alert alert-success");
+                request.setAttribute("message", "You have successfully reserved your item.");
+                
                 // Return
-                rd = request.getRequestDispatcher("dashboard.jsp");
+                rd = request.getRequestDispatcher("resources.jsp");
             }
         } catch(Exception e) {
             e.printStackTrace();

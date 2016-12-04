@@ -16,12 +16,20 @@ Sprint 1
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
+
+<%@ page import="java.util.LinkedList" %>
+
+
+
 <%@ page import="Demo.ResourcesWeb" %>
-<%@ page import="Demo.ComputerWeb"%>
-<%@page import="Demo.MiscWeb"%>
-<%@page import="Demo.ProjectorWeb"%>
-<%@page import="Demo.ConferenceRoomWeb"%>
-<%@include file="header3.jsp"%> <!-- header and navigation bar -->       
+<%@ page import="Demo.ProjectorWeb" %>
+<%@ page import="Demo.ComputerWeb" %> 
+<%@ page import="Demo.ConferenceRoomWeb" %> 
+<%@ page import="Demo.MiscWeb" %> 
+       
 <%
             int id = 0;
             
@@ -44,7 +52,7 @@ Sprint 1
             
             if(type == null) out.println("ID not found");
             
-    if(type != null){
+            if(type != null){
         
             String description = "";
             String name = "";
@@ -55,29 +63,76 @@ Sprint 1
                 name = cw.getResourceName();
                 description = cw.getDescription();
                 isMaintained = cw.getMaintained();
+                if(cw.isAvailable()){
+                    response.sendRedirect("resources.jsp");
+                }
             }
             else if(type.equals("Projector")){
                 ProjectorWeb pw = new ProjectorWeb().getResourceById(id);
                 name = pw.getResourceName();
                 description = pw.getDescription();
-                isMaintained = pw.getMaintained();               
+                isMaintained = pw.getMaintained(); 
+                if(pw.isAvailable()){
+                    response.sendRedirect("resources.jsp");
+                }                
             }
             else if(type.equals("Miscellaneous")){
                 MiscWeb pw = new MiscWeb().getResourceById(id);
                 name = pw.getResourceName();
                 description = pw.getDescription();
-                isMaintained = pw.getMaintained();               
+                isMaintained = pw.getMaintained(); 
+                if(pw.isAvailable()){
+                    response.sendRedirect("resources.jsp");
+                }                
             }
-        
+            else if(type.equals("Conference")){
+                ConferenceRoomWeb room = (new ConferenceRoomWeb()).getResourceById(id);
+                name = room.getResourceName();
+                description = room.getDescription();
+                isMaintained = room.getMaintained();               
+                System.out.println( new MiscWeb().getResourceById(id).getResourceName());
+                if(room.isAvailable()){
+                    response.sendRedirect("resources.jsp");
+                }                
+            }            
+            
+            Date today = Calendar.getInstance().getTime();
+            DateFormat df1 = new SimpleDateFormat("MM/dd/YYYY"); 
+            DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd"); 
+
+            //making reservation
+//            if(request.getParameter("id") != null && request.getParameter("pickup")!= null && request.getParameter("return")!=null )
+//            {
+//                Date pickupDate; 
+//                Date returnDate; 
+//               try{
+//                DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+//                Date startDate;
+//
+//                startDate = df.parse(request.getParameter("pickup"));
+//                returnDate  = df.parse(request.getParameter("return"));
+//
+//                if(startDate.after(returnDate)){
+//                    System.out.println("Invalid Dates");
+//                }
+//                System.out.print(startDate + "" + returnDate);
+//               }
+//               catch(Exception e){
+//                   System.out.println("Can't Parse Dates");
+//               }
+//
+//            }
+
 %>
 <html>
     <head>
+        <%@include file="header3.jsp" %>
+
         <%@include file="header2.jsp" %>
         <title>Resource Details</title>
     </head>
     <body>
 
-        <%@include file="navbar.jsp" %>
 
        <div class="container " >
 
@@ -95,7 +150,7 @@ Sprint 1
         </div>
         
         <hr /> <!-- line -->
-                        <form>
+                        <form method="post" action="ReserveResource">
 
         <div class="row">
             
@@ -108,8 +163,11 @@ Sprint 1
                   <div class="thumbnail">
                       <div class="caption">
                         <div class='col-lg-12 well well-add-card'>
-                            <h4><% if(type.equals("Computer") || type.equals("Projector") || type.equals("Miscellaneous")) { %> <span class="glyphicon glyphicon glyphicon-wrench">&nbsp;</span> <% ;}
-                               else if(type.equals("Conference")) { %> <span class="glyphicon glyphicon-modal-window">&nbsp;</span> <% ;} %>                          
+                            <h4><% if(type.equals("Computer")){ %> <span class="glyphicon glyphicon glyphicon-hdd">&nbsp;</span> <% ;}
+                                   else if (type.equals("Conference")) { %> <span class="glyphicon glyphicon-modal-window">&nbsp;</span> <% ;}                           
+                                   else if (type.equals("Projector")) { %> <span class="glyphicon glyphicon-facetime-video">&nbsp;</span> <% ;}                          
+                                   else if (type.equals("Miscellaneous")) { %> <span class="glyphicon glyphicon-wrench">&nbsp;</span> <% ;}                         
+                                   else if (type.equals("Unknown")) { %> <span class="glyphicon glyphicon-question-sign">&nbsp;</span> <% ;} %>                          
                             <% out.print(name) ; %></h4>
                         </div>
                         <div class='col-lg-6 col-sm-12'>
@@ -137,14 +195,18 @@ Sprint 1
                         
                         <div class='col-lg-12 well well-add-card'>
                             <h4>Reservation Form</h4>
-                        </div>                        
+                        </div>    
+                        <% if(request.getAttribute("alert") != null){%>
+                           <div class='col-lg-12'> <div class="alert alert-danger" role="alert"><% out.print(request.getAttribute("message")); %></div></div>
+                        <% } %>
                         <div class='col-lg-4'>
                                 <b>Pickup Date </b>
-                                <input type="date" name="pickup" min="2016-10-28">
+                                <input type="text"  value="<% out.print(df1.format(today)); %>" disabled>
+                                <input type="hidden" name="pickup" value="<% out.print(df2.format(today));%>" >
                         </div>
                         <div class='col-lg-8'>
                                <b>Return Date </b>
-                               <input type="date" name="return" min="2016-10-28">                           
+                               <input type="date" name="return" min="2016-10-28" required>                           
                         </div>
                         <div class='col-lg-12'>
                             <input type="submit" class="btn btn-primary btn-sm reservation-btn " value="Reserve" >
@@ -157,10 +219,13 @@ Sprint 1
                 <!-- Individual Resource End -->
 
             </div>
-                                    </form>
+            </form>
 
         </div>
 
+           
+           
+           
 
         </div>  
        </div>

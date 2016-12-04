@@ -25,12 +25,12 @@ public class ResourcesWeb {
     private String description;
     private LinkedList<Reservation> reservations;
     private boolean isAvailable;
-       
+    
     //new members
     private String type;
     
     public ResourcesWeb(){
-        
+    
     }
 
     public ResourcesWeb(int id, String resourcename, String description) {
@@ -120,7 +120,58 @@ public class ResourcesWeb {
         return resources;
     }
 
-    public LinkedList<ResourcesWeb> getAllResources() {
+        public static LinkedList<ResourcesWeb> getAllAvailableResources() {
+        // Create a list of resources
+        LinkedList<ResourcesWeb> resources = new LinkedList<ResourcesWeb>();
+
+        ResourcesDAO resourcesDAO = new ResourcesDAO();
+        ResultSet resourcesResultSet = resourcesDAO.getAllAvailableResources();
+
+        // Loop through the resources
+        try {
+            while (resourcesResultSet != null && resourcesResultSet.next()) {
+                // Create a resource from the result set
+                ResourcesWeb res = new ResourcesWeb(Integer.parseInt(resourcesResultSet.getString("resourceID")), resourcesResultSet.getString("resourceName"),
+                        resourcesResultSet.getString("resourceName"));
+                
+                res.setMaintained(resourcesResultSet.getBoolean("isMaintained"));
+                
+
+                
+//                // Get the last reservation for this resource
+//                ReservesLogDAO reservesLogDAO = new ReservesLogDAO();
+//                // Get the result set
+//                ResultSet reservationResultSet = reservesLogDAO.getLastReservationByID(Integer.parseInt(resourcesResultSet.getString("resourceID")));
+//                
+//                // Get the next (should only be one
+//                while (reservationResultSet != null && reservationResultSet.next()) {                      
+//                    // Create an object with it
+//                    Reservation reserve = new Reservation(reservationResultSet.getDate("startDate"), reservationResultSet.getDate("endDate"), 
+//                                            new UsersWeb(Integer.parseInt(reservationResultSet.getString("userID"))));
+//                    
+//                    // See if it's an active reservation
+//                    Date now = new Date();
+//                    if(reservationResultSet.getDate("startDate").before(now) && reservationResultSet.getDate("endDate").after(now)) {
+//                        res.setAvailable(false);
+//                    }
+//                    
+//                    // Add it to the list of reservations for this resource
+//                    res.addReservation(reserve);
+//                }
+                
+
+                // Add it to the linked list
+                resources.add(res);                                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+       // Return the resources
+        return resources;        
+        }
+    
+    public static LinkedList<ResourcesWeb> getAllResources() {
         // Create a list of resources
         LinkedList<ResourcesWeb> resources = new LinkedList<ResourcesWeb>();
 
@@ -219,10 +270,7 @@ public class ResourcesWeb {
      */
     public Reservation getLastReservation() {
         Reservation lastReservation = null;
-        
-        if(reservations == null){
-            return lastReservation;
-        }
+
         if (reservations.isEmpty()) {
             return lastReservation;
         } else {
@@ -260,7 +308,6 @@ public class ResourcesWeb {
      
             System.out.println(type);
             System.out.println(pw.getCpu());
-            System.out.println(pw.getIsDesktop());
         }
     }
 }

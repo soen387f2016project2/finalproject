@@ -43,19 +43,21 @@ public class LoginServlet extends HttpServlet {
         // Prepare to return
         RequestDispatcher rd = null;
         
-        System.out.println("A"+user.isAdmin());
-        System.out.println("B"+user.getUserID());
+        //System.out.println("A"+user.isAdmin());
+        //System.out.println("B"+user.getUserID());
         
         // If the authentication failed
         if(user == null) {            
+            //System.out.println("D");
             // Send back to login form
             rd = request.getRequestDispatcher("login.jsp");
             
             // Give them a message
             request.setAttribute("message", "Your login details were incorrect; please try again");
+      
         } else {
             
-            
+            System.out.println("E"+user.getUserID());
             // Set the session things
             HttpSession session = request.getSession();
             if (user.isAdmin())

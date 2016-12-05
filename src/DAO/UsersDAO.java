@@ -43,20 +43,6 @@ public class UsersDAO {
                      "FROM users WHERE isAdmin=1";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
         
-     /*   try {
-            while (resultSet != null && resultSet.next()) {
-                System.out.println(
-                        "\nuserID: " + resultSet.getString(1) +
-                        "\nisAdmin: " + resultSet.getString(2) +
-                        "\nemail: " + resultSet.getString(3) +
-                        "\nname: " + resultSet.getString(4) +
-                        "\nphoneNumber: " + resultSet.getString(5) +
-                        "\ndepartment: " + resultSet.getString(6)
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
         
         return resultSet;
     }
@@ -66,20 +52,7 @@ public class UsersDAO {
                      "FROM users WHERE isAdmin=0";
         
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
-     /*   try {
-            while (resultSet != null && resultSet.next()) {
-                System.out.println(
-                        "\nuserID: " + resultSet.getString(1) +
-                        "\nisAdmin: " + resultSet.getString(2) +
-                        "\nemail: " + resultSet.getString(3) +
-                        "\nname: " + resultSet.getString(4) +
-                        "\nphoneNumber: " + resultSet.getString(5) +
-                        "\ndepartment: " + resultSet.getString(6)
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+   
      
         return resultSet;
     }

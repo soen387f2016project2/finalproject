@@ -2,7 +2,7 @@ body {
     padding-top: 50px;
 }
 #login-page {
-    background-image: url("http://localhost:8080/finalproject/images/creatives-desk.jpg");
+    background-image: url("http://54.200.61.123:8080/soen387/images/creatives-desk.jpg");
     /* photo by Dave Meier, downloaded from picography.co and used with permission under Creative Commons Public Domain CC0 license. */
     background-position: right top;
 }

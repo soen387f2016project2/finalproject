@@ -63,7 +63,7 @@ Sprint 1
                 name = cw.getResourceName();
                 description = cw.getDescription();
                 isMaintained = cw.getMaintained();
-                if(cw.isAvailable()){
+                if(!cw.isAvailable()){
                     response.sendRedirect("resources.jsp");
                 }
             }
@@ -72,7 +72,7 @@ Sprint 1
                 name = pw.getResourceName();
                 description = pw.getDescription();
                 isMaintained = pw.getMaintained(); 
-                if(pw.isAvailable()){
+                if(!pw.isAvailable()){
                     response.sendRedirect("resources.jsp");
                 }                
             }
@@ -81,7 +81,7 @@ Sprint 1
                 name = pw.getResourceName();
                 description = pw.getDescription();
                 isMaintained = pw.getMaintained(); 
-                if(pw.isAvailable()){
+                if(!pw.isAvailable()){
                     response.sendRedirect("resources.jsp");
                 }                
             }
@@ -91,10 +91,15 @@ Sprint 1
                 description = room.getDescription();
                 isMaintained = room.getMaintained();               
                 System.out.println( new MiscWeb().getResourceById(id).getResourceName());
-                if(room.isAvailable()){
+                if(!room.isAvailable()){
                     response.sendRedirect("resources.jsp");
                 }                
             }            
+            
+            if(request.getParameter("name") != null){
+                name = request.getParameter("name");
+                name = name.substring(0, 1).toUpperCase() + name.substring(1); 
+            }
             
             Date today = Calendar.getInstance().getTime();
             DateFormat df1 = new SimpleDateFormat("MM/dd/YYYY"); 
@@ -211,6 +216,7 @@ Sprint 1
                         <div class='col-lg-12'>
                             <input type="submit" class="btn btn-primary btn-sm reservation-btn " value="Reserve" >
                         </div>
+                        <input type="hidden" name="name" value="<% out.print(name);%>" >
                         <input type="hidden" value="<% out.print(id); %>" name="id" />
                         <div class="clearfix"></div>
                     </div>

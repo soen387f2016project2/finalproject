@@ -94,7 +94,7 @@
                             <p>Maintained : <% out.print((mylist.get(i).getMaintained()) ? "Yes" : "No" )  ; %></p>
                            
                         </div>
-                          <a class="view-resource-button" href="viewresource.jsp?id=<% out.print(mylist.get(i).getResourceID()); %>" ID="<% out.print(mylist.get(i).getResourceID()); %>" ><button type="button" class="btn btn-primary btn-xs btn-update btn-add-card view-resource-button">View</button></a>
+                          <a class="view-resource-button" href="viewresource.jsp?id=<% out.print(mylist.get(i).getResourceID()); %>&name=<% out.print(mylist.get(i).getResourceName()); %>" ID="<% out.print(mylist.get(i).getResourceID()); %>" ><button type="button" class="btn btn-primary btn-xs btn-update btn-add-card view-resource-button">View</button></a>
                           <button type="button" class="btn btn-danger btn-xs btn-update btn-add-card hideButton" container="ResourceCard<% out.print(mylist.get(i).getResourceID()); %>">Hide</button>
                     </div>
                   </div>

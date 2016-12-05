@@ -36,6 +36,8 @@ public class ReserveResource extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get the data from the request      
         String resourceId = request.getParameter("id");
+        String resourceName = request.getParameter("name");
+        
         String pickupDate = request.getParameter("pickup");
         String returnDate = request.getParameter("return");
         
@@ -50,7 +52,7 @@ public class ReserveResource extends HttpServlet {
             Date dropoff = dateFormat.parse(returnDate);
             
             if(!dropoff.after(pickup)) {
-                rd = request.getRequestDispatcher("viewresource.jsp?id=" + resourceId);
+                rd = request.getRequestDispatcher("viewresource.jsp?id=" + resourceId + "&name=" +resourceName);
                 
                 // Give them a message
                 request.setAttribute("alert", "alert alert-danger");

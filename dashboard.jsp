@@ -13,7 +13,7 @@
     <div class="centered-content">
         <h1 id="dashboard">Dashboard</h1>
 
-        <h2>Overdue Resources</h2>
+        <h2>Reserved Resources</h2>
 
         <table class="table table-hover" id="report-table">
             <thead>

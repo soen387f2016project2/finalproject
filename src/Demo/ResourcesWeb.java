@@ -176,7 +176,7 @@ public class ResourcesWeb {
         return resources;        
         }
     
-    public static LinkedList<ResourcesWeb> getAllResources() {
+    public LinkedList<ResourcesWeb> getAllResources() {
         // Create a list of resources
         LinkedList<ResourcesWeb> resources = new LinkedList<ResourcesWeb>();
 

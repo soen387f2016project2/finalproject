@@ -33,9 +33,16 @@
                     <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceID());%></a></td>
                     <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceName());%></a></td>
                     <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.descriptionString());%></a></td>
+                
+                <% if(lastReservation != null){ %>
                     <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(lastReservation.getUser().getFullName());%></a></td>
                     <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(lastReservation.getStart().toString());%></a></td>
                     <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(lastReservation.getEnd().toString());%></a></td>
+                 <% } else { %>
+                    <td></td>
+                    <td></td>
+                    <td></td>                    
+                 <% } %>
                 </tr>
                 <% }%>
             </tbody>    

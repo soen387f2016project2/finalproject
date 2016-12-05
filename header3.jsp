@@ -5,7 +5,7 @@
 --%>
 
 <!-- UI -->
-<% boolean isAdmin = session.getAttribute("isAdmin").equals("true");%>
+<% //session.getAttribute("isAdmin").equals("true");%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,18 +32,16 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href=".">ERM</a>
+                    <a class="navbar-brand" href="#">ERM</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li class="active"><a href=".">Reservation</a></li>
+                        <li class="active"><a href="resources.jsp"> View Resources </a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><form action="LogoutServlet" method="post"><input type="submit" value="Log Out" style="border:none;background-color:transparent;color:white;"></form></li>
+                        <li><a href="logout.jsp">Log Out</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right" method="post" action="SearchInventory">
-                        <input type="text" class="form-control" placeholder="Search Inventory" name="searchInventory">
-                    </form>
+
                 </div><!--/.nav-collapse -->
             </div>
         </nav>

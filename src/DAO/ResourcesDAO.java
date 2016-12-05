@@ -18,7 +18,7 @@ public class ResourcesDAO {
                 + "LEFT JOIN projector p ON p.resourceId=r.resourceID";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 
-        /*try {
+      /*try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nresourceID: " + resultSet.getString("resourceID")
@@ -197,29 +197,10 @@ public class ResourcesDAO {
                 + "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID "
                 + "WHERE rl.startDate<NOW() AND rl.endDate>NOW() or isMaintained=1 "
                 + "GROUP BY r.resourceID";
-        
-        ResultSet resultSet = ConnectionFactory.executeQuery(sql);        
-        
-        return resultSet;
-    }
 
-    // Get all available resources, those that are not booked and not in maintenance
-    public void getAllAvailableResources() {
-        String sql = "SELECT *"
-                + "FROM resources r "
-                + "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID"
-                + "LEFT JOIN computer comp ON comp.resourceId=r.resourceID"
-                + "LEFT JOIN projector p ON p.resourceId=r.resourceID"
-                + "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID "
-                + "WHERE r.resourceId NOT IN ("
-                + "SELECT r.resourceId "
-                + "FROM resources r "
-                + "LEFT JOIN reservesLog rl ON rl.resourceID=r.resourceID "
-                + "WHERE rl.startDate<NOW() AND rl.endDate>NOW()"
-                + ") AND NOT isMaintained";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
 
-        try {
+        /*try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nresourceID: " + resultSet.getString("resourceID")
@@ -242,7 +223,52 @@ public class ResourcesDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+        
+        return resultSet;
+    }
+
+    // Get all available resources, those that are not booked and not in maintenance
+    public ResultSet getAllAvailableResources() {
+        String sql = "SELECT *"
+                + "FROM resources r "
+                + "LEFT JOIN miscellaneous m ON m.resourceID=r.resourceID "
+                + "LEFT JOIN computer comp ON comp.resourceId=r.resourceID "
+                + "LEFT JOIN projector p ON p.resourceId=r.resourceID "
+                + "LEFT JOIN conferenceRoom c ON c.resourceId=r.resourceID "
+                + "WHERE r.resourceId NOT IN ( "
+                + "SELECT r.resourceId "
+                + "FROM resources r "
+                + "LEFT JOIN reservesLog rl ON rl.resourceID=r.resourceID "
+                + "WHERE rl.startDate<NOW() AND rl.endDate>NOW()"
+                + ") AND NOT isMaintained";
+        ResultSet resultSet = ConnectionFactory.executeQuery(sql);
+
+//        try {
+//            while (resultSet != null && resultSet.next()) {
+//                System.out.println(
+//                        "\nresourceID: " + resultSet.getString("resourceID")
+//                        + "\nisMaintained: " + resultSet.getString("isMaintained")
+//                        + "\nresourceName: " + resultSet.getString("resourceName")
+//                        + "\ndescription: " + resultSet.getString("description")
+//                        + "\nhasPhone: " + resultSet.getString("hasPhone")
+//                        + "\nhasWhiteboard: " + resultSet.getString("hasWhiteboard")
+//                        + "\nlocation: " + resultSet.getString("location")
+//                        + "\ncapacity: " + resultSet.getString("capacity")
+//                        + "\nisDesktop: " + resultSet.getString("isDesktop")
+//                        + "\ncomputerModel: " + resultSet.getString("computerModel")
+//                        + "\nscreenSize: " + resultSet.getString("screenSize")
+//                        + "\ncpu: " + resultSet.getString("cpu")
+//                        + "\nram: " + resultSet.getString("ram")
+//                        + "\nstorage: " + resultSet.getString("storage")
+//                        + "\nprojectorModel: " + resultSet.getString("projectorModel")
+//                        + "\nmaxRes: " + resultSet.getString("maxRes")
+//                );
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        return resultSet;
     }
 
     public void getAllComputers() {

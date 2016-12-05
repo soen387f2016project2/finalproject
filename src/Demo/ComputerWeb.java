@@ -15,15 +15,17 @@ public class ComputerWeb extends ResourcesWeb {
     private String cpu;
     private String ram;
     private String storage;
+    private int isDesktop;
 	
-    public ComputerWeb(int id, String resourceName, String model, int screenSize, String cpu, String ram, String storage) {
+    public ComputerWeb(int id, String resourceName, String model, int screenSize, String cpu, String ram, String storage, int isDesktop) {
         super(id,resourceName,"Mode:\t" + model + "Screensize:\t" + screenSize + " cpu:\t" + cpu + " ram:\t" + ram +
-                        " storage:\t"+ storage);
+                        " storage:\t"+ storage + " isDesktop:\t" + isDesktop);
         this.model = model;
         this.screenSize = screenSize;
         this.cpu = cpu;
         this.ram = ram;
         this.storage = storage;
+        this.isDesktop = isDesktop;
     }
     
     public ComputerWeb(){}
@@ -41,7 +43,8 @@ public class ComputerWeb extends ResourcesWeb {
                         Integer.parseInt(resultSet.getString("screenSize")),
                         resultSet.getString("cpu"),
                         resultSet.getString("ram"),
-                        resultSet.getString("storage")
+                        resultSet.getString("storage"),
+                        Integer.parseInt(resultSet.getString("isDesktop"))
                 );
                 
                 cWeb.setMaintained(resultSet.getBoolean("isMaintained"));
@@ -95,6 +98,9 @@ public class ComputerWeb extends ResourcesWeb {
     public String getStorage() {
             return storage;
     }
+    public int getIsDesktop() {
+            return isDesktop;
+    }
 	
     //setters
     public void setModel(String model) {
@@ -121,11 +127,15 @@ public class ComputerWeb extends ResourcesWeb {
             this.storage = storage;
             this.updateDescription();
     }
+    public void setIsDesktop(int isDesktop) {
+            this.isDesktop = isDesktop;
+            this.updateDescription();
+    }
 
     // Other methods       
     public void updateDescription(){
         this.setDescription("Type:\t" + resourceName + "Model:\t" + model + "Screensize:\t" + screenSize + " cpu:\t" + cpu + " ram:\t" + ram +
-                            " storage:\t"+ storage);
+                            " storage:\t"+ storage + " isDesktop:\t" + isDesktop);
     }
     
     

@@ -123,7 +123,7 @@ public class SearchResources extends HttpServlet {
             }
             else if (resourceName.equals("Computer"))
             {    
-                cp = new ComputerWeb(resourceID, resourceName, computerModel,screenSize, cpu, ram, storage);
+                cp = new ComputerWeb(resourceID, resourceName, computerModel,screenSize, cpu, ram, storage, isDesktop);
                 list.add(cp);
             }
             else if (resourceName.equals("Misc"))
@@ -201,7 +201,7 @@ public class SearchResources extends HttpServlet {
             }
             else if (resourceName.equals("Computer"))
             {    
-                cp = new ComputerWeb(resourceID, resourceName, computerModel,screenSize, cpu, ram, storage);
+                cp = new ComputerWeb(resourceID, resourceName, computerModel,screenSize, cpu, ram, storage, isDesktop);
                 list.add(cp);
             }
             else if (resourceName.equals("Misc"))

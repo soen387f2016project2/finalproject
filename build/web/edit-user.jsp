@@ -1,11 +1,8 @@
 <%@page import="Demo.UsersWeb"%>
-<%@page import="Demo.Accounts"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
 <%
-    Accounts accountsManager = new Accounts();
-    accountsManager.createEndUsersList();
-    UsersWeb user = accountsManager.getEndUser(request.getParameter("id"));
+    UsersWeb user = new UsersWeb(Integer.parseInt(request.getParameter("id")));
 %>
 
         <div class="container">

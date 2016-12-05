@@ -1,5 +1,14 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="Demo.UsersWeb"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="Demo.Accounts"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%> <!-- header and navigation bar -->
+<%
+    Accounts accountsManager = new Accounts();
+    accountsManager.createEndUsersList();
+    LinkedList<UsersWeb> users = accountsManager.getEndUsers();
+%>
 
         <div class="container">
             <div class="centered-content" id="user-table">
@@ -13,26 +22,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% for(int i = 0; i < users.size(); i++) {
+                                
+                               UsersWeb user = (UsersWeb)users.get(i); %>
                         <tr>
-                            <td><a href="edit-user.jsp">scharb</a></td>
-                            <td><a href="edit-user.jsp">Sebastien Charbonneau</a></td>
+                            <td><a href="edit-user.jsp?id=<%out.print(user.getUserID());%>"><%out.print(user.getEmail());%></a></td>
+                            <td><a href="edit-user.jsp?id=<%out.print(user.getUserID());%>"><%out.print(user.getFullName());%></a></td>
                         </tr>
-                        <tr>
-                            <td>vlugara</td>
-                            <td>Vincent Lugara</td>
-                        </tr>
-                        <tr>
-                            <td>kkonieczny</td>
-                            <td>Karolina Konieczny</td>
-                        </tr>
-                        <tr>
-                            <td>vtruong</td>
-                            <td>Vinh Truong</td>
-                        </tr>
-                        <tr>
-                            <td>afallara</td>
-                            <td>Alain Fallara</td>
-                        </tr>
+                        <% }%>
                     </tbody>    
                 </table>
  

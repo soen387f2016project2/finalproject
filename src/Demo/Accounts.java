@@ -6,10 +6,10 @@
 package Demo;
 
 import DAO.ConnectionFactory;
-import java.util.HashMap;
 import DAO.UsersDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 /**
  *
@@ -18,26 +18,26 @@ import java.sql.SQLException;
 public class Accounts {
     
     // Attributes
-    private HashMap endUsers; // Key = account id, Value = User object
-    private HashMap admins; // Key = account id, Value = User object
+    private LinkedList<UsersWeb> endUsers; // Key = account id, Value = User object
+    private LinkedList<UsersWeb> admins; // Key = account id, Value = User object
     private UsersDAO usersDao;
     
     // Constructor
     public Accounts()
     {
-        endUsers = new HashMap();
-        admins = new HashMap();
+        endUsers = new LinkedList<UsersWeb>();
+        admins = new LinkedList<UsersWeb>();
         usersDao = new UsersDAO();
     }
     
     // Getters and setters
-    public HashMap getEndUsers()
+    public LinkedList<UsersWeb> getEndUsers()
     {
         return endUsers;
     }
     
   
-    public HashMap getAdmins()
+    public LinkedList<UsersWeb> getAdmins()
     {
         return admins;
     }
@@ -46,25 +46,16 @@ public class Accounts {
     // Other methods
     public void createEndUsersList()
     {
-        String sql = "SELECT userID,isAdmin,email,name,phoneNumber,department " +
-                     "FROM users WHERE isAdmin=0";
-
-        createUserList(endUsers, sql);
+        createUserList(usersDao.getAllEmployee(), endUsers);
     }
     
     public void createAdminsList()
-    {
-        String sql = "SELECT userID,isAdmin,email,name,phoneNumber,department " +
-                     "FROM users WHERE isAdmin=1";
-        
-        createUserList(admins, sql);
-      
+    {        
+        createUserList(usersDao.getAllAdmin(), admins);
     }
     
-    private void createUserList(HashMap list, String sql)
+    private void createUserList(ResultSet resultSet, LinkedList<UsersWeb> list)
     {
-        ResultSet resultSet = ConnectionFactory.executeQuery(sql);
-        
         try {
             while (resultSet != null && resultSet.next()) {
                 
@@ -77,30 +68,34 @@ public class Accounts {
 
                  // Comment: query return password
                  UsersWeb user = new UsersWeb(Integer.parseInt(id), isAdmin, email, "password", name, phoneNumber, department);
-                 list.put(id, user);
+                 list.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } 
     }
     
-    public UsersWeb getEndUser(String key)
+/*    public UsersWeb getEndUser(String id)
     {
-        return (UsersWeb) endUsers.get(key);
+        int idInt = Integer.parseInt(id);
+        System.out.println("USER ID: ");
+        return (UsersWeb) endUsers.get(idInt);
     }
     
-    public UsersWeb getAdmin(String key)
+    public UsersWeb getAdmin(String id)
     {
-        return (UsersWeb) admins.get(key);
+        int idInt = Integer.parseInt(id);
+        return (UsersWeb) admins.get(idInt);
     }
     
-    public String getEUName(String key)
+    public String getEUName(int id)
     {
-        return getEndUser(key).getFullName();
+        return getEndUser(id).getFullName();
     }
     
-    public String getAdminFullName(String key)
+    public String getAdminFullName(int id)
     {
-        return getAdmin(key).getFullName();
-    }
+        return getAdmin(id).getFullName();
+    }*/
 }
+    

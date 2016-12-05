@@ -38,12 +38,12 @@ public class UsersDAO {
         System.out.println("Users table has been updated; password has been updated.");
     }
         
-    public void getAllAdmin() {
+    public ResultSet getAllAdmin() {
         String sql = "SELECT userID,isAdmin,email,name,phoneNumber,department " +
                      "FROM users WHERE isAdmin=1";
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
         
-        try {
+     /*   try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nuserID: " + resultSet.getString(1) +
@@ -56,15 +56,17 @@ public class UsersDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+        
+        return resultSet;
     }
     
-    public void getAllEmployee() {
+    public ResultSet getAllEmployee() {
         String sql = "SELECT userID,isAdmin,email,name,phoneNumber,department " +
                      "FROM users WHERE isAdmin=0";
         
         ResultSet resultSet = ConnectionFactory.executeQuery(sql);
-        try {
+     /*   try {
             while (resultSet != null && resultSet.next()) {
                 System.out.println(
                         "\nuserID: " + resultSet.getString(1) +
@@ -77,7 +79,9 @@ public class UsersDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+     
+        return resultSet;
     }
     
 //    a isAdmin bit of 0 should redirect to employee page, 
@@ -100,12 +104,21 @@ public class UsersDAO {
                 );
 
                 int id = Integer.parseInt(resultSet.getString(1));
-                boolean admin = Boolean.parseBoolean(resultSet.getString(2));
+                
+                boolean admin;
+                if(resultSet.getString(2).equals("1")){
+                    admin = true;
+                }
+                else{
+                    admin = false;
+                }
+                
                 String mail = resultSet.getString(3);
                 String name = resultSet.getString(4);
                 String phone = resultSet.getString(5);
                 String department = resultSet.getString(6);
                 
+                System.out.println("DAO:" + admin);
                 // Store resultset data into the user class object and return it
                 UsersWeb user = new UsersWeb(id, admin, mail, password, name, phone, department);  
                 

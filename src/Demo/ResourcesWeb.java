@@ -18,19 +18,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ResourcesWeb {
-
+    
     private int resourceID;
     private String resourceName;
     private boolean isMaintained;
     private String description;
     private LinkedList<Reservation> reservations;
     private boolean isAvailable;
-
+       
     //new members
     private String type;
-
-    public ResourcesWeb() {
-
+    
+    public ResourcesWeb(){
+        
     }
 
     public ResourcesWeb(int id, String resourcename, String description) {
@@ -55,65 +55,68 @@ public class ResourcesWeb {
     public void setResourceID(int resourceID) {
         this.resourceID = resourceID;
     }
-
-    public String getResourceType(int resourceID) {
+    
+    public String getResourceType(int resourceID){
         ResourcesDAO resourcesDAO = new ResourcesDAO();
         ResultSet resultSet = resourcesDAO.getResourceById(resourceID);
-
+        
         try {
             while (resultSet != null && resultSet.next()) {
-                if (resultSet.getString("isDesktop") != null) {
+                if(resultSet.getString("isDesktop") != null){
                     type = "Computer";
-                } else if (resultSet.getString("hasWhiteboard") != null) {
+                }
+                else if(resultSet.getString("hasWhiteboard") != null){
                     type = "Conference";
-                } else if (resultSet.getString("projectorModel") != null || resultSet.getString("maxRes") != null) {
+                }
+                else if(resultSet.getString("projectorModel") != null || resultSet.getString("maxRes") != null){
                     type = "Projector";
-                } else if (resultSet.getString("description") != null) {
+                }
+                else if(resultSet.getString("description") != null){
                     type = "Miscellaneous";
-                } else {
+                }
+                else{
                     type = "Unknown";
                 }
             }
-
+                        
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        
         return type;
     }
 
+    
     public LinkedList<ResourcesWeb> getAllUnavailableResources() {
         // Create a list of resources
         LinkedList<ResourcesWeb> resources = new LinkedList<ResourcesWeb>();
-
+       
         ResourcesDAO resourcesDAO = new ResourcesDAO();
         ResultSet resultSet = resourcesDAO.getAllUnavailableResources();
-
+    
+  
         try {
             while (resultSet != null && resultSet.next()) {
                 // Create a resource from the result set
                 ResourcesWeb res = new ResourcesWeb(Integer.parseInt(resultSet.getString("resourceID")), resultSet.getString("resourceName"),
                         resultSet.getString("resourceName"));
-
+                
                 res.setMaintained(resultSet.getBoolean("isMaintained"));
-
-                // Ignore reservations if the resource is undergoing maintenance
-                if (!resultSet.getBoolean("isMaintained")) {
-                    // Create a reservation object from the extra details in the query I got
-                    Reservation reserve = new Reservation(resultSet.getDate("startDate"), resultSet.getDate("endDate"),
-                            new UsersWeb(Integer.parseInt(resultSet.getString("userID"))));
-
-                    // Add it to the resource
-                    res.addReservation(reserve);
-                }
-
+                
+                // Create a reservation object from the extra details in the query I got
+                Reservation reserve = new Reservation(resultSet.getDate("startDate"), resultSet.getDate("endDate"), 
+                                        new UsersWeb(Integer.parseInt(resultSet.getString("userID"))));
+                
+                // Add it to the resource
+                res.addReservation(reserve);
+                
                 // Add the resource to the linked list
                 resources.add(res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        
         return resources;
     }
 
@@ -130,32 +133,35 @@ public class ResourcesWeb {
                 // Create a resource from the result set
                 ResourcesWeb res = new ResourcesWeb(Integer.parseInt(resourcesResultSet.getString("resourceID")), resourcesResultSet.getString("resourceName"),
                         resourcesResultSet.getString("resourceName"));
-
+                
                 res.setMaintained(resourcesResultSet.getBoolean("isMaintained"));
+                
 
+                
                 // Get the last reservation for this resource
                 ReservesLogDAO reservesLogDAO = new ReservesLogDAO();
                 // Get the result set
                 ResultSet reservationResultSet = reservesLogDAO.getLastReservationByID(Integer.parseInt(resourcesResultSet.getString("resourceID")));
-
+                
                 // Get the next (should only be one
-                while (reservationResultSet != null && reservationResultSet.next()) {
+                while (reservationResultSet != null && reservationResultSet.next()) {                      
                     // Create an object with it
-                    Reservation reserve = new Reservation(reservationResultSet.getDate("startDate"), reservationResultSet.getDate("endDate"),
-                            new UsersWeb(Integer.parseInt(reservationResultSet.getString("userID"))));
-
+                    Reservation reserve = new Reservation(reservationResultSet.getDate("startDate"), reservationResultSet.getDate("endDate"), 
+                                            new UsersWeb(Integer.parseInt(reservationResultSet.getString("userID"))));
+                    
                     // See if it's an active reservation
                     Date now = new Date();
-                    if (reservationResultSet.getDate("startDate").before(now) && reservationResultSet.getDate("endDate").after(now)) {
+                    if(reservationResultSet.getDate("startDate").before(now) && reservationResultSet.getDate("endDate").after(now)) {
                         res.setAvailable(false);
                     }
-
+                    
                     // Add it to the list of reservations for this resource
                     res.addReservation(reserve);
                 }
+                
 
                 // Add it to the linked list
-                resources.add(res);
+                resources.add(res);                                
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -196,7 +202,7 @@ public class ResourcesWeb {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
     public void addReservation(Reservation reserve) {
         this.reservations.add(reserve);
     }
@@ -213,7 +219,10 @@ public class ResourcesWeb {
      */
     public Reservation getLastReservation() {
         Reservation lastReservation = null;
-
+        
+        if(reservations == null){
+            return lastReservation;
+        }
         if (reservations.isEmpty()) {
             return lastReservation;
         } else {
@@ -240,17 +249,18 @@ public class ResourcesWeb {
     public String descriptionString() {
         return getDescription();
     }
-
-    public static void main(String[] args) {//TEST UPDATE RESOURCE DISPLAY
+    
+    public static void main(String[] args){//TEST UPDATE RESOURCE DISPLAY
         int id = 10;
         ResourcesWeb rw = new ResourcesWeb();
         String type = rw.getResourceType(id);
-
-        if (type.equals("Computer")) {
+        
+        if(type.equals("Computer")){
             ComputerWeb pw = new ComputerWeb().getResourceById(id);
-
+     
             System.out.println(type);
             System.out.println(pw.getCpu());
+            System.out.println(pw.getIsDesktop());
         }
     }
 }

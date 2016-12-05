@@ -31,11 +31,11 @@
                 <% Reservation lastReservation = resource.getLastReservation(); %>
                 <tr class="danger">
                     <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceID());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(resource.getResourceName());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(resource.descriptionString());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(lastReservation.getUser().getFullName());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(lastReservation.getStart().toString());%></a></td>
-                    <td><a href="update-resource.jsp"><%out.print(lastReservation.getEnd().toString());%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.getResourceName());%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(resource.descriptionString());%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(lastReservation.getUser().getFullName());%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(lastReservation.getStart().toString());%></a></td>
+                    <td><a href="update-resource.jsp?id=<%out.print(resource.getResourceID());%>"><%out.print(lastReservation.getEnd().toString());%></a></td>
                 </tr>
                 <% }%>
             </tbody>    

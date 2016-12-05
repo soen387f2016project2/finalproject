@@ -4,7 +4,7 @@
     Author     : mouadbouras
 --%>
         <%@include file="data.jsp" %> <!--todelete-->
-
+<%@include file="header3.jsp"%> <!-- header and navigation bar -->
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
